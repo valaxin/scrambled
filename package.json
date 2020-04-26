@@ -1,0 +1,23 @@
+{
+  "name": "scrambled",
+  "description": "~",
+  "version": "0.0.1",
+  "main": "",
+  "license": "MIT",
+  "author": {
+    "name": "MacKenzie Bobbitt",
+    "email": "mackenzie.bobbitt@outlook.com",
+    "url": "https://github.com/valaxin"
+  },
+  "bugs": {
+    "url": "https://github.com/valaxin/scrambled/issues"
+  },
+  "scripts": {
+    "start": "nodemon ./robot/index.js"
+  },
+  "dependencies": {
+    "colors": "^1.4.0",
+    "discord.js": "^11.5.1",
+    "node-fetch": "^2.6.0"
+  }
+}
