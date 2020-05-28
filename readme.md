@@ -10,6 +10,7 @@ enable users to be alerted when a defined user goes live on mixer, "randomally" 
 
 > plain english step through the application
 
+
 ## bring your own config
 
 > outline / explanation of ./robot/_config.js
@@ -24,9 +25,11 @@ The command prefix is the `~` (tilde) symbol by default.
 
 ### `~(mixer|twitch) <username> <interval> <channel>`
 
-> returns
+> alerts on interval on golive event to given channel 
 
-### `~(news) <game>
+returns a message to a given channel alerting to defined users change in streaming status eg: %streamer% has gone online! %streamLink%" 
+
+### `~(news) <game>`
 
 > returns
 

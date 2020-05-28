@@ -21,33 +21,44 @@ module.exports = {
 
   stringToHexColor: ext.stringToHexColor,
 
-  getMixerChannelID: async username => {
-    try {
-      let req = await fetch(`https://mixer.com/api/v1/channels/${username}?fields=id`)
-      let res = await req.json()
-      return res.id
-    } catch (e) {
-      return new Error(e)
+  getRandomRedditPost: async subreddit => {
+    console.log(`https://api.reddit.com/r/${subreddit || 'blursed'}?limit=50&sort=top`)
+    let req = await fetch(`https://api.reddit.com/r/${subreddit || 'blursed'}?limit=100&sort=top`)
+    let res = await req.json()
+    
+    res.data.children.reduce((array, object) => {
+      if (!object.data.url.includes('v.redd.it') &&
+        object.data.url.includes('i.redd.it') &&
+        object.data.url.includes('.png') || 
+        object.data.url.includes('.jpg') ||
+        object.data.url.includes('.gif')
+      ) {
+        object.isImg = true
+        array.push(object)
+      }
+      return array
+    }, [])
+
+    let num = Math.floor(Math.random() * (res.data.children.length - 2 + 1) + 1);
+    let post = res.data.children[num]
+
+    let obj = {
+      color: ext.stringToHexColor(post.data.author),
+      title: post.data.title,
+      image: {
+        url: post.data.url
+      },
+      author: {
+        name: post.data.author,
+        url: `https://reddit.com/u/${post.data.author}`
+      },
+      footer: {
+        text: `${post.data.ups} upvotes on ${post.data.subreddit_name_prefixed.toLowerCase()}`
+      },
+      timestamp: new Date(post.data.created * 1000)
     }
+    console.log(`post`, obj)
+    return obj
   },
 
-  getMixerBroadcastStatus: async id => {
-    try {
-      let req = await fetch(`https://mixer.com/api/v1/channels/${id}/broadcast`)
-      return await req.json()
-    } catch (e) {
-      return new Error(e)
-    }
-  },
-
-  getTwitchBroadcastStatus: async (username, clientId) => {
-    try {
-      let address = `https://api.twitch.tv/helix/streams?user_login=${username}`
-      let req = await fetch (address, { headers : { 'Client-Id': clientId } })
-      return req.json()
-    } catch (err) {
-      return new Error(err)
-    }
-  }
-  
 }
