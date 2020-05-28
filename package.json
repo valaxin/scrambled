@@ -13,7 +13,7 @@
     "url": "https://github.com/valaxin/scrambled/issues"
   },
   "scripts": {
-    "start": "nodemon ./robot/index.js"
+    "start": "nodemon ./bot/index.js"
   },
   "dependencies": {
     "colors": "^1.4.0",
