@@ -1,3 +1,4 @@
+const fetch = require('node-fetch')
 
 const stringToHexColor = str => {
   let hash = 0
@@ -13,7 +14,6 @@ const stringToHexColor = str => {
 }
 
 const getRandomRedditPost = async subreddit => {
-  console.log(`https://api.reddit.com/r/${subreddit || 'blursed'}?limit=50&sort=top`)
   let req = await fetch(`https://api.reddit.com/r/${subreddit || 'blursed'}?limit=100&sort=top`)
   let res = await req.json()
   
@@ -33,9 +33,10 @@ const getRandomRedditPost = async subreddit => {
   let num = Math.floor(Math.random() * (res.data.children.length - 2 + 1) + 1);
   let post = res.data.children[num]
 
-  let obj = {
-    color: ext.stringToHexColor(post.data.author),
+  return {
+    color: stringToHexColor(post.data.author),
     title: post.data.title,
+    description: `${post.data.ups} upvotes on ${post.data.subreddit_name_prefixed.toLowerCase()}`,
     image: {
       url: post.data.url
     },
@@ -43,19 +44,15 @@ const getRandomRedditPost = async subreddit => {
       name: post.data.author,
       url: `https://reddit.com/u/${post.data.author}`
     },
-    footer: {
-      text: `${post.data.ups} upvotes on ${post.data.subreddit_name_prefixed.toLowerCase()}`
-    },
     timestamp: new Date(post.data.created * 1000)
   }
-  console.log(`post`, obj)
-  return obj
 }
 
 module.exports = async (message, options) => {
+  console.log(`running "meme" command...`)
   if (options[0]) {
-    await message.channel.send({ embed: getRandomRedditPost(options[0]) })
+    await message.channel.send({ embed: await getRandomRedditPost(options[0]) })
   } else {
-    await message.channel.send({ embed: getRandomRedditPost() })
+    await message.channel.send({ embed: await getRandomRedditPost() })
   }
 }

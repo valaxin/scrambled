@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const discord = require('discord.js')
-const opt = require('./config.json')
+const options = require('./config.json')
 
 const cmd = {
   mixer: require('./commands/mixer'),
