@@ -1,13 +1,4 @@
 
-
-module.exports = async (message, options) => {
-  if (options[0]) {
-    await message.channel.send({ embed: getRandomRedditPost(options[0]) })
-  } else {
-    await message.channel.send({ embed: getRandomRedditPost() })
-  }
-}
-
 const stringToHexColor = str => {
   let hash = 0
   let color = '0x'
@@ -20,7 +11,6 @@ const stringToHexColor = str => {
   }
   return Number(color)
 }
-
 
 const getRandomRedditPost = async subreddit => {
   console.log(`https://api.reddit.com/r/${subreddit || 'blursed'}?limit=50&sort=top`)
@@ -60,4 +50,12 @@ const getRandomRedditPost = async subreddit => {
   }
   console.log(`post`, obj)
   return obj
-},
+}
+
+module.exports = async (message, options) => {
+  if (options[0]) {
+    await message.channel.send({ embed: getRandomRedditPost(options[0]) })
+  } else {
+    await message.channel.send({ embed: getRandomRedditPost() })
+  }
+}

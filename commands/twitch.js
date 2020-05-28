@@ -1,6 +1,6 @@
 
 const fetch = require('node-fetch')
-const { twitch } = require('../_config').keys
+const { twitch } = require('../config.json').keys
 
 const getAuth = async (clientId, secret, scope) => {
   if (!clientId || !secret) return false
@@ -10,7 +10,7 @@ const getAuth = async (clientId, secret, scope) => {
   let tokens = await reqPermission.json()
 
   // !!! purpose break to test failure
-  tokens.access_token += `now_invalid`
+  // tokens.access_token += `now_invalid`
 
   return [ tokens, clientId ]
 }
