@@ -48,11 +48,15 @@ const getRandomRedditPost = async subreddit => {
   }
 }
 
-module.exports = async (message, options) => {
-  console.log(`running "meme" command...`)
-  if (options[0]) {
-    await message.channel.send({ embed: await getRandomRedditPost(options[0]) })
-  } else {
-    await message.channel.send({ embed: await getRandomRedditPost() })
+module.exports = {
+  name: 'meme',
+  description: 'request memes from the internets',
+  status: 'semi-working',
+  async execute (message, options) {
+    if (options[0]) {
+      await message.channel.send({ embed: await getRandomRedditPost(options[0]) })
+    } else {
+      await message.channel.send({ embed: await getRandomRedditPost() })
+    }
   }
 }
