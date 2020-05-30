@@ -1,44 +1,8 @@
-const fetch = require('node-fetch')
-const {
-  twitch
-} = require('../config.json').keys
-
-const getAuth = async (clientId, secret, scope) => {
-  if (!clientId || !secret) return false
-  let query = `?client_id=${clientId}&client_secret=${secret}&grant_type=client_credentials&scope`
-  let endpoint = `https://id.twitch.tv/oauth2/token${query}`
-  let reqPermission = await fetch(endpoint, {
-    method: 'POST'
-  })
-  let tokens = await reqPermission.json()
-
-  // !!! purpose break to test failure
-  // tokens.access_token += `now_invalid`
-
-  return [tokens, clientId]
-}
-
-const getBroadcastStatus = async (username, tokens) => {
-  try {
-    let address = `https://api.twitch.tv/helix/streams?user_login=${username}`
-    let req = await fetch(address, {
-      headers: {
-        'Client-Id': tokens[1],
-        'Authorization': `Bearer ${tokens[0].access_token}`
-      }
-    })
-    return req.json()
-  } catch (err) {
-    return new Error(err)
-  }
-}
-
 module.exports = {
     name: 'twitch',
     description: 'watch a twitch streamer for go live event',
     status: 'unknown',
     async execute(message, options, client) {
-
 
       if (!options) return
 
@@ -66,6 +30,7 @@ module.exports = {
         if (validateOnlineStatus(response) === true) {
           if (flag === false) {
             console.log(`${`${options[0]}`.green} online!, gonna send a message to chat!`.white)
+            console.log(client)
             await client.channels.get(channel).send(alertMessage)
             flag = true
           } else {

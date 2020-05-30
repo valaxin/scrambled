@@ -5,8 +5,9 @@ const Client = require('./client/Client')
 const config = require('./config.json')
 
 const client = new Client()
-
 client.commands = new Discord.Collection()
+
+console.log(client.channels)
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'))
 
@@ -18,12 +19,12 @@ commandFiles.forEach(file => {
 client.on('ready', () => {
 	client.user.setPresence(config.presence)
 	config.users.mixer.forEach(async user => {
-		await client.commands.get('mixer').execute(false, [user, '.5', config.keys.discord.defaultChannel])
-		console.log(`USER:`, `${user}`.green, `PLAT:`, `MIXER`.cyan)
+		await client.commands.get('mixer').execute(false, [user, '.5', config.keys.discord.defaultChannel], client)
+		// console.log(`USER:`, `${user}`.green, `PLAT:`, `MIXER`.cyan)
 	})
 	config.users.twitch.forEach(async user => {
 		// await client.commands.get('twitch').execute(false, [user, '.5', config.keys.discord.defaultChannel], config.keys.twitch.id)
-		console.log(`USER:`, `${user}`.green, `PLAT:`, `TWITCH`.red)
+		// console.log(`USER:`, `${user}`.green, `PLAT:`, `TWITCH`.red)
 	})
 	console.log('Ready!')
 });

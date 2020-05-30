@@ -1,29 +1,15 @@
-const fetch = require('node-fetch')
-// input 'username' and return mixer channel id
-const getChannelId = async username => {
-  try {
-    let req = await fetch(`https://mixer.com/api/v1/channels/${username}?fields=id`)
-    let res = await req.json()
-    return res.id
-  } catch (e) {
-    return new Error(e)
-  }
-}
 
-// input mixer channel 'id' and return channel broadcast status
-const getBroadcastStatus = async id => {
-  try {
-    let req = await fetch(`https://mixer.com/api/v1/channels/${id}/broadcast`)
-    return await req.json()
-  } catch (e) {
-    return new Error(e)
-  }
-}
+const { getChannelId, getBroadcastStatus } = require('../util/mxHelp')
+const defaultChannel = require('../config.json').keys.discord.defaultChannel
 
 module.exports = {
   name: 'mixer',
   description: 'watch for a given stream to go live',
+  status: 'meh',
   async execute(message, options, client) {
+
+   // console.log(message, options)
+    // console.log(client.channels.get(require('../config.json').keys.discord.defaultChannel))
 
     // [0] Check for 'options' if none, return false.
     if (!options) return false
@@ -40,7 +26,7 @@ module.exports = {
     // chat attempt to respond
     if (message !== false) {
       message.channel.send(`Okay! I'll keep an eye on ${options[0]} \n> polling every ${(timeout / 60000)} minutes \n> alerts will be sent to <#${channel}>`)
-      channel = message.channel.id
+      // channel = message.channel.id
     }
 
     // [3] Define our 'check' routine
@@ -54,16 +40,24 @@ module.exports = {
 
       // [3.2] request status and act in accorance with flag and response
       let status = await getBroadcastStatus(id)
+      
       // console.log(`before validation: ${options[0]}`, status)
-      if (validate(status) === true) {
+      if (validate(status) === true ) {
+
         if (flag === false) {
           console.log(`${`${options[0]}`.green} online!, gonna send a message to chat!`.white)
-          await message.channel.send(alertMessage)
+          if (message === false) {
+            client.channels.cache.get(channel).send(alertMessage)
+          } else {
+            message.channel.send(alertMessage)
+          }
           flag = true
         } else {
           console.log(`${`${options[0]}`.green} online!, flag=true; message was already sent!`.white)
         }
+
       } else {
+        
         console.log(`${`${options[0]}`.green} is offline`.white)
         flag = false
       }
