@@ -1,3 +1,4 @@
+const fetch = require('node-fetch')
 // input 'username' and return mixer channel id
 const getChannelId = async username => {
   try {
@@ -21,8 +22,8 @@ const getBroadcastStatus = async id => {
 
 module.exports = {
   name: 'mixer',
-  discription: 'watch for a given stream to go live',
-  async execute(message, options) {
+  description: 'watch for a given stream to go live',
+  async execute(message, options, client) {
 
     // [0] Check for 'options' if none, return false.
     if (!options) return false
@@ -53,10 +54,11 @@ module.exports = {
 
       // [3.2] request status and act in accorance with flag and response
       let status = await getBroadcastStatus(id)
+      // console.log(`before validation: ${options[0]}`, status)
       if (validate(status) === true) {
         if (flag === false) {
           console.log(`${`${options[0]}`.green} online!, gonna send a message to chat!`.white)
-          await this.bot.channels.get(channel).send(alertMessage)
+          await message.channel.send(alertMessage)
           flag = true
         } else {
           console.log(`${`${options[0]}`.green} online!, flag=true; message was already sent!`.white)
