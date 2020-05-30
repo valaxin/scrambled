@@ -51,7 +51,7 @@ const getRandomRedditPost = async subreddit => {
 module.exports = {
   name: 'meme',
   description: 'request memes from the internets',
-  status: 'semi-working',
+  status: 'semi-working (needs, video handling/filtering)',
   async execute (message, options) {
     if (options[0]) {
       await message.channel.send({ embed: await getRandomRedditPost(options[0]) })

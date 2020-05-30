@@ -5,7 +5,7 @@ const defaultChannel = require('../config.json').keys.discord.defaultChannel
 module.exports = {
   name: 'mixer',
   description: 'watch for a given stream to go live',
-  status: 'meh',
+  status: 'working (always could use refinement)',
   async execute(message, options, client) {
 
    // console.log(message, options)

@@ -23,7 +23,7 @@ client.on('ready', () => {
 		// console.log(`USER:`, `${user}`.green, `PLAT:`, `MIXER`.cyan)
 	})
 	config.users.twitch.forEach(async user => {
-		// await client.commands.get('twitch').execute(false, [user, '.5', config.keys.discord.defaultChannel], config.keys.twitch.id)
+		await client.commands.get('twitch').execute(false, [user, '.5', config.keys.discord.defaultChannel], client, config.keys.twitch.id)
 		// console.log(`USER:`, `${user}`.green, `PLAT:`, `TWITCH`.red)
 	})
 	console.log('Ready!')

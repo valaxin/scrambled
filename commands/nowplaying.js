@@ -1,6 +1,7 @@
 module.exports = {
 	name: 'nowplaying',
-	description: 'Get the song that is playing.',
+	description: 'get the song that is playing',
+	status: 'working',
 	execute(message) {
 		const serverQueue = message.client.queue.get(message.guild.id)
 		if (!serverQueue) return message.channel.send('There is nothing playing.')

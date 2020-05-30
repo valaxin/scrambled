@@ -1,7 +1,10 @@
+const { getAuth, getBroadcastStatus } = require('../util/twHelp')
+const { twitch } = require('../config.json').keys
+
 module.exports = {
     name: 'twitch',
     description: 'watch a twitch streamer for go live event',
-    status: 'unknown',
+    status: 'working-ish could also always use refinement',
     async execute(message, options, client) {
 
       if (!options) return
@@ -31,7 +34,11 @@ module.exports = {
           if (flag === false) {
             console.log(`${`${options[0]}`.green} online!, gonna send a message to chat!`.white)
             console.log(client)
-            await client.channels.get(channel).send(alertMessage)
+            if (message === false) {
+              client.channels.cache.get(channel).send(alertMessage)
+            } else {
+              message.channel.send(alertMessage)
+            }
             flag = true
           } else {
             console.log(`${`${options[0]}`.green} online!, flag=true; message was already sent!`.white)
@@ -40,7 +47,6 @@ module.exports = {
           console.log(`${`${options[0]}`.green} is offline`.white)
           flag = false
         }
-
       }
 
       await check()

@@ -3,7 +3,8 @@ const ytdl = require('ytdl-core');
 
 module.exports = {
   name: 'play',
-  description: 'Play a song in your channel!',
+  description: 'play & queue a song in your channel',
+  status: 'working',
   async execute(message) {
     try {
       
@@ -38,7 +39,7 @@ module.exports = {
           voiceChannel: voiceChannel,
           connection: null,
           songs: [],
-          volume: 5,
+          volume: 3,
           playing: true
         };
 
