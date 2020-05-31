@@ -1,38 +1,99 @@
 # scrambled
 
-> a discord bot for alerting the server to things and memes
+---
 
-## purpose
+## Purpose
 
-enable users to be alerted when a defined user goes live on mixer, "randomally" pull memes from a given source, maintaining an index of sent posts as to avoid repeats
+A simple bot that's easily scalable with a module system for easy command creation, and easy configuration. Providing a solution for streamer go-live/online alerts from both static and dynamic sources. Along with a YouTube radio player and meme source for its users.
 
-## project walkthrough
+## Install
 
-> plain english step through the application
+Copy the project from it's repository on github
+```bash
+$ git clone https://github.com/valaxin/scrambled.git
+```
 
+Navigate to the project's directory root
+```bash
+$ cd path/to/scrambled
+```
 
-## bring your own config
+Create the required ./config.json file
+```bash
+$ echo "{ keys: { discord: { id: "DISCORD_CLIENT_ID" }, \
+  twitch: { id: "TWITCH_CLIENT_ID" }}}" > ./config.json
+```
 
-> outline / explanation of ./robot/_config.js
+Install needed dependencies and run
+```bash
+$ yarn && yarn start
+```
 
-## commands
+## Options
 
-The command prefix is the `~` (tilde) symbol by default.
+```json
+{
+  "keys": {
+    "discord": { "id": "DISCORD_CLIENT_ID" },
+    "twitch": { "id": "TWITCH_CLIENT_ID" }
+  },
+  "users": {
+    "mixer": [ "mixer-username" ],
+    "twitch": [ "twitch-username" ]
+  },
+  "poll_timeout_mins": 5,
+  "presence": {},
+  "watch": false
+}
+```
 
-### `~(info|help|about)`
+## Commands
 
-> returns information about the bot, such as uptime, and connect users?
+### `~`
+Default prefix
 
-### `~(mixer|twitch) <username> <interval> <channel>`
+#### `help` - list all available commands 
+- working 
 
-> alerts on interval on golive event to given channel 
+#### `meme` - request memes from the internets
+- arguments: `<subreddit-name:optional>` (defaults to r/blursed)
+- semi-working (needs, video handling/filtering) 
 
-returns a message to a given channel alerting to defined users change in streaming status eg: %streamer% has gone online! %streamLink%" 
+#### `mixer` - watch for a given stream to go live 
+- arguments: `<mixer-username:required>`, `<timeout:optional>`, `<channel:optional>`
+- working (could always use refinement) 
 
-### `~(news) <game>`
+#### `nowplaying`- get the song that is playing 
+- working 
 
-> returns
+#### `play` - play & queue a song in your channel 
+- arguments: `<youtube-url>` (caller needs to be in voice channel regardless of args)
+- working 
 
-### `meme <subreddit>`
+#### `purge` - delete the last messages in all chats
+- arguments: `<number-of-posts:required>`
+- working 
 
-> returns
+#### `skip` - skip a song in queue 
+- working 
+
+#### `stop` - stop all songs in the queue!
+- working 
+
+#### `test` - test test test
+- testing 
+
+### `twitch` - watch a twitch streamer for go live event
+- arguments: `<twitch-username:required>`, `<timeout:optional>`, `<channel:optional>`
+- working-ish could also always use refinement 
+
+### `userinfo` - get information about a user.
+- arguments: `<user-mention:required>`
+- working
+
+---
+
+- functionality absorbed from [TannerGabriel/discord-bot](https://github.com/TannerGabriel/discord-bot)
+- discord [dev portal](https://discord.com/developers)
+- invite link / permission [calculator](https://discordapi.com/permissions.html)
+- built with [discord.js](https://github.com/discordjs/discord.js) on [node.js](https://nodejs.org)
