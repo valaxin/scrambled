@@ -7,7 +7,7 @@ const config = require('./config.json')
 const client = new Client()
 client.commands = new Discord.Collection()
 
-console.log(client.channels)
+// console.log(client.channels)
 
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'))
 
