@@ -1,6 +1,5 @@
 # scrambled
-
----
+> a crappy discord bot
 
 ## Purpose
 
@@ -67,7 +66,7 @@ Default prefix
 - working 
 
 #### `play` - play & queue a song in your channel 
-- arguments: `<youtube-url>` (caller needs to be in voice channel regardless of args)
+- arguments: `<youtube-url:required>` (caller needs to be in voice channel regardless of args)
 - working 
 
 #### `purge` - delete the last messages in all chats
@@ -83,15 +82,17 @@ Default prefix
 #### `test` - test test test
 - testing 
 
-### `twitch` - watch a twitch streamer for go live event
+#### `twitch` - watch a twitch streamer for go live event
 - arguments: `<twitch-username:required>`, `<timeout:optional>`, `<channel:optional>`
 - working-ish could also always use refinement 
 
-### `userinfo` - get information about a user.
+#### `userinfo` - get information about a user.
 - arguments: `<user-mention:required>`
 - working
 
----
+## Issues
+
+
 
 - functionality absorbed from [TannerGabriel/discord-bot](https://github.com/TannerGabriel/discord-bot)
 - discord [dev portal](https://discord.com/developers)
