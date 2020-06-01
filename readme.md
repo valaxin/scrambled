@@ -90,6 +90,13 @@ Default prefix
 - arguments: `<user-mention:required>`
 - working
 
+#### `search` - search youtube for something to play
+- arguments: `<query:required>`
+- semi-working
+
+#### `queue` - see the current queue if one
+- wip
+
 ## Issues
 
 

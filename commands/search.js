@@ -4,7 +4,7 @@ const play = require('./play')
 module.exports = {
 	name: 'search',
 	description: 'search for youtube video to play',
-	status: 'wip',
+	status: 'semi-working',
 	async execute(message, options) {
 
     if (!message) return
