@@ -33,19 +33,27 @@ const getRandomRedditPost = async subreddit => {
   let num = Math.floor(Math.random() * (res.data.children.length - 2 + 1) + 1);
   let post = res.data.children[num]
 
-  return {
+  let embed = {
     color: stringToHexColor(post.data.author),
     title: post.data.title,
     description: `${post.data.ups} upvotes on ${post.data.subreddit_name_prefixed.toLowerCase()}`,
-    image: {
-      url: post.data.url
-    },
     author: {
       name: post.data.author,
       url: `https://reddit.com/u/${post.data.author}`
     },
+    fields: [],
     timestamp: new Date(post.data.created * 1000)
   }
+
+  if (post.data.url.includes('youtu') === true) {
+    embed.fields.push({ name: ':play_pause:', value: post.data.url})
+  } else {
+    embed.image = { url: post.data.url }
+  }
+
+  console.log(embed)
+
+  return embed
 }
 
 module.exports = {
@@ -53,10 +61,19 @@ module.exports = {
   description: 'request memes from the internets',
   status: 'semi-working (needs, video handling/filtering)',
   async execute (message, options) {
-    if (options[0]) {
-      await message.channel.send({ embed: await getRandomRedditPost(options[0]) })
-    } else {
-      await message.channel.send({ embed: await getRandomRedditPost() })
+    try {
+      let embedObject = await getRandomRedditPost(options[0] || undefined)
+      console.log(em)
+      if (embedObject.fields.length == 1) {
+        await message.channel.send(embedObject)
+        console.log(embedObject.fields[0].value)
+        // await message.reply(embedObject.fields[0].value)
+      } else {
+        await message.reply(embedObject)
+      }
+    } catch (err) {
+      console.log(`error:`, err )
     }
   }
+  
 }

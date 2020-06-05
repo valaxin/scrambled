@@ -1,11 +1,20 @@
 module.exports = {
   name: 'queue',
   descriptio: 'display the current queue if one',
-  status: 'wip',
+  status: 'working (testings stage)',
   execute (message) {
     const serverQueue = message.client.queue.get(message.guild.id)
-    if (!serverQueue) return
-    console.log(serverQueue.songs)
-    message.reply(JSON.stringify(serverQueue.songs))
+    if (!serverQueue) {
+      message.reply(`there is no queue to show, rune \`~search\` or \`~play\` to create one`)
+    } else {
+      let embed = {
+        title: 'Song Queue',
+        fields: []
+      }
+      serverQueue.songs.forEach((song, index) => {
+        embed.fields.push({ name: `**${index +1}.** ${song.title}`, value: song.url })
+      })
+      message.reply({ embed })
+    }
   }
 }
