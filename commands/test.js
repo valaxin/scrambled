@@ -5,6 +5,6 @@ module.exports = {
 	description: 'test test test',
 	status: 'testing',
 	execute(message, options) {
-		message.channel.send(options[0]);
+		message.channel.send(options[0])
 	},
-};
+}

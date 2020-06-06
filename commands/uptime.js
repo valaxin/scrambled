@@ -16,14 +16,14 @@ module.exports = {
     
     let segments = []
     
-    if (days > 0) segments.push(days + ' day' + ((days == 1) ? '' : 's'));
-    if (hours > 0) segments.push(hours + ' hour' + ((hours == 1) ? '' : 's'));
-    if (minutes > 0) segments.push(minutes + ' minute' + ((minutes == 1) ? '' : 's'));
-    if (seconds > 0) segments.push(seconds + ' second' + ((seconds == 1) ? '' : 's'));
-    if (milliseconds > 0) segments.push(milliseconds + ' millisecond' + ((seconds == 1) ? '' : 's'));
+    if (days > 0) segments.push(days + ' day' + ((days == 1) ? '' : 's'))
+    if (hours > 0) segments.push(hours + ' hour' + ((hours == 1) ? '' : 's'))
+    if (minutes > 0) segments.push(minutes + ' minute' + ((minutes == 1) ? '' : 's'))
+    if (seconds > 0) segments.push(seconds + ' second' + ((seconds == 1) ? '' : 's'))
+    if (milliseconds > 0) segments.push(milliseconds + ' millisecond' + ((seconds == 1) ? '' : 's'))
     
     let dateString = segments.join(', ')
     
-    message.channel.send(`:clock: **${dateString}**`)
+    message.channel.send(`:arrowup: :clock: **${dateString}**`)
   }
 }
