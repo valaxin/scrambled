@@ -63,7 +63,6 @@ module.exports = {
   async execute (message, options) {
     try {
       let embedObject = await getRandomRedditPost(options[0] || undefined)
-      console.log(em)
       if (embedObject.fields.length == 1) {
         await message.channel.send(embedObject)
         console.log(embedObject.fields[0].value)
