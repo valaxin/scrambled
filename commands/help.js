@@ -3,16 +3,14 @@ const fs = require('fs')
 module.exports = {
 	name: 'help',
 	description: 'list all available commands',
-	status: 'working',
+	status: ':green_square:',
 	execute(message) {
-		let str = `**Available Commands:** \n\n`;
-		let commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-
+		let commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'))
+		let embed = { title: 'Available Commands', fields: [] }
 		for (let file of commandFiles) {
-			let command = require(`./${file}`);
-			str += `\`${command.name}\` - ${command.description} \n - *${command.status}* \n\n`;
+			let command = require(`./${file}`)
+			embed.fields.push( { name: `${command.status} - **${command.name}**`, value: `${command.description}` })
 		}
-
-		message.channel.send(str);
+		message.reply({ embed })
 	},
-};
+}

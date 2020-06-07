@@ -4,7 +4,7 @@ const { twitch } = require('../config.json').keys
 module.exports = {
     name: 'twitch',
     description: 'watch a twitch streamer for go live event',
-    status: 'working-ish could also always use refinement',
+    status: ':green_square:',
     async execute(message, options, client) {
 
       if (!options) return
@@ -33,7 +33,7 @@ module.exports = {
         if (validateOnlineStatus(response) === true) {
           if (flag === false) {
             console.log(`${`${options[0]}`.green} online!, gonna send a message to chat!`.white)
-            console.log(client)
+            // console.log(client)
             if (message === false) {
               client.channels.cache.get(channel).send(alertMessage)
             } else {
@@ -41,10 +41,10 @@ module.exports = {
             }
             flag = true
           } else {
-            console.log(`${`${options[0]}`.green} online!, flag=true; message was already sent!`.white)
+            // console.log(`${`${options[0]}`.green} online!, flag=true; message was already sent!`.white)
           }
         } else {
-          console.log(`${`${options[0]}`.green} is offline`.white)
+          // console.log(`${`${options[0]}`.green} is offline`.white)
           flag = false
         }
       }

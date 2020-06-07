@@ -7,8 +7,6 @@ const config = require('./config.json')
 const client = new Client()
 client.commands = new Discord.Collection()
 
-console.log(client.channels)
-
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'))
 
 commandFiles.forEach(file => {
@@ -17,7 +15,9 @@ commandFiles.forEach(file => {
 })
 
 client.on('ready', () => {
+	
 	client.user.setPresence(config.presence)
+	
 	config.users.mixer.forEach(async user => {
 		await client.commands.get('mixer').execute(false, [user, '.5', config.keys.discord.defaultChannel], client)
 		// console.log(`USER:`, `${user}`.green, `PLAT:`, `MIXER`.cyan)
@@ -26,7 +26,10 @@ client.on('ready', () => {
 		await client.commands.get('twitch').execute(false, [user, '.5', config.keys.discord.defaultChannel], client, config.keys.twitch.id)
 		// console.log(`USER:`, `${user}`.green, `PLAT:`, `TWITCH`.red)
 	})
-	console.log('Ready!')
+	
+	let log = `${client.user.username} has started \nWatching: ${config.users.twitch.length -1} on Twitch & ${config.users.mixer.length -1} on Mixer`
+
+	console.log(log)
 });
 
 client.once('reconnecting', () => {
