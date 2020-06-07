@@ -27,7 +27,7 @@ const getRandomPost = async (subreddit, sort) => {
 
   // console.log(`QUALIFIED POSTS!!`, qualified.length)
 
-  let randomNumber = Math.floor(Math.random() * (response.data.children.length - 2 + 1) + 1);
+  let randomNumber = Math.floor(Math.random() * (response.data.children.length - 2 + 1) + 1)
   let post = qualified[randomNumber]
 
   return {
@@ -46,7 +46,7 @@ const getRandomPost = async (subreddit, sort) => {
 module.exports = {
   name: 'meme',
   description: 'request a random image from a given subreddit',
-  status: 'working',
+  status: ':green_square:',
   async execute (message, options) {
     try {
       let embed = await getRandomPost(options[0], options[1])

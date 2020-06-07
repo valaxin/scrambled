@@ -3,7 +3,7 @@
 module.exports = {
   name: 'uptime',
   description: 'returns the uptime of the bot',
-  status: 'working',
+  status: ':green_square:',
   execute: (message) => {
     
     let uptime = process.uptime()

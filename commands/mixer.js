@@ -5,7 +5,7 @@ const defaultChannel = require('../config.json').keys.discord.defaultChannel
 module.exports = {
   name: 'mixer',
   description: 'watch for a given stream to go live',
-  status: 'working (always could use refinement)',
+  status: ':green_square:',
   async execute(message, options, client) {
 
    // console.log(message, options)
@@ -53,12 +53,12 @@ module.exports = {
           }
           flag = true
         } else {
-          console.log(`${`${options[0]}`.green} online!, flag=true; message was already sent!`.white)
+          // console.log(`${`${options[0]}`.green} online!, flag=true; message was already sent!`.white)
         }
 
       } else {
         
-        console.log(`${`${options[0]}`.green} is offline`.white)
+        // console.log(`${`${options[0]}`.green} is offline`.white)
         flag = false
       }
 

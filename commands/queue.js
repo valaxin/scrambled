@@ -1,7 +1,7 @@
 module.exports = {
   name: 'queue',
   descriptio: 'display the current queue if one',
-  status: 'working (testings stage)',
+  status: ':green_square:',
   execute (message) {
     const serverQueue = message.client.queue.get(message.guild.id)
     if (!serverQueue) {

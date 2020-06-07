@@ -4,7 +4,7 @@ const ytdl = require('ytdl-core')
 module.exports = {
   name: 'play',
   description: 'play & queue a song in your channel',
-  status: 'working',
+  status: ':green_square:',
   async execute(message) {
     try {
       
@@ -12,8 +12,8 @@ module.exports = {
       let queue = message.client.queue
       let serverQueue = message.client.queue.get(message.guild.id)
 
-      console.log(`message:`, message)
-      console.log(`message.member.voice:`, message.member.voice)
+      // console.log(`message:`, message)
+      // console.log(`message.member.voice:`, message.member.voice)
 
       let voiceChannel = message.member.voice.channel
       
