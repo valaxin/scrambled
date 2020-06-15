@@ -5,12 +5,15 @@ const updateConfig = async (message, key, value) => {
 	let location = path.resolve(__dirname, '../config.json')
 	let config = require(location)
 
+	// sage
+	if (key.match(/^keys(.*)?$/gi) === 'keys') return
+
 	// does the key already exist within the document?
-	let existingKey = Object.keys(config).map(configKey => {
-		return configKey === key
+	let existingKey = Object.keys(config).filter(configKey => {
+		return configKey == key ? true : false
 	})
 
-	if (existingKey) {
+	if (existingKey[0] != undefined) {
 		let question = `**Warning!** you're about to overwrite property \`${key}\`, continue? Y/N`
 		message.reply(question)
 
@@ -22,8 +25,13 @@ const updateConfig = async (message, key, value) => {
 				message.reply(`**Abandoned!**, try again with a different key name`)
 				return
 			}
-			
-			config[key] = value
+
+			if (typeof config[key] === 'object') {
+				config[key].push(value)
+			} else {
+				config[key] = value
+			}
+
 			await fs.writeFile(location, JSON.stringify(config), 'utf8', (err) => {
 				if (err) {
 					console.log(err)
@@ -31,21 +39,22 @@ const updateConfig = async (message, key, value) => {
 				}
 			})
 			message.reply(`**Huzzah!** successfully updated property`)
+			return
 			
-
     } catch (err) {
 			message.reply(`**Timeout!** no selection was made`)
 			return
     }
 	} else {
 		message.reply(`***Uh-Oh!***`)
+		return
 	}
 
 }
 
 module.exports = {
 	name: 'set',
-	description: 'set differnt values for bot',
+	description: 'set differnt values for bot (for now streamer adds only show online on restart)',
 	status: ':yellow_square:',
 	async execute(message, options) {
 		// permission?

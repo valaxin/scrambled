@@ -14,7 +14,7 @@
   },
   "scripts": {
     "start": "node ./index.js",
-    "dev": "nodemon ./index.js -i ./config.json"
+    "dev": "nodemon -i ./config.json -w ./commands -w ./client -w ./util -w ./index.js --verbose ./index.js"
   },
   "dependencies": {
     "@discordjs/opus": "^0.1.0",
