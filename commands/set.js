@@ -6,7 +6,8 @@ const updateConfig = async (message, key, value) => {
 	let config = require(location)
 
 	// sage
-	if (key.match(/^keys(.*)?$/gi) === 'keys') return
+	console.log(key.match(/^keys?$/gi))
+	if (key.match(/^keys?$/gi) !== null) return
 
 	// does the key already exist within the document?
 	let existingKey = Object.keys(config).filter(configKey => {
@@ -18,7 +19,7 @@ const updateConfig = async (message, key, value) => {
 		message.reply(question)
 
 		try {
-      let waitOptions = { max: 1, time: 30000 }
+      let waitOptions = { max: 1, time: 10000 }
       let waitForResponse = await message.channel.awaitMessages(m => m.author.id == message.author.id, waitOptions)
 			if (waitForResponse.first().content.match(/^n(o)?$/gi) !== null) {
 				// abandon ship!
