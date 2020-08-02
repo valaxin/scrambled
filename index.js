@@ -1,65 +1,43 @@
 const fs = require('fs')
-const colors = require('colors')
 const Discord = require('discord.js')
 const Client = require('./client/Client')
 const config = require('./config.json')
 
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'))
+
 const client = new Client()
 client.commands = new Discord.Collection()
 
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'))
-
 commandFiles.forEach(file => {
-	let command = require(`./commands/${file}`)
+	const command = require(`./commands/${file}`)
 	client.commands.set(command.name, command)
 })
 
-client.on('ready', () => {
-	
-	client.user.setPresence(config.presence)
-	
-	config.users.mixer.forEach(async user => {
-		await client.commands.get('mixer').execute(false, [user, '.5', config.keys.discord.defaultChannel], client)
-		// console.log(`USER:`, `${user}`.green, `PLAT:`, `MIXER`.cyan)
-	})
-	config.users.twitch.forEach(async user => {
-		await client.commands.get('twitch').execute(false, [user, '.5', config.keys.discord.defaultChannel], client, config.keys.twitch.id)
-		// console.log(`USER:`, `${user}`.green, `PLAT:`, `TWITCH`.red)
-	})
-	
-	let log = `${client.user.username} has started \nWatching: ${config.users.twitch.length -1} on Twitch & ${config.users.mixer.length -1} on Mixer`
+client.on('ready', async () => {
+	await Promise.all(config.mixer.map(user => {	
+		console.log(user, `mixer`)
+		return client.commands.get('mixer').execute(false, [user, '.5', config.channel], client)
+	}))
+	await Promise.all(config.twitch.map(user => {
+		console.log(user, `twitch`)
+		return client.commands.get('twitch').execute(false, [user, '.5', config.channel], client, config.keys.twitch.id)
+	}))
+})
 
-	console.log(log)
-});
-
-client.once('reconnecting', () => {
-	console.log('Reconnecting!')
-});
-
-client.once('disconnect', () => {
-	console.log('Disconnect!')
-});
+client.on('reconnecting', () => {	console.log('Reconnecting!') })
+client.on('disconnect', () => { console.log('Disconnect!') })
 
 client.on('message', async message => {
-	let args = message.content.slice(config.prefix.length).split(/ +/)
-	let commandName = args.shift().toLowerCase()
-	let command = client.commands.get(commandName)
-
-	if (message.author.bot) return;
+	if (message.author.bot) return
 	if (!message.content.startsWith(config.prefix)) return
-
+	let options = message.content.slice(config.prefix.length).split(/ +/)
+	let command = client.commands.get(options.shift().toLowerCase())
 	try {
-		if(commandName === 'ban' || commandName === 'userinfo') {
-			command.execute(message, client)
-		} else if (commandName === 'mixer' || commandName === 'twitch') {
-			command.execute(message, args, client)
-		} else {
-			command.execute(message, args)
-		}
+		command.execute(message, options, client)
 	} catch (error) {
 		console.error(error)
-		message.reply('There was an error trying to execute that command!')
+		message.reply(`right prefix, wrong command.`)
 	}
 })
 
-client.login(config.keys.discord.token)
+client.login(config.keys.discord)

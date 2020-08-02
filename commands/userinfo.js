@@ -4,7 +4,7 @@ module.exports = {
 	name: 'userinfo',
 	description: 'get information about a user.',
 	status: ':green_square:',
-	execute(message, client) {
+	execute(message, options, client) {
 		let split = message.content.split(/ +/)
 		let  args = split.slice(1)
 		let user = getUserFromMention(args[0], client)

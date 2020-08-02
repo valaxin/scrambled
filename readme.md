@@ -103,6 +103,8 @@ yarn && yarn start
 
 ### `set` - set differnt values for bot
 
+> arguments: `<key:required>`, `<value:required>`
+
 ---
 
 ## Command Example

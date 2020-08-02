@@ -1,0 +1,20 @@
+{
+  "prefix": "",
+  "channel": "",
+  "keys": {
+    "discord": "",
+    "twitch": {
+      "id": "",
+      "secret": ""
+    }
+  },
+  "mixer": [],
+  "twitch": [],
+  "presence": {
+    "game": {
+      "name": "",
+      "url": ""
+    },
+    "status": ""
+  }
+}
