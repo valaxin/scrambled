@@ -14,10 +14,12 @@ commandFiles.forEach(file => {
 })
 
 client.on('ready', async () => {
+	/*
 	await Promise.all(config.mixer.map(user => {	
 		console.log(user, `mixer`)
 		return client.commands.get('mixer').execute(false, [user, '.5', config.channel], client)
 	}))
+	*/
 	await Promise.all(config.twitch.map(user => {
 		console.log(user, `twitch`)
 		return client.commands.get('twitch').execute(false, [user, '.5', config.channel], client, config.keys.twitch.id)
