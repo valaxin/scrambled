@@ -1,40 +1,34 @@
-const fs = require('fs')
-const Discord = require('discord.js')
-const Client = require('./client/Client')
-const config = require('./config.json')
+import fs from 'fs'
+import Discord from 'discord.js'
+import Client from './client.js'
+import config from './config.js'
 
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'))
+/**
+ * iterate through every `.js` file in `./commands` directory, importing each file. 
+ */
 
-const client = new Client()
+let client = new Client()
 client.commands = new Discord.Collection()
 
-commandFiles.forEach(file => {
-	const command = require(`./commands/${file}`)
+let commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'))
+commandFiles.forEach(async filename => {
+	let imp = await import(`./commands/${filename}`)
+	let command = imp.default
 	client.commands.set(command.name, command)
 })
 
-client.on('ready', async () => {
-	/*
-	await Promise.all(config.mixer.map(user => {	
-		console.log(user, `mixer`)
-		return client.commands.get('mixer').execute(false, [user, '.5', config.channel], client)
-	}))
-	*/
-	await Promise.all(config.twitch.map(user => {
-		console.log(user, `twitch`)
-		return client.commands.get('twitch').execute(false, [user, '.5', config.channel], client, config.keys.twitch.id)
-	}))
-})
-
+client.on('ready', async () => { console.log('Ready!') })
 client.on('reconnecting', () => {	console.log('Reconnecting!') })
 client.on('disconnect', () => { console.log('Disconnect!') })
-
 client.on('message', async message => {
 	if (message.author.bot) return
 	if (!message.content.startsWith(config.prefix)) return
 	let options = message.content.slice(config.prefix.length).split(/ +/)
 	let command = client.commands.get(options.shift().toLowerCase())
+
+
 	try {
+		console.log(command)
 		command.execute(message, options, client)
 	} catch (error) {
 		console.error(error)

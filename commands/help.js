@@ -1,16 +1,19 @@
-const fs = require('fs')
+import fs from 'fs'
 
-module.exports = {
+export default {
 	name: 'help',
 	description: 'list all available commands',
 	status: ':green_square:',
-	execute(message) {
+	execute: async (message) => {
 		let commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'))
 		let embed = { title: 'Available Commands', fields: [] }
 		for (let file of commandFiles) {
-			let command = require(`./${file}`)
-			embed.fields.push( { name: `${command.status} - **${command.name}**`, value: `${command.description}` })
+			let command = await import(`./${file}`)
+			embed.fields.push({
+				name: `${command.default.status} - **${command.default.name}**`,
+				value: `\`${command.default.description}\` \narguments: \`${command.default.arguments || 'none'}\``
+			})
 		}
-		message.reply({ embed })
+		message.channel.send({ embeds: [embed] })
 	},
 }

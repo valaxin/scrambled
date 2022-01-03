@@ -1,4 +1,3 @@
-// const fetch = require('node-fetch')
 import fetch from 'node-fetch'
 
 const stringToHexColor = str => {
@@ -26,8 +25,6 @@ const getRandomPost = async (subreddit, sort) => {
     return array
   }, [])
 
-  // console.log(`QUALIFIED POSTS!!`, qualified.length)
-
   let randomNumber = Math.floor(Math.random() * (response.data.children.length - 2 + 1) + 1)
   let post = qualified[randomNumber]
 
@@ -44,14 +41,15 @@ const getRandomPost = async (subreddit, sort) => {
   }
 }
 
-module.exports = {
+export default {
   name: 'meme',
   description: 'request a random image from a given subreddit',
+  arguments: '<subreddit>[?string] : <sort>[new|top|hot]',
   status: ':green_square:',
-  async execute (message, options) {
+  execute: async (message, options) => {
     try {
       let embed = await getRandomPost(options[0], options[1])
-      await message.reply({ embed })
+      await message.channel.send({ embeds: [embed] })
     } catch (err) {
       console.log(err)
     }

@@ -14,8 +14,8 @@
   },
   "type": "module",
   "scripts": {
-    "start": "babel-node ./index.js",
-    "dev": "nodemon -i ./config.json -w ./commands -w ./client -w ./util -w ./index.js --verbose ./index.js"
+    "start": "babel-node --experimental-json-modules ./index.js",
+    "dev": "nodemon -i ./config.json -w ./commands -w ./client -w ./util -w ./index.js --verbose -- --experimental-json-modules ./index.js"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
@@ -28,6 +28,7 @@
     "ffmpeg": "0.0.4",
     "fluent-ffmpeg": "^2.1.2",
     "node-fetch": "^3.1.0",
+    "nodemon": "^2.0.15",
     "yt-search": "^2.10.3",
     "ytdl-core": "^4.9.2"
   }
