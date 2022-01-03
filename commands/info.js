@@ -1,9 +1,9 @@
 import { getUserFromMention } from '../util/getMention.js'
 
 export default {
-	name: 'userinfo',
+	name: 'info',
 	description: 'get information about a user.',
-	status: ':green_square:',
+	status: ':yellow_square:',
 	arguments: '<@mention>',
 	execute: async (message, options, client) => {
 		let split = message.content.split(/ +/)

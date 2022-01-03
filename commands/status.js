@@ -1,11 +1,8 @@
-
-
 export default {
-  name: 'uptime',
-  description: 'returns the uptime of the bot',
+  name: 'status',
+  description: 'Returns the status of the bot',
   status: ':green_square:',
   execute: async (message) => {
-    
     let uptime = process.uptime()
     let date = new Date(uptime*1000)
     let days = date.getUTCDate() - 1

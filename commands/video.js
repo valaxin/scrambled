@@ -2,7 +2,7 @@ import fetch from 'node-fetch'
 
 export default {
   name: 'video',
-  description: 'get vids from the net',
+  description: 'Get videos from reddit',
   status: ':yellow_square:',
   arguments: '<subreddit>[?string] : <sort>[new|top|hot]',
   execute: async (message, options) => {
