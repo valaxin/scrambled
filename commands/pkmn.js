@@ -1,4 +1,6 @@
-import { getPokemon } from '../util/getPokemon.js'
+import { getPokemon, getGPSSPokemon } from '../util/getPokemon.js'
+import path from 'path'
+import fs from 'fs'
 
 const generations = [ 'Kanto', 'Johto', 'Hoenn', 'Sinnoh', 'Unova', 'Kalos', 'Alola', 'Galar' ]
 
@@ -9,6 +11,7 @@ export default {
 	status: ':yellow_square:',
 	execute: async (message, options) => {
 
+    message.channel.sendTyping()
     let pokemonArray = await getPokemon(options[0])
     let pokemon = pokemonArray[0]
 
@@ -54,12 +57,30 @@ export default {
           width: 0
         },
         footer: {
-          text: `pokedevs.gitbook.io/pokedex/`,
-          icon_url: `https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/spaces%2F-LLCxzBmWEaED20k4rae%2Favatar.png?generation=1535685166706558&alt=media`
+          text: `${pokemon.name} hex`,
+          icon_url: `attachment://${pokemon.name}`
         }
       }
     ]
 
-		message.channel.send({ embeds })
+    if (options[1] === 'gethex') {
+      let hexData = await getGPSSPokemon(pokemon.name)
+      console.log(hexData)
+      let filename = path.resolve('./temp', `${pokemon.name}`)
+      console.log(filename)
+      fs.writeFile(filename, hexData, 'hex', (err) => {
+        if (err) {
+          console.log(err)
+        } else {
+          console.log(`${filename} ~ saved`)
+        }
+      })
+    }
+
+		// message.channel.send({ embeds })
+
+    console.log(message.attachments.values())
+    message.channel.send({ files: [], content: 'penis' })
+
 	},
 }
