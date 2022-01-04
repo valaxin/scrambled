@@ -45,8 +45,9 @@ export const getGPSSPokemon = async (species) => {
     }
   }
 
+  let src = `https://flagbrew.org/gpss/${result.download_code}`
   let hex = Buffer.from(result.base_64, 'base64')
 
-  return hex
+  return { hex, src }
 
 }

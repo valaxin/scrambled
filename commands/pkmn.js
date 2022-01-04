@@ -55,32 +55,49 @@ export default {
           url: pokemon.sprite,
           height: 0,
           width: 0
-        },
-        footer: {
-          text: `${pokemon.name} hex`,
-          icon_url: `attachment://${pokemon.name}`
         }
       }
     ]
 
     if (options[1] === 'gethex') {
-      let hexData = await getGPSSPokemon(pokemon.name)
-      console.log(hexData)
-      let filename = path.resolve('./temp', `${pokemon.name}`)
-      console.log(filename)
-      fs.writeFile(filename, hexData, 'hex', (err) => {
+      let pokemonHexData = await getGPSSPokemon(pokemon.name)
+      let filepath = path.resolve('./temp', `${pokemon.name}`)
+      fs.writeFile(filepath, pokemonHexData.hex, 'hex', (err) => {
         if (err) {
           console.log(err)
         } else {
-          console.log(`${filename} ~ saved`)
+          console.log(`${filepath} ~ saved locally`)
+
+          message.channel.send(
+            {
+              embeds: [
+                {
+                  color: 0xffffff,
+                  fields: [
+                    {
+                      name: `"${pokemon.name}" File Information:`,
+                      value: 'Hexadecimal data for given pokemon, usable within [PKHeX](https://example.com). \n data obtained from [GPSS](https://flagbrew.org/gpss) \n should be "legal" without a nickname all information \n is modifiable within PKHeX Software.'
+                    },
+                    {
+                      name: 'source:',
+                      value: pokemonHexData.src
+                    }
+                  ]
+                }
+              ],
+              files: [
+              {
+                attachment: filepath,
+                name: pokemon.name,
+                description: 'Hex data representing a Pokemon from GPSS'
+              }
+              ]
+            }
+          )
         }
       })
     }
 
-		// message.channel.send({ embeds })
-
-    console.log(message.attachments.values())
-    message.channel.send({ files: [], content: 'penis' })
-
+    message.channel.send({ embeds })
 	},
 }
