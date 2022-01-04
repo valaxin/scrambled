@@ -55,6 +55,10 @@ export default {
           url: pokemon.sprite,
           height: 0,
           width: 0
+        },
+        footer: {
+          text: 'pokedevs.gitbook.io/pokedex/',
+          icon_url: 'https://firebasestorage.googleapis.com/v0/b/gitbook-28427.appspot.com/o/spaces%2F-LLCxzBmWEaED20k4rae%2Favatar.png?generation=1535685166706558&alt=media'
         }
       }
     ]
