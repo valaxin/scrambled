@@ -3,10 +3,6 @@ import Discord from 'discord.js'
 import Client from './client.js'
 import config from './config.js'
 
-/**
- * iterate through every `.js` file in `./commands` directory, importing each file. 
- */
-
 let client = new Client()
 client.commands = new Discord.Collection()
 
@@ -17,10 +13,13 @@ commandFiles.forEach(async filename => {
 	client.commands.set(command.name, command)
 })
 
-client.on('ready', async () => { console.log('Ready!') })
+client.on('ready', async () => {
+	console.log('Ready!')
+	client.user.setPresence({ game: 'something', })
+})
 client.on('reconnecting', () => {	console.log('Reconnecting!') })
 client.on('disconnect', () => { console.log('Disconnect!') })
-client.on('message', async message => {
+client.on('messageCreate', async message => {
 	if (message.author.bot) return
 	if (!message.content.startsWith(config.prefix)) return
 	let options = message.content.slice(config.prefix.length).split(/ +/)

@@ -65,7 +65,7 @@ export default {
 
     if (options[1] === 'gethex') {
       let pokemonHexData = await getGPSSPokemon(pokemon.name)
-      let filepath = path.resolve('./temp', `${pokemon.name}`)
+      let filepath = path.resolve('./.temp', `${pokemon.name}`)
       fs.writeFile(filepath, pokemonHexData.hex, 'hex', (err) => {
         if (err) {
           console.log(err)
