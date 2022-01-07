@@ -25,7 +25,6 @@ client.on('messageCreate', async message => {
 	let options = message.content.slice(config.prefix.length).split(/ +/)
 	let command = client.commands.get(options.shift().toLowerCase())
 
-
 	try {
 		console.log(command)
 		command.execute(message, options, client)
@@ -36,3 +35,5 @@ client.on('messageCreate', async message => {
 })
 
 client.login(config.keys.discord)
+
+export default client

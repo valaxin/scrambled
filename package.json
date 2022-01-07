@@ -14,8 +14,10 @@
   },
   "type": "module",
   "scripts": {
-    "start": "babel-node --experimental-json-modules ./index.js",
-    "dev": "nodemon -i ./config.json -w ./commands -w ./client -w ./util -w ./index.js --verbose -- --experimental-json-modules ./index.js"
+    "start": "concurrently \"npm run start:server\" \"npm run start:bot\"",
+    "dev": "nodemon -i ./config.json -w ./commands -w ./client -w ./util -w ./index.js --verbose -- --experimental-json-modules ./index.js",
+    "start:server": "nodemon ./server/index.js",
+    "start:bot": "nodemon ./index.js"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
@@ -23,10 +25,15 @@
   },
   "dependencies": {
     "@discordjs/opus": "^0.7.0",
+    "body-parser": "^1.19.1",
     "colors": "^1.4.0",
+    "concurrently": "^7.0.0",
+    "cookie-parser": "^1.4.6",
     "discord.js": "^13.5.0",
+    "express": "^4.17.2",
     "ffmpeg": "0.0.4",
     "fluent-ffmpeg": "^2.1.2",
+    "morgan": "^1.10.0",
     "node-fetch": "^3.1.0",
     "nodemon": "^2.0.15",
     "yt-search": "^2.10.3",

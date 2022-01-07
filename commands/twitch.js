@@ -10,58 +10,66 @@ export default {
     arguments: '',
     execute: async (message, options) => {
 
-      console.log('arguments', options[0])
-
-      message.reply('not done.')
-
-      /*
-      if (!options) return
-
-      let flag = false
-      let timeout = !options[1] ? (5 * 60000) : (Number(options[1]) * 60000)
-      let channel = (!options[2] ? message.channel.id : options[2]).split(/(([0-9])\w+)/g)[1]
-      let alertMessage = `${options[0]} just went live check out the stream! \n> https://twitch.com/${options[0]}`
-
-      let twitch_tokens = await getAuth(twitch.id, twitch.secret)
-
-      if (message !== false) {
-        message.channel.send(`Okay! I'll keep an eye on ${options[0]} \n> polling every ${(timeout / 60000)} minutes \n> alerts will be sent to <#${channel}>`)
-        channel = message.channel.id
+      if (!options) {
+        message.reply(`missing required argument... ex: ~twitch <twitch-username>`)
       }
 
-      let check = async () => {
+      let sent = false
+      let flag = false
+      let interval = flag ? 1000 : 2000
+      
+      const check = async () => {
+        let auth = await authenticateTwitch(keys.id, keys.secret)
+        let stat = await queryForBroadcastStatus(options[0], auth)
 
-        let validateOnlineStatus = status => {
-          if (status.data && status.data.length > 0 && status.data[0].type === 'live') return true
+        if (!stat.data || stat.data.length == 0) {
           return false
         }
 
-        let response = await getBroadcastStatus(options[0], twitch_tokens)
-
-        if (validateOnlineStatus(response) === true) {
-          if (flag === false) {
-            console.log(`${`${options[0]}`.green} online!, gonna send a message to chat!`.white)
-            // console.log(client)
-            if (message === false) {
-              client.channels.cache.get(channel).send(alertMessage)
-            } else {
-              message.channel.send(alertMessage)
-            }
-            flag = true
-          } else {
-            // console.log(`${`${options[0]}`.green} online!, flag=true; message was already sent!`.white)
-          }
-        } else {
-          // console.log(`${`${options[0]}`.green} is offline`.white)
-          flag = false
-        }
+        flag = true
+        return stat.data
       }
 
-      await check()
-      setInterval(async () => {
-        await check()
-      }, timeout, false)
-    */
+      const observer = setInterval(async () => {
+
+        let status = await check()
+        let name = status[0] === undefined ? options[0] : status[0].user_login
+
+        console.log({ name, interval, flag, sent })
+        
+        if (flag === true && sent === false) {
+          let timestamp = new Date(status[0].started_at).toLocaleTimeString()
+          let thumbnail = status[0].thumbnail_url.split('{width}x{height}').join('640x480')
+          let embeds = [
+            {
+              color: 0x6441a4,
+              type: 'rich',
+              title: `${status[0].user_name} is live on twitch!`,
+              description: `[${status[0].title}](https://twitch.tv/${status[0].user_login})`,
+              fields: [
+                {
+                  name: 'Viewers:',
+                  value: `${status[0].viewer_count}`
+                },
+                {
+                  name: 'Started:',
+                  value: `${timestamp}`
+                }
+              ],
+              image: {
+                url: thumbnail,
+                height: 0,
+                width: 0
+              }
+            }
+          ]
+          message.channel.send({ embeds })
+          sent = true
+        }
+      }, interval, false)
+
+      if (options[0] === 'stop') { clearInterval(observer), console.log('cleared') }
+
   }
 }
     
