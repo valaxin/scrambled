@@ -34,6 +34,8 @@ export default {
 
         let status = await check()
         let name = status[0] === undefined ? options[0] : status[0].user_login
+        
+        console.log(status)
 
         console.log({ name, interval, flag, sent })
         
