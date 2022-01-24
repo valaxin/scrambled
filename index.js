@@ -14,7 +14,7 @@ commandFiles.forEach(async filename => {
 })
 
 client.on('ready', async () => {
-	console.log('Ready!')
+	console.log('[discord.js] Bot Started...')
 	client.user.setPresence({ game: 'something', })
 })
 client.on('reconnecting', () => {	console.log('Reconnecting!') })

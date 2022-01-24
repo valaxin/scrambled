@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import http from 'http'
 
-import webhooksController from './webhooks.js'
+import twitchEvents from './routes/twitch-events.js'
 
 const app = express()
 const httpServer = http.createServer(app)
@@ -15,7 +15,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 
-app.use('/webhooks', webhooksController)
+app.use('/twitch', twitchEvents)
 
 app.use(async (req, res, next) => {
   const error = new Error('Not Found')
@@ -31,7 +31,7 @@ app.use(async (err, req, res, next) => {
 })
 
 httpServer.listen(3000, () => {
-  console.log('your server is running...')
+  console.log('[express.js] Server Started...')
 })
 
 export default app

@@ -15,9 +15,7 @@
   "type": "module",
   "scripts": {
     "start": "concurrently \"npm run start:server\" \"npm run start:bot\"",
-    "dev": "nodemon -i ./config.json -w ./commands -w ./client -w ./util -w ./index.js --verbose -- --experimental-json-modules ./index.js",
-    "start:server": "nodemon ./server/index.js",
-    "start:bot": "nodemon ./index.js"
+    "dev": "nodemon -i ./config.js -w ./commands -w ./client -w ./util -w ./index.js --verbose -- --experimental-json-modules ./server/index.js"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",

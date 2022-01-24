@@ -1,77 +1,41 @@
-import { authenticateTwitch, queryForBroadcastStatus } from '../util/twitchAuthorize.js'
-import config from '../config.js'
+import { authenticateTwitch, queryForUserId, createNewSubscription  } from '../util/twitchHelpers.js'
+import fetch from 'node-fetch'
 
-const keys = { id: config.keys.twitch.id, secret: config.keys.twitch.secret }
+const REGISTER_URL = 'http://localhost:3000/twitch/register-event-subscription'
 
 export default {
     name: 'twitch',
     description: 'Watch on interval if a twitch.tv channel goes live.',
     status: ':red_square:',
-    arguments: '',
+    arguments: 'create, delete, list | @twitch-username <',
     execute: async (message, options) => {
 
-      if (!options) {
+      if (!options || options.length < 2) {
         message.reply(`missing required argument... ex: ~twitch <twitch-username>`)
+        return
       }
 
-      let sent = false
-      let flag = false
-      let interval = flag ? 1000 : 2000
-      
-      const check = async () => {
-        let auth = await authenticateTwitch(keys.id, keys.secret)
-        let stat = await queryForBroadcastStatus(options[0], auth)
 
-        if (!stat.data || stat.data.length == 0) {
-          return false
+      let outgoingRequest = await fetch (
+        REGISTER_URL,
+        { 
+          method: 'POST',
+          body: JSON.stringify({
+            broadcaster: options[1],
+            channel: options[2]
+          })
         }
+      )
 
-        flag = true
-        return stat.data
-      }
+      // The user will submit the needed information for twitch to lookup and user and subscribe to their event, 
+      // a request will be sent to the compainion server containing the required information.
+      // required information : <verb> <twitch-username> <channel-id>
 
-      const observer = setInterval(async () => {
+      // where <verb> is watch, delete, information
 
-        let status = await check()
-        let name = status[0] === undefined ? options[0] : status[0].user_login
-        
-        console.log(status)
+      // ... the command should look something like this:
+      // ~twitch watch rektcorpse #news
 
-        console.log({ name, interval, flag, sent })
-        
-        if (flag === true && sent === false) {
-          let timestamp = new Date(status[0].started_at).toLocaleTimeString()
-          let thumbnail = status[0].thumbnail_url.split('{width}x{height}').join('640x480')
-          let embeds = [
-            {
-              color: 0x6441a4,
-              type: 'rich',
-              title: `${status[0].user_name} is live on twitch!`,
-              description: `[${status[0].title}](https://twitch.tv/${status[0].user_login})`,
-              fields: [
-                {
-                  name: 'Viewers:',
-                  value: `${status[0].viewer_count}`
-                },
-                {
-                  name: 'Started:',
-                  value: `${timestamp}`
-                }
-              ],
-              image: {
-                url: thumbnail,
-                height: 0,
-                width: 0
-              }
-            }
-          ]
-          message.channel.send({ embeds })
-          sent = true
-        }
-      }, interval, false)
-
-      if (options[0] === 'stop') { clearInterval(observer), console.log('cleared') }
 
   }
 }
-    
