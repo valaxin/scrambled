@@ -1,13 +1,18 @@
 import fetch from 'node-fetch'
 
 // auth with "twitch.tv" to obtain bearer tokens
-export const authenticateTwitch = async (id, secret) => {
-  if (!id || !secret) return false
-  let query = `?client_id=${id}&client_secret=${secret}&grant_type=client_credentials&scope`
-  let endpoint = `https://id.twitch.tv/oauth2/token${query}`
-  let response = await fetch(endpoint, { method: 'POST' })
-  let tokens = await response.json()
-  return [tokens, id]
+export const twitchAccessTokens = async (id, secret) => {
+  if (!id || !secret) { return false }
+  try {
+    let query = `?client_id=${id}&client_secret=${secret}&grant_type=client_credentials&scope`
+    let endpoint = `https://id.twitch.tv/oauth2/token${query}`
+    let response = await fetch(endpoint, { method: 'POST' })
+    let tokens = await response.json()
+    return [tokens, id]
+  } catch (error) {
+    console.log(error)
+    return error
+  }
 }
 
 // GET - Query of a given user(s) twitch account for "GO LIVE" status
@@ -81,3 +86,4 @@ export const createNewSubscription = async (twitchUserId, eventType, tokens) => 
   let response = await fetch (endpoint, { method: 'POST', headers: headers, json: data })
   return response.json()
 }
+

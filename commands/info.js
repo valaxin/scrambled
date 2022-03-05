@@ -1,4 +1,4 @@
-import { getUserFromMention } from '../util/getMention.js'
+import { getUserFromMention } from '../utilities/getMention.js'
 
 export default {
 	name: 'info',
