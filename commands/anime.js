@@ -1,5 +1,3 @@
-import cheerio from 'cheerio'
-
 export default {
 	name: 'anime',
 	description: 'Search animegogo for a given anime title',

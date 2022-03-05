@@ -2,7 +2,7 @@
   "name": "scrambled",
   "description": "~",
   "version": "0.0.1",
-  "main": "",
+  "main": "index.js",
   "license": "MIT",
   "author": {
     "name": "valaxin",
@@ -13,8 +13,8 @@
   },
   "type": "module",
   "scripts": {
-    "start": "concurrently \"npm run start:server\" \"npm run start:bot\"",
-    "dev": "nodemon -i ./config.js -w ./commands -w ./client -w ./util -w ./index.js --verbose -- --experimental-json-modules ./server/index.js"
+    "clean": "rm -rf ./temp/*",
+    "dev": "npm run clean && nodemon -i ./config.js -w ./commands -w ./client -w ./util -w ./index.js --verbose -- --experimental-json-modules ./index.js"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
@@ -24,10 +24,8 @@
     "@discordjs/opus": "^0.7.0",
     "body-parser": "^1.19.1",
     "colors": "^1.4.0",
-    "concurrently": "^7.0.0",
     "cookie-parser": "^1.4.6",
     "discord.js": "^13.5.0",
-    "express": "^4.17.2",
     "ffmpeg": "0.0.4",
     "fluent-ffmpeg": "^2.1.2",
     "morgan": "^1.10.0",

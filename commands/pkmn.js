@@ -7,7 +7,7 @@ const generations = [ 'Kanto', 'Johto', 'Hoenn', 'Sinnoh', 'Unova', 'Kalos', 'Al
 export default {
 	name: 'pkmn',
 	description: 'Get pokedex data for a given pokemon.',
-  arguments: '<NationalDexNumber|Name>',
+  arguments: '<NationalDexNumber|Name> <gethex>',
 	status: ':yellow_square:',
 	execute: async (message, options) => {
 
