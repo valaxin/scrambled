@@ -91,6 +91,8 @@ export default {
 		if (!message) return
 		if (!options) return
 
+		let IML = []
+
 		let parameters = {
 			episode: isFinite(parseInt(options[0])) ? parseInt(options[0]) : 1,
 			query: message.content.split('"')[1].split(' ').join(' ')
@@ -107,7 +109,9 @@ export default {
 			}
 		})
 
-		message.channel.send(question)
+		let sent = await message.channel.send(question)
+
+		IML.push(sent.id)
 
 		const filter = response => {
 			const selection = parseInt(response.content)
@@ -124,6 +128,10 @@ export default {
 				errors: ['time']
 			})
 			const selectedValue = collection.first().content - 1
+
+			message.channel.sendTyping()
+
+			IML.push(collection.first().id)
 
 			let infos = await information(results[selectedValue].url)
 
@@ -155,6 +163,11 @@ export default {
 			}
 
 			let embeds = await embed(selection)
+
+			for (let j = 0; j <= IML.length -1; j++) {
+				let m = await message.channel.messages.fetch(IML[j])
+				m.delete()
+			}
 
 			message.reply({
 				components: embeds.components,
