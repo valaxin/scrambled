@@ -6,7 +6,7 @@ export default {
   status: ':yellow_square:',
   arguments: '<subreddit>[?string] : <sort>[new|top|hot]',
   execute: async (message, options) => {
-    let requestFor = await fetch (`https://api.reddit.com/r/${options[0] || 'youtubehaiku'}?limit=100&sort=${options[1] || 'top'}`)
+    let requestFor = await fetch(`https://api.reddit.com/r/${options[0] || 'youtubehaiku'}?limit=100&sort=${options[1] || 'top'}`)
     let response = await requestFor.json()
     let videos = response.data.children.map(obj => {
       if (obj.data.url.match(/^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/)) {

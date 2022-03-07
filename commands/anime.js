@@ -1,7 +1,4 @@
 import fetch from 'node-fetch'
-import {
-	Interaction
-} from 'discord.js'
 
 const APIBase = 'https://lite-api.animemate.xyz'
 

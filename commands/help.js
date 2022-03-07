@@ -6,7 +6,10 @@ export default {
 	status: ':green_square:',
 	execute: async (message) => {
 		let commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'))
-		let embed = { title: 'Available Commands', fields: [] }
+		let embed = {
+			title: 'Available Commands',
+			fields: []
+		}
 		for (let file of commandFiles) {
 			let command = await import(`./${file}`)
 			embed.fields.push({
@@ -14,6 +17,8 @@ export default {
 				value: `\`${command.default.description}\` \narguments: \`${command.default.arguments || 'none'}\``
 			})
 		}
-		message.channel.send({ embeds: [embed] })
+		message.channel.send({
+			embeds: [embed]
+		})
 	},
 }

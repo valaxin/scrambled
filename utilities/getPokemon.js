@@ -9,32 +9,28 @@ export const getPokemon = async (slug) => {
   return data
 }
 
-export async function getGPSSPokemon (species) {
+export async function getGPSSPokemon(species) {
   let outgoingData = {
     mode: 'and',
-    species: [ species ],
+    species: [species],
     legal: true,
-    operators: [
-      { 
-        operator: 'IN',
-        field:'species'
-      }
-    ],
+    operators: [{
+      operator: 'IN',
+      field: 'species'
+    }],
     sort_field: 'legality',
     sort_direction: false
   }
-  let request = await fetch(gpssEndpoint,
-    {
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(outgoingData),
-      method: 'post'
-    }
-  )
+  let request = await fetch(gpssEndpoint, {
+    headers: {
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify(outgoingData),
+    method: 'post'
+  })
   let results = await request.json()
   let result = {}
-  for (let i = 0; results.pokemon.length -1; i++) {
+  for (let i = 0; results.pokemon.length - 1; i++) {
     if (results.pokemon[i].pokemon.nickname == results.pokemon[i].pokemon.species && results.pokemon[i].pokemon.is_legal === true) {
       result = results.pokemon[i]
       break
@@ -42,5 +38,8 @@ export async function getGPSSPokemon (species) {
   }
   let src = `https://flagbrew.org/gpss/${result.download_code}`
   let hex = Buffer.from(result.base_64, 'base64')
-  return { hex, src }
+  return {
+    hex,
+    src
+  }
 }

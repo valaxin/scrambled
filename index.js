@@ -15,10 +15,16 @@ commandFiles.forEach(async filename => {
 
 client.on('ready', async () => {
 	console.log('[discord.js] Bot Started...')
-	client.user.setPresence({ game: 'something', })
+	client.user.setActivity(`~help | v0.0.3`, {
+		type: 'WATCHING'
+	})
 })
-client.on('reconnecting', () => {	console.log('Reconnecting!') })
-client.on('disconnect', () => { console.log('Disconnect!') })
+client.on('reconnecting', () => {
+	console.log('Reconnecting!')
+})
+client.on('disconnect', () => {
+	console.log('Disconnect!')
+})
 client.on('messageCreate', async message => {
 	if (message.author.bot) return
 	if (!message.content.startsWith(config.prefix)) return

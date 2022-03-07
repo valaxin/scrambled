@@ -36,7 +36,9 @@ const getRandomPost = async (subreddit, sort) => {
       name: post.data.author,
       url: `https://reddit.com/u/${post.data.author}`
     },
-    image: { url: post.data.url },
+    image: {
+      url: post.data.url
+    },
     timestamp: new Date(post.data.created * 1000)
   }
 }
@@ -49,9 +51,11 @@ export default {
   execute: async (message, options) => {
     try {
       let embed = await getRandomPost(options[0], options[1])
-      await message.channel.send({ embeds: [embed] })
+      await message.channel.send({
+        embeds: [embed]
+      })
     } catch (err) {
       console.log(err)
     }
-  } 
+  }
 }
