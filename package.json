@@ -14,7 +14,7 @@
   "type": "module",
   "scripts": {
     "clean": "rm -rf ./temp/*",
-    "dev": "npm run clean && nodemon -i ./config.js -w ./commands -w ./client -w ./util -w ./index.js --verbose -- --experimental-json-modules ./index.js"
+    "dev": "npm run clean && nodemon -i ./config.js -w ./commands -w ./client -w ./utilities -w ./index.js --verbose -- --experimental-json-modules ./index.js"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
