@@ -1,30 +1,55 @@
 import fetch from 'node-fetch'
+import helpers from './helpers.js'
 
 const APIBase = 'https://lite-api.animemate.xyz'
 
-export async function searchFor (query) {
+let invocationCounter = 0
+let messageLog = []
+
+export async function search (query) {
   try {
+    if (!query) {
+      throw 'No Query Value Provided'
+    }
     const response = await fetch(`${APIBase}/search/${query}`)
     const data = await response.json()
-    data.map(a => a.slug = a.url.split('/anime/')[1])
+    data.map(item => item.slug = item.url.split('/anime/')[1])
     return data
-  } catch (error) { return error }
+  } catch (error) {
+    console.error(error)
+    return error
+  }
 }
 
-export async function getInformation (slug) {
+export async function information (slug) {
   try {
+    if (!slug) {
+      throw 'No Slug Value Provided'
+    }
 		const response = await fetch(`${APIBase}${slug}`)
 		const data = await response.json()
 		return data
-	} catch (error) { return error }
+	} catch (error) {
+    console.error(error)
+    return error
+  }
 }
 
-export async function getEpisodeLinks (slug, num) {
+export async function episode (slug, num) {
+  if (!slug) {
+    throw 'No Slug/Episode Number valueProvided'
+  }
+  if (!num) {
+    num = 1
+  }
   try {
 		const response = await fetch(`${APIBase}/episode/${slug}/${num}`)
 		const data = await response.json()
 		return data
-	} catch (error) { return error }
+	} catch (error) {
+    console.error(error)
+    return error
+  }
 }
 
 export async function embed(data) {
@@ -83,28 +108,26 @@ export async function embed(data) {
 	}
 }
 
-export const helpers = {
-  SSBDownloadLink: link => {
-    const chunks = link.split('/e/')
-    return `${chunks[0]}/dl?op=download_orig&id=${chunks[1]}&mode=h`
-  },
-  stringToHexColor: str => {
-    let hash = 0
-    let color = '0x'
-    for (let i = 0; i < str.length; i++) {
-      hash = str.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    for (let i = 0; i < 3; i++) {
-      let value = (hash >> (i * 8)) & 0xFF
-      color += ('00' + value.toString(16)).substr(-2)
-    }
-    return Number(color)
-  },
-}
-
 export async function inital (message, options) {
 
-  let messageLog = []
+  invocationCounter++
+
+  console.log('invocationCounter', invocationCounter)
+  console.log('messageLogBeforeWipe', messageLog)
+  console.log('messageLogBeforeWipeLength', messageLog.length)
+
+  if (invocationCounter > 1) {
+    if (messageLog.length > 0) {
+      let previousMessageId = messageLog[0].id
+      let previousCommandsMessages = await message.channel.messages.fetch(messageLog[0])
+      previousCommandsMessages.forEach(item => {
+        if (item.id === previousMessageId) {
+          item.delete()
+        }
+      })
+    }
+  }
+
   let storedSelection = {}
 
   // expected format %PREFIX%%COMMAND% %SERIES-NAME% %EPISODE-NUMBER%
@@ -117,7 +140,7 @@ export async function inital (message, options) {
   let seriesName = encodeURI(options.splice(0, options.length -1).join(' ').toLowerCase())
 
   // obtain the search results
-  let searchResults = await searchFor(seriesName)
+  let searchResults = await search(seriesName)
   
   // generate the question populating with search results
   let question = `**Please respond with the number of the series you want.**\n\n`
@@ -140,7 +163,7 @@ export async function inital (message, options) {
     // ingest response, and use it to select the requested value from the searchResults array
     let collection = await message.channel.awaitMessages({ filter, max: 1, time: 20000, errors: ['time'] })
 		let selectedValue = collection.first().content - 1
-    let seriesInformation = await getInformation (searchResults[selectedValue].url)
+    let seriesInformation = await information (searchResults[selectedValue].url)
 
     messageLog.push(collection.first().id) // <- push response message to log array
 
@@ -150,7 +173,7 @@ export async function inital (message, options) {
     seriesInformation[0].total_episodes < episodeNumber ? episodeNumber = seriesInformation[0].total_episodes : episodeNumber
 
     // get current episode
-    const currentEpisode = await getEpisodeLinks(searchResults[selectedValue].slug, episodeNumber)
+    const currentEpisode = await episode(searchResults[selectedValue].slug, episodeNumber)
     
     // create large object all incoming parameters and obtained content for this episode
     const selection = {
@@ -180,6 +203,7 @@ export async function inital (message, options) {
 			let loggedMessage = await message.channel.messages.fetch(messageLog[i])
 			loggedMessage.delete()
 		}
+    
     messageLog = []
 
     //... reply with embed object
@@ -196,13 +220,41 @@ export async function inital (message, options) {
   return storedSelection
 }
 
-/*
+export async function interaction (client, selection) {
 
-1. command input of series name and episode number > 2. ask user for series selection > 3. get links for episode in series
+  client.on('interactionCreate', async interaction => {
+    if (!interaction.isButton()) return
+    if (interaction.customId === 'next_episode') {
+
+      let previousEmbeds = interaction.message.embeds
+      let previousComponents = interaction.message.components
+
+      selection.episodeNumber = selection.episodeNumber + 1
+      selection.episodeLinks = await episode (selection.slug, selection.episodeNumber)
+
+      for (const link in selection.episodeLinks[0]) {
+        if (link === 'streamsb') {
+          selection.idealLinks.download = helpers.SSBDownloadLink(selection.episodeLinks[0][link])
+          selection.idealLinks.stream = selection.episodeLinks[0][link]
+        }
+      }
+
+      let embeds = await embed (selection)
+
+      if (selection.episodeNumber === selection.total_episodes) {
+        embeds.components[0].components.forEach(comp => {
+          if (comp.custom_id === 'next_episode') {
+            comp.disabled = true
+          }
+        })
+      }
+
+      interaction.update({ embeds: embeds.embeds, components: embeds.components })
+
+    } else {
+      return false
+    }
+  })
 
 
-*/
-
-// export async question () { return}
-
-// export async components () {}
+}

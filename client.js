@@ -7,7 +7,6 @@ export default class extends Client {
 			disabledEvents: ['TYPING_START'],
 			intents: [
 				Intents.FLAGS.GUILDS,
-				// Intents.FLAGS.GUILD_MEMBERS,
 				Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
 				Intents.FLAGS.GUILD_VOICE_STATES,
 				Intents.FLAGS.GUILD_MESSAGES,
