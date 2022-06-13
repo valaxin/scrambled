@@ -59,6 +59,8 @@ export async function embed(data) {
 		data.anime_summary = data.anime_summary.substr(0, 1000) + '...' 
 	}
 
+  console.log('data', data)
+
 	return {
 		components: [{
 			type: 1,
@@ -79,7 +81,7 @@ export async function embed(data) {
 				{
 					style: 3,
 					label: `Next Episode`,
-					custom_id: `next_episode`,
+					custom_id: `next-episode-${data.slug}`,
 					disabled: false,
 					type: 2
 				}
@@ -243,7 +245,7 @@ export async function interaction (client, selection) {
 
       if (selection.episodeNumber === selection.total_episodes) {
         embeds.components[0].components.forEach(comp => {
-          if (comp.custom_id === 'next_episode') {
+          if (comp.custom_id === `next-episode-${selection.slug}`) {
             comp.disabled = true
           }
         })

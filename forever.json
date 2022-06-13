@@ -1,0 +1,10 @@
+{
+  "uid": "app",
+  "append": true,
+  "watch": false,
+  "script": "npm run dev",
+  "sourceDir": "",
+  "logFile": "./.logs/forever.log",
+  "outFile": "'./.logs/out.log",
+  "errFile": "./.logs/error.log"
+}
