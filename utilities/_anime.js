@@ -52,7 +52,7 @@ export async function episode (slug, num) {
   }
 }
 
-export async function embed(data) {
+export async function embed (data) {
 
   // "dumb" fix for 1024 charater length limit on text fields...
 	if (data.anime_summary.length >= 1000) {

@@ -16,6 +16,55 @@ commandFiles.forEach(async filename => {
 client.on('ready', async () => {
 	console.log('[discord.js] Bot Started...')
 	client.user.setPresence(config.presence)
+
+	// create command manager using the Guild Id
+	const guild = client.guilds.cache.get(config.guild)
+
+	let slashCommands
+
+	if (guild) {
+		slashCommands = guild.commands
+	} else {
+		slashCommands = client.application.commands
+	}
+
+	slashCommands.create({
+		name: 'anime',
+		description: 'Get episode links for anime content.',
+		options: [
+			{
+				name: 'series',
+				description: 'The name of the series you want to watch',
+				required: true,
+				type: Discord.Constants.ApplicationCommandOptionTypes.STRING
+			},
+			{
+				name: 'episode',
+				description: 'The episode number you want to watch',
+				required: true,
+				type: Discord.Constants.ApplicationCommandOptionTypes.NUMBER
+			}
+		]
+	})
+
+})
+
+client.on('interactionCreate', async (interaction) => {
+	if (!interaction.isCommand()) {
+		return
+	}
+
+	const { commandName, options } = interaction
+
+	if (commandName === 'anime') {
+		
+		console.log(options)
+
+		interaction.reply({
+			content: 'blah blah',
+			ephemeral: true
+		})
+	}
 })
 
 client.on('reconnecting', () => {
