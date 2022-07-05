@@ -13,7 +13,8 @@ export default class extends Client {
 				Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
 			]
 		})
-		this.commands = new Collection()
+		this.slashCommands = new Collection()
+		this.legacyCommands = new Collection()
 		this.queue = new Map()
 		this.config = config
 	}

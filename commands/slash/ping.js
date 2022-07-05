@@ -1,6 +1,7 @@
 import Discord from 'discord.js'
 
 export const registration = {
+  status: ':red_square:',
   name: 'ping',
   description: 'sends pong'
 }

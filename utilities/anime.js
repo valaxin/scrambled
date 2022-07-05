@@ -142,6 +142,9 @@ export async function inital (message, options) {
   let seriesName = encodeURI(options.splice(0, options.length -1).join(' ').toLowerCase())
 
   // obtain the search results
+
+  console.log('from "~anime" legacy command', seriesName)
+
   let searchResults = await search(seriesName)
   
   // generate the question populating with search results
@@ -259,4 +262,8 @@ export async function interaction (client, selection) {
   })
 
 
+}
+
+export async function getLinks () {
+  
 }
