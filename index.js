@@ -1,60 +1,80 @@
 import fs from 'fs'
-import Discord from 'discord.js'
-import Client from './client.js'
 import config from './config.js'
+import { Client, Collection, Intents } from 'discord.js'
 
-const client = new Client(config)
+export const Bot = class extends Client {
+	constructor(config) {
+		super({
+			disableEveryone: true,
+			disabledEvents: ['TYPING_START'],
+			intents: [
+				Intents.FLAGS.GUILDS,
+				Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
+				Intents.FLAGS.GUILD_VOICE_STATES,
+				Intents.FLAGS.GUILD_MESSAGES,
+				Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+			]
+		})
+		this.slashCommands = new Collection()
+		this.legacyCommands = new Collection()
+		this.queue = new Map()
+		this.config = config
+	}
+}
 
-// client.legacyCommands = new Discord.Collection()
-// client.slashCommands = new Discord.Collection()
+// "make" bot
+const client = new Bot(config)
 
-// GET Legacy Commands
+// scan the provided directory for legacy command javascript files - will throw if keys aren't found. 
 const commandFiles = fs.readdirSync(config.legacyCommands).filter(file => file.endsWith('.js'))
 commandFiles.forEach(async filename => {
 	let resource = await import(`${config.legacyCommands}/${filename}`)
 	client.legacyCommands.set(resource.default.name, resource.default)
 })
 
-// GET Slash Commands
+// do the same for slash commands, will also throw if keys aren't found.
 const slashCommandFiles = fs.readdirSync(config.slashCommands).filter(file => file.endsWith('.js'))
 slashCommandFiles.forEach(async filename => {
 	let resource = await import(`${config.slashCommands}/${filename}`)
 	client.slashCommands.set(resource.registration.name, resource)
 })
 
-// ... Ready state
+// the bot is ready!
 client.on('ready', async () => {
 	console.log('[discord.js] Bot Started...')
+	console.log('[discord.js] Legacy & Slash Commands Loaded...')
 	client.user.setPresence(config.presence)
 
-	// Register Slash Commands
+	// register slash commands
 	let guild = client.guilds.cache.get(config.guild)
 	
 	console.log(`[discord.js] Connected Guild : "${guild.name}" -- "${guild.id}"`)
 
+	// register if only if there is a guild, to do so otherwise would be foolish!
 	if (guild) {
 		client.slashCommands.forEach(command => {
 			guild.commands.create(command.registration)
-			console.log(`[discord.js] successfully registered /${command.registration.name} command`)
+			console.log(`[discord.js] Successfully Registered "/${command.registration.name}"`)
 		})
 	} else {
-		console.log('No Guild?!')
+		console.log('[discord.js] What the!? No guild!')
 	}
-
 })
 
-// ... What The Command Does
+// interaction creates occur when you the human
+// interact on the attached servers (guild)
+// filter these for commands and call
+// the slash commands as needed
 client.on('interactionCreate', async (interaction) => {
-	// IF called IS NOT command. ELSE called IS corrasponding response
 	if (!interaction.isCommand()) return
 	let { commandName, options } = interaction
 	let command = client.slashCommands.get(commandName)
-	let result = await command.responses(interaction)
-	console.log([interaction])
-	console.log('result', result)
+	console.log(`[discord.js] "/${commandName}" invoked by "@${interaction.member.user.username}#${interaction.member.user.discriminator}"`)
+	let result = await command.responses(interaction, options)
 })
 
 // ... Legacy command message scanning
+// look for prefix, if prefix, is command? if not respond the error
 client.on('messageCreate', async message => {
 	if (message.author.bot) return
 	if (!message.content.startsWith(config.prefix)) return
@@ -71,7 +91,6 @@ client.on('messageCreate', async message => {
 
 client.on('reconnecting', () => { console.log('[discord.js] - Reconnecting...') })
 client.on('disconnect', () => { console.log('[discord.js] - Disconnected...') })
-
 client.login(config.keys.discord)
 
 export default client

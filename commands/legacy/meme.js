@@ -13,7 +13,7 @@ const stringToHexColor = str => {
   return Number(color)
 }
 
-const getRandomPost = async (subreddit, sort) => {
+export const getRandomPost = async (subreddit, sort) => {
   let requestFor = await fetch(`https://api.reddit.com/r/${subreddit || 'blursed'}?limit=100&sort=${sort || 'top'}`)
   let response = await requestFor.json()
 

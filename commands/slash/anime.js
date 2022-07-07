@@ -70,10 +70,45 @@ export const responses = async (interaction) => {
   })
   */
 
-  /*
+  
   interaction.reply({
-    content: 'blah blah',
-    ephemeral: true
-  })
-  */
+    "tts": false,
+  "components": [{
+    "type": 1,
+    "components": [{
+        "style": 1,
+        "label": `Stream Link`,
+        "custom_id": `stream_link_content_title_episode_number`,
+        "disabled": false,
+        "type": 2
+      },
+      {
+        "style": 1,
+        "label": `Direct Download`,
+        "custom_id": `direct_download_content_title_episode_number`,
+        "disabled": false,
+        "type": 2
+      },
+      {
+        "style": 2,
+        "label": `Series Information`,
+        "custom_id": `series_information_content_title_episode_number`,
+        "disabled": false,
+        "type": 2
+      },
+      {
+        "style": 4,
+        "label": `End Query`,
+        "custom_id": `end_query_content_title_episode_number`,
+        "disabled": false,
+        "type": 2
+      }
+    ]
+  }],
+  "embeds": [{
+    "type": "rich",
+    "title": `Anime Series Title`,
+    "description": `A less than 250char summery of the series/movie`,
+    "color": 0x1ad9d9
+  }]})
 }
