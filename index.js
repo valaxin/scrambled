@@ -1,6 +1,7 @@
 import fs from 'fs'
 import config from './config.js'
 import { Client, Collection, Intents } from 'discord.js'
+import { log } from './utilities/helpers.js'
 
 export const Bot = class extends Client {
 	constructor(config) {
@@ -41,23 +42,23 @@ slashCommandFiles.forEach(async filename => {
 
 // the bot is ready!
 client.on('ready', async () => {
-	console.log('[discord.js] Bot Started...')
-	console.log('[discord.js] Legacy & Slash Commands Loaded...')
+	log('magenta', '[discord.js] Bot Started...')
+	log('green', '[discord.js] Legacy & Slash Commands Loaded...')
 	client.user.setPresence(config.presence)
 
 	// register slash commands
 	let guild = client.guilds.cache.get(config.guild)
 	
-	console.log(`[discord.js] Connected Guild : "${guild.name}" -- "${guild.id}"`)
+	log('green', `[discord.js] Connected Guild : "${guild.name}" -- "${guild.id}"`)
 
 	// register if only if there is a guild, to do so otherwise would be foolish!
 	if (guild) {
 		client.slashCommands.forEach(command => {
 			guild.commands.create(command.registration)
-			console.log(`[discord.js] Successfully Registered "/${command.registration.name}"`)
+			log('green', `[discord.js] Successfully Registered '/${command.registration.name}'`)
 		})
 	} else {
-		console.log('[discord.js] What the!? No guild!')
+		log('red', '[discord.js] What the!? No guild!')
 	}
 })
 
@@ -69,7 +70,7 @@ client.on('interactionCreate', async (interaction) => {
 	if (!interaction.isCommand()) return
 	let { commandName, options } = interaction
 	let command = client.slashCommands.get(commandName)
-	console.log(`[discord.js] "/${commandName}" invoked by "@${interaction.member.user.username}#${interaction.member.user.discriminator}"`)
+	log('white', `[discord.js] '/${commandName}' invoked by '@${interaction.member.user.username}#${interaction.member.user.discriminator}'`)
 	let result = await command.responses(interaction, options)
 })
 
@@ -81,7 +82,7 @@ client.on('messageCreate', async message => {
 	const options = message.content.slice(config.prefix.length).split(/ +/)
 	const command = client.legacyCommands.get(options.shift().toLowerCase())
 	try {
-		console.log(command)
+		log('blue', `[discord.js] '/${command.name}' invoked by '@${message.member.user.username}#${message.member.user.discriminator}'`)
 		command.execute(message, options, client)
 	} catch (error) {
 		console.error(error)

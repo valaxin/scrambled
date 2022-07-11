@@ -2,7 +2,7 @@ import fs from 'fs'
 import rc from '../../config.js'
 import path from 'path'
 
-console.log('rc.legacyCommands', rc.legacyCommands, 'rc.slashCommands', rc.slashCommands)
+// console.log('rc.legacyCommands', rc.legacyCommands, 'rc.slashCommands', rc.slashCommands)
 
 export default {
 	name: 'help',
@@ -27,9 +27,9 @@ export default {
 		}
 		
 		for (let file of slashCommandFiles) {
-			console.log(file)
+			// console.log(file)
 			let command = await import(path.resolve(rc.slashCommands, file))
-			console.log(command)
+			// console.log(command)
 			embed.fields.push({
 				name: `:SLASH-COMMAND: - ${command.registration.status || 0} - **${command.registration.name}**`,
 				value: `\`${command.registration.description}\``
