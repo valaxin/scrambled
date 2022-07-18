@@ -52,7 +52,7 @@ export async function episode (slug, num) {
   }
 }
 
-export async function embed(data) {
+export async function embed (data) {
 
   // "dumb" fix for 1024 charater length limit on text fields...
 	if (data.anime_summary.length >= 1000) {
@@ -142,6 +142,9 @@ export async function inital (message, options) {
   let seriesName = encodeURI(options.splice(0, options.length -1).join(' ').toLowerCase())
 
   // obtain the search results
+
+  console.log('from "~anime" legacy command', seriesName)
+
   let searchResults = await search(seriesName)
   
   // generate the question populating with search results
@@ -259,4 +262,8 @@ export async function interaction (client, selection) {
   })
 
 
+}
+
+export async function getLinks () {
+  
 }

@@ -1,4 +1,4 @@
-import { inital, interaction } from '../utilities/_anime.js'
+import { inital, interaction } from '../../utilities/anime.js'
 
 export default {
 	name: 'anime',

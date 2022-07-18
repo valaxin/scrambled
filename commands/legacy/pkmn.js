@@ -1,4 +1,4 @@
-import { getPokemon, getGPSSPokemon } from '../utilities/getPokemon.js'
+import { getPokemon, getGPSSPokemon } from '../../utilities/getPokemon.js'
 import path from 'path'
 import fs from 'fs'
 

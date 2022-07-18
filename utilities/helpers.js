@@ -1,3 +1,5 @@
+import chalk from 'chalk'
+
 export default {
   
   getUserFromMention: (mention, client) => {
@@ -29,6 +31,20 @@ export default {
       color += ('00' + value.toString(16)).substr(-2)
     }
     return Number(color)
-  },
+  }
+
+}
+
+export const log = (color, message) => {
+  let slug = '[discord.js]'
+  try {
+    if (message.includes(slug)) {
+      console.log(chalk.magenta(slug) + chalk[color](message.split(slug)[1]))
+    } else {
+      console.log(chalk[color](message))
+    }
+  } catch (err) {
+    chalk.red(err)
+  }
 
 }
