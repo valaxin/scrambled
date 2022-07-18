@@ -56,6 +56,10 @@ export const responses = async (interaction) => {
 
   possibleContent.map(content => {
 
+    // select the first full matching string withing the 'possibleContent'
+
+    
+
     if (!subtitles) {
       series.value = series.value + ' (dub)'
     }
