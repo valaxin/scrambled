@@ -1,14 +1,10 @@
-import {
-  Constants
-} from 'discord.js'
-import {
-  embed,
-  information,
-  search
-} from '../../utilities/anime.js'
+import { Constants } from 'discord.js'
+import { episode, information, search } from '../../utilities/anime.js'
+import { streamLink, shortenString, stringToHexColor } from '../../utilities/helpers.js'
 
+// Slash Command Registration Object, Check Discord.js Documentation for more info and syntax.
 export const registration = {
-  status: ':red_square:',
+  status: ':yellow_square:',
   name: 'anime',
   description: 'Get episode links for anime content.',
   options: [{
@@ -20,7 +16,7 @@ export const registration = {
     {
       name: 'episode',
       description: 'The episode number you want to watch',
-      required: false,
+      required: true,
       type: Constants.ApplicationCommandOptionTypes.NUMBER
     },
     {
@@ -32,87 +28,88 @@ export const registration = {
   ]
 }
 
-// get anime data [1]?
-
-// -- whats the query?!
-
-
-// show anime data [2]?
-
-// how does this handle interactions [3]? 
-
-// can i just hand it an embed and it will render it [4]
-
+// Operational Code, Actions taken when user submits the command hook with arguments.
 export const responses = async (interaction) => {
 
-  let series = interaction.options.get('series')
-  let episode = interaction.options.get('episode')
-  let subtitles = interaction.options.get('subtitles')
-
-  console.log(`[discord.js] '@${interaction.member.user.username}#${interaction.member.user.discriminator}' is searching for '${series.value}' episode #'${episode.value}'`)
-
+  // The arguments provided by with user.
+  let series = interaction.options.get('series') // String
+  let number = interaction.options.get('episode') // String
+  let subtitles = interaction.options.get('subtitles') // Boolen
+  
+  // Locate selection anime based on provided string,
+  // example: search for "Dragon Ball (Dub)", this attampts to
+  // match 'slug' values like: "dragon-ball-dub".
+  let slugArgument = ''
+  if (subtitles != null) {
+    if (subtitles.value === true) {
+      slugArgument = `${series.value.toLowerCase().split(' ').join('-')}`
+    }
+  } else {
+    slugArgument = `${series.value.toLowerCase().split(' ').join('-')}-dub`
+  }
   let possibleContent = await search(encodeURI(series.value))
-  let selectedContent = ''
-
-  possibleContent.map(content => {
-
-    // select the first full matching string withing the 'possibleContent'
-
-    
-
-    if (!subtitles) {
-      series.value = series.value + ' (dub)'
+  let content = possibleContent.filter(item => {
+    if (item.slug === slugArgument) {
+      return item
     }
-
-    if (content.animetitle.toLowerCase() === series.value.toLowerCase()) {
-      selectedContent = content
-    }
-
-    console.log(content.animetitle, series.value)
-
-    console.log(content)
-
   })
 
+  // Obtain data about the selected episode.
+  let info = await information(content[0].url)
+  let links = await episode(content[0].slug, number.value)
+
+  // Reply with the desired episode information.
   interaction.reply({
-    'tts': false,
-    'components': [{
-      'type': 1,
-      'components': [{
-          'style': 1,
-          'label': `Stream Link`,
-          'custom_id': `stream_link_content_title_episode_number`,
-          'disabled': false,
-          'type': 2
+    tts: false,
+    components: [
+      {
+        type: 1,
+        components: [
+          {
+            style: 5,
+            label: `${info[0].animetitle} (${info[0].alternate_titles}) - #${number.value}`,
+            url: links[0].streamsb,
+            disabled: false,
+            type: 2
+          }
+        ]
+      }
+    ],
+    embeds: [
+      {
+        type: `rich`,
+        title: `${info[0].animetitle}`,
+        color: stringToHexColor(info[0].animetitle),
+        description: '#' + info[0].anime_genre.replace(/\s+/g, '').split(',').join(' #'),
+        image: {
+          url: `${info[0].thumbnail}`,
         },
-        {
-          'style': 1,
-          'label': `Direct Download`,
-          'custom_id': `direct_download_content_title_episode_number`,
-          'disabled': false,
-          'type': 2
-        },
-        {
-          'style': 2,
-          'label': `Series Information`,
-          'custom_id': `series_information_content_title_episode_number`,
-          'disabled': false,
-          'type': 2
-        },
-        {
-          'style': 4,
-          'label': `End Query`,
-          'custom_id': `end_query_content_title_episode_number`,
-          'disabled': false,
-          'type': 2
+        fields: [
+          {
+            name: `Released`,
+            value: `${info[0].anime_year}`,
+            inline: true
+          },
+          {
+            name: `Episodes`,
+            value: `${info[0].total_episodes}`,
+            inline: true
+          },
+          {
+            name: `Status`,
+            value: `${info[0].anime_status}`,
+            inline: true
+          },
+          {
+            name: 'Summary',
+            value: shortenString(250, info[0].anime_summary),
+            inline: false
+          }
+        ],
+        footer: {
+          text: `Results Obtained From Anime Mate API`,
+          icon_url: `https://animevibe.se/192x192.png`
         }
-      ]
-    }],
-    'embeds': [{
-      'type': 'rich',
-      'title': `Anime Series Title`,
-      'description': `A less than 250char summery of the series/movie`,
-      'color': 0x1ad9d9
     }]
   })
 }

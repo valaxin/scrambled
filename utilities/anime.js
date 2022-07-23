@@ -14,6 +14,7 @@ export async function search (query) {
     const response = await fetch(`${APIBase}/search/${query}`)
     const data = await response.json()
     data.map(item => item.slug = item.url.split('/anime/')[1])
+    // console.log(data)
     return data
   } catch (error) {
     console.error(error)

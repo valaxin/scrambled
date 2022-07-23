@@ -49,7 +49,7 @@ client.on('ready', async () => {
 	// register slash commands
 	let guild = client.guilds.cache.get(config.guild)
 	
-	log('green', `[discord.js] Connected Guild : "${guild.name}" -- "${guild.id}"`)
+	log('green', `[discord.js] Connected To Guild : "${guild.name}" -- "${guild.id}"`)
 
 	// register if only if there is a guild, to do so otherwise would be foolish!
 	if (guild) {
