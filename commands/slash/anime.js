@@ -43,16 +43,24 @@ export const responses = async (interaction) => {
   if (subtitles != null) {
     if (subtitles.value === true) {
       slugArgument = `${series.value.toLowerCase().split(' ').join('-')}`
+    } else {
+      slugArgument = `${series.value.toLowerCase().split(' ').join('-')}-dub`
     }
-  } else {
-    slugArgument = `${series.value.toLowerCase().split(' ').join('-')}-dub`
-  }
+  } else { slugArgument = `${series.value.toLowerCase().split(' ').join('-')}-dub` }
+  
   let possibleContent = await search(encodeURI(series.value))
+  
   let content = possibleContent.filter(item => {
     if (item.slug === slugArgument) {
       return item
     }
   })
+
+  if (content.length === 0) {
+    content[0] = possibleContent[0]
+  } 
+
+  console.log({ slugArgument, subtitles, series, number, content, possibleContent })
 
   // Obtain data about the selected episode.
   let info = await information(content[0].url)
