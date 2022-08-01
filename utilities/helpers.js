@@ -63,3 +63,11 @@ export const shortenString = (limit, str) => {
     return str.substr(0, limit) + ' ...'
   }
 }
+
+// helper function for /watch slash command.
+export async function obtainMedia(interaction, options) {
+  console.log({
+    interaction,
+    options
+  })
+}

@@ -60,11 +60,13 @@ export const responses = async (interaction) => {
     content[0] = possibleContent[0]
   } 
 
-  console.log({ slugArgument, subtitles, series, number, content, possibleContent })
-
   // Obtain data about the selected episode.
   let info = await information(content[0].url)
   let links = await episode(content[0].slug, number.value)
+
+
+  // console.log({ slugArgument, subtitles, series, number, content, possibleContent, info, links })
+
 
   // Reply with the desired episode information.
   interaction.reply({
