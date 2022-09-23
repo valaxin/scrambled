@@ -4,7 +4,7 @@ import { obtainMedia } from '../../utilities/helpers.js'
 export const registration = {
   status: ':yellow_square:',
   name: 'watch',
-  description: '',
+  description: 'something needs to be here?',
   options: [
     {
       name: 'subreddit',
