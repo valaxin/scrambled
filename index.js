@@ -1,7 +1,7 @@
 import fs from 'fs'
 import config from './config.js'
 import { Client, Collection, Intents } from 'discord.js'
-import { log } from './utilities/helpers.js'
+// import { log } from './utilities/helpers.js'
 
 export const Bot = class extends Client {
 	constructor(config) {

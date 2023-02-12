@@ -1,20 +1,20 @@
 # scrambled
 
-> A personal, extensable Discord bot.
+> A light expandable Discord bot.
 
 ## Purpose
 
-A simple bot that's easily scalable with a module system for easy configuration and command creation. Providing a solution for streamer go-live/online alerts from both static and dynamic sources. Along with a YouTube radio player and meme source for its users.
+An intuative bot that's trival to scale. A module based command system, with readable configuration and command syntax. We're providing a solution for streamer go-live/online alerts from both static and dynamic sources. Along with a a media player for various types of incall audio, meme/content source for its users among other features decribed in futher detail below.
 
 ---
 
-## Install & Run 
+## Download, Install & Run 
 
-Copy the project from it's repository on github by either cloning it via the cli or downloading the .zip archive. Once saved locally, navigate to the project folder. 
+Copy the project from it's repository on github by either cloning it via the cli or downloading the .zip archive. Once saved locally, navigate to the project directory. 
 
 ```bash
 $ git clone https://github.com/valaxin/scrambled.git
-$ cd path/to/scrambled
+$ cd ~/local/path/to/scrambled
 ```
 
 Create the **required** [config.js](/#options) file at the root level of the project, populate this file with the necessary information, Then install the dependencies and run. 
@@ -24,12 +24,14 @@ $ touch config.js
 $ npm install
 $ npm start
 # or
-$ npm run dev 
+$ npm run dev
 ```
 
 ---
 
 ## Config Options
+
+Rather self explanitory, this discord key is the bot's client id, found withing the Discord developer portal. the twitch usernames are static preformers we monitor for go live events to alert the chat, 
 
 ```javascript
 export default {
@@ -40,6 +42,9 @@ export default {
   users: {
     twitch: [ 'twitch-username' ]
   },
+  urls: [
+    '
+  ]
   presence: {}
 }
 ```
@@ -48,7 +53,7 @@ export default {
 
 ## Legacy Command Module Example
 
-within the `./commands` directory create a file with the name of the command for example `ping.js` it should contain at least the following to work correctly with this bot.
+within the `./commands/legacy` directory create a file with the name of the command for example `ping.js` it should contain at least the following to work correctly with this bot.
 
 ```javascript
 
@@ -62,6 +67,10 @@ export default {
   }
 }
 ```
+
+## Slash Command Module Example
+
+
 
 ---
 

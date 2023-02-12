@@ -1,6 +1,6 @@
 import { Constants } from 'discord.js'
-import { episode, information, search } from '../../utilities/anime.js'
-import { streamLink, shortenString, stringToHexColor } from '../../utilities/helpers.js'
+// import { episode, information, search } from '../../utilities/anime.js'
+// import { streamLink, shortenString, stringToHexColor } from '../../utilities/helpers.js'
 
 // Slash Command Registration Object, Check Discord.js Documentation for more info and syntax.
 export const registration = {
