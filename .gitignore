@@ -1,5 +1,6 @@
 node_modules
 config.js
-.old-commands
+.cmds
 .temp
 .todo
+.logs
