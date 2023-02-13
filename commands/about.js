@@ -1,8 +1,7 @@
-import Discord from 'discord.js'
 import pkgInfo from '../package.json' assert { type: 'json' }
 
 export const registration = {
-  status: ':red_square:',
+  status: ':yellow_square:',
   name: 'about',
   description: 'Print information about this disord bot'
 }
@@ -22,24 +21,7 @@ export const projectInfoEmbedObject = async (data) => {
   }
 }
 
-/*
-  name: '',
-  description: '~',
-  version: '0.0.3',
-  main: 'index.js',
-  license: 'MIT',
-  author: { name: 'valaxin', url: 'https://github.com/valaxin' },
-  bugs: { url: 'https://github.com/valaxin/scrambled/issues' },
-*/
-
-
 export const responses = async (interaction) => {
-
   let embeds = await projectInfoEmbedObject({ pkgInfo })
-
-  console.log(embeds)
-  interaction.reply({
-    embeds: [ embeds ],
-    empheral: true
-  })
+  interaction.reply({ embeds: [ embeds ], empheral: true })
 }
