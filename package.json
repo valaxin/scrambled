@@ -13,9 +13,9 @@
   },
   "type": "module",
   "scripts": {
-    "clean": "rm -rf ./.temp/*",
-    "dev": "npm run clean && nodemon -i ./config.js -w ./commands -w ./client -w ./utilities -w ./index.js --verbose -- --experimental-json-modules ./index.js",
-    "forever": "forever start ./forever.json"
+    "clean-temporary-files": "rm -rf ./.temp/*",
+    "development-mode": "nodemon -i ./config.js -w ./commands -w ./client -w ./utilities -w ./index.js --verbose -- --trace-warnings --experimental-json-modules ./index.js",
+    "init": "npm run clean-temporary-files && npm run development-mode"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",

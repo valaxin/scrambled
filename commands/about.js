@@ -1,4 +1,5 @@
 import pkgInfo from '../package.json' assert { type: 'json' }
+import parsers from '../utilities/parsers.js'
 
 export const registration = {
   status: ':yellow_square:',
@@ -23,5 +24,7 @@ export const projectInfoEmbedObject = async (data) => {
 
 export const responses = async (interaction) => {
   let embeds = await projectInfoEmbedObject({ pkgInfo })
+  let itData = await parsers.parseInteractionData(interaction)
+  console.log(`${itData.user.full} issued "${itData.command.type}" "/${itData.command.name}" @ ${new Date().toUTCString()}`)
   interaction.reply({ embeds: [ embeds ], empheral: true })
 }

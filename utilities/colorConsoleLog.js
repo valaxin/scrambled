@@ -1,5 +1,5 @@
-export default async function (message, options) {
+import chalk from 'chalk'
 
-  console.log()
-
+export default async function (message, color) {
+  return console.log(chalk[color](message))
 }
