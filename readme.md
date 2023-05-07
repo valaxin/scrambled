@@ -4,27 +4,26 @@
 
 ## Purpose
 
-An intuative bot that's trival to scale. A module based command system, with readable configuration and command syntax. We're providing a solution for streamer go-live/online alerts from both static and dynamic sources. Along with a a media player for various types of incall audio, meme/content source for its users among other features decribed in futher detail below.
+An intuative bot that's trival to scale. A module based command system, with readable configuration and command syntax. We're providing a solution for streamer go-live/online alerts from both static and dynamic sources.
 
 ---
 
-## Download, Install & Run 
+## Download, Install then Run
 
-Copy the project from it's repository on github by either cloning it via the cli or downloading the .zip archive. Once saved locally, navigate to the project directory. 
+Copy the project from it's repository on github by either cloning the repository or downloading the .zip archive. Once saved and available locally, navigate to the project's directory.
 
-```bash
-$ git clone https://github.com/valaxin/scrambled.git
-$ cd ~/local/path/to/scrambled
+```shell
+git clone https://github.com/valaxin/scrambled.git
+cd ~/local/path/to/scrambled
 ```
 
 Create the **required** [config.js](/#options) file at the root level of the project, populate this file with the necessary information, Then install the dependencies and run. 
 
-```bash
-$ touch config.js
-$ npm install
-$ npm start
-# or
-$ npm run dev
+```shell
+touch config.js
+# edit config
+npm install
+npm run dev 
 ```
 
 ---
@@ -56,7 +55,6 @@ export default {
 within the `./commands/legacy` directory create a file with the name of the command for example `ping.js` it should contain at least the following to work correctly with this bot.
 
 ```javascript
-
 export default {
   name: 'ping',
   description: 'ping/pong command',
@@ -70,13 +68,9 @@ export default {
 
 ## Slash Command Module Example
 
-
-
 ---
 
 ## Available Commands
-
-tba
 
 ---
 

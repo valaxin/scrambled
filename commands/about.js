@@ -1,5 +1,6 @@
 import pkgInfo from '../package.json' assert { type: 'json' }
-import parsers from '../utilities/parsers.js'
+import parsers from '../utilities/parser.js'
+import { Client } from 'discord.js'
 
 export const registration = {
   status: ':yellow_square:',
@@ -8,6 +9,11 @@ export const registration = {
 }
 
 export const projectInfoEmbedObject = async (data) => {
+
+  let infoString = `"--"`
+
+  console.log(Client)
+
   return {
     type: 'rich',
     title: data.pkgInfo.name,
@@ -18,12 +24,22 @@ export const projectInfoEmbedObject = async (data) => {
       name: data.pkgInfo.author.name,
       url: data.pkgInfo.author.url,
       icon_url: '',
-    }
+    },
+    fields: [
+      {
+        name: `Uptime`,
+        value: `${await parsers.readableProcUptime()}`
+      },
+      {
+        name: `Information`,
+        value: infoString
+      }
+    ]
   }
 }
 
 export const responses = async (interaction) => {
-  let embeds = await projectInfoEmbedObject({ pkgInfo })
+  let embeds = await projectInfoEmbedObject({ pkgInfo, interaction })
   let itData = await parsers.parseInteractionData(interaction)
   console.log(`${itData.user.full} issued "${itData.command.type}" "/${itData.command.name}" @ ${new Date().toUTCString()}`)
   interaction.reply({ embeds: [ embeds ], empheral: true })

@@ -1,5 +1,7 @@
 node_modules
+
 config.js
+
 .cmds
 .temp
 .todo
