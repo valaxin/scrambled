@@ -1,6 +1,9 @@
-# scrambled
-
-> A light expandable Discord bot.
+<p align="center">
+<img src="/icon.png" length=10% width=10%>
+</p>
+<h1 align="center">Scrambled</h1>
+<p align="center">A user friendly, extensable discord bot.</p>
+</p>
 
 ## Purpose
 

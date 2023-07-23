@@ -1,5 +1,9 @@
 import chalk from 'chalk'
 
-export default async function (message, color) {
-  return console.log(chalk[color](message))
+export default {
+  opt: {},
+  log: (color, message) => {
+    if (opt.file) { message = `[${opt.file}] ${message}` }
+    return console.log(`${color} :: ${message}`)
+  }
 }
