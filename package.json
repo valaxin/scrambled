@@ -13,9 +13,10 @@
   },
   "type": "module",
   "scripts": {
-    "clean-temporary-files": "rm -rf ./.temp/*",
-    "development-mode": "nodemon -i ./config.js -w ./commands -w ./client -w ./utilities -w ./index.js --verbose -- --trace-warnings --experimental-json-modules ./index.js",
-    "init": "npm run clean-temporary-files && npm run development-mode"
+    "clean": "rm -rf ./.web-temp/* ./.bot-temp/*",
+    "start:bot": "nodemon -i ./config.js -i ./web -w ./commands -w ./utilities -w ./index.js --verbose --trace-warnings --experimental-json-modules ./index.js",
+    "start:web": "nodemon -i ./config.js -i ./commands -i ./resources -i ./utilities -w ./service --verbose --trace-warnings ./service/index.js",
+    "initalize": "npm run clean && concurrently 'npm run start:bot' 'npm run start:web'" 
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
@@ -24,17 +25,19 @@
   "dependencies": {
     "@discordjs/opus": "^0.8.0",
     "axios": "^0.27.2",
-    "body-parser": "^1.20.1",
+    "body-parser": "^1.20.2",
     "chalk": "^5.0.1",
     "cheerio": "^1.0.0-rc.12",
     "colors": "^1.4.0",
     "cookie-parser": "^1.4.6",
     "discord.js": "^13.5.0",
+    "express": "^4.18.2",
     "ffmpeg": "0.0.4",
     "fluent-ffmpeg": "^2.1.2",
     "morgan": "^1.10.0",
     "node-fetch": "^3.1.1",
     "nodemon": "~3.0.1",
+    "socket.io": "^4.7.2",
     "ytdl-core": "^4.9.2"
   }
 }
