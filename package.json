@@ -15,8 +15,8 @@
   "scripts": {
     "clean": "rm -rf ./.web-temp/* ./.bot-temp/*",
     "start:bot": "nodemon -i ./config.js -i ./web -w ./commands -w ./utilities -w ./index.js --verbose --trace-warnings --experimental-json-modules ./index.js",
-    "start:web": "nodemon -i ./config.js -i ./commands -i ./resources -i ./utilities -w ./service --verbose --trace-warnings ./service/index.js",
-    "initalize": "npm run clean && concurrently 'npm run start:bot' 'npm run start:web'" 
+    "start:web": "nodemon -i ./config.js -i ./commands -i ./resources -i ./utilities -w ./service --verbose --trace-warnings ./www/server.js",
+    "start": "npm run clean && concurrently 'npm run start:web' 'npm run start:bot'" 
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",

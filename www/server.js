@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import { Server } from 'socket.io'
 import http from 'http'
-import APIController from './api.js'
+import APIController from './api/index.js'
 
 const PORT = '3000'
 const HOST = 'localhost'
@@ -19,7 +19,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 
-app.use('/api/', APIController)
+app.use('/api', APIController)
 
 app.get('/', (req, res, next) => {
   console.log(`[express] request for '/'`)

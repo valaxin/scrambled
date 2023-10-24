@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import path from 'path'
-import app from './server.js'
+import app from '../server.js'
 
 const router = Router()
 
