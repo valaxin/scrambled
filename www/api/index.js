@@ -1,28 +1,24 @@
 import { Router } from 'express'
 import path from 'path'
 import app from '../server.js'
+import parser from '../../utilities/parser.js'
+import client from '../../index.js'
+
+console.log(client)
 
 const router = Router()
 
 router.get('/', async (req, res, next) => {
-    res.json({ version: '0.0.1', repository: 'https://github.com/valaxin/scrambed' })
+    res.json({
+        vrsn: '0.0.3',
+        repo: 'https://github.com/valaxin/scrambed',
+        auth: '@valaxin'
+    })
 })
 
 router.post('/interaction/:command', async (req, res, next) => {
     console.log(req.body)
     console.log(req.params.command)
-
-    switch (req.params.command) {
-        case 'anime-query-api' :
-            console.log('hello!')
-            break
-        
-        deafult :
-            console.log(`${req.params.command} not found!`)
-            break
-
-    }
-
     res.sendStatus(200)
 })
 
@@ -30,6 +26,20 @@ router.post('/fetch/:resource', async (req, res, next) => {
     console.log(req.body)
     console.log(req.params.resource)
     res.sendStatus(200)
+})
+
+router.post('/schedule/:event', async (req, res, next) => {
+    console.log(req.body)
+    console.log(req.params.event)
+    res.sendStatus(200)
+})
+
+router.get('/metrics', async (req, res, next) => {
+    res.json({
+        _uuids: [],
+        uptime: await parser.readableProcUptime(),
+        lastop: ''
+    })
 })
 
 

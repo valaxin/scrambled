@@ -52,5 +52,8 @@ export default {
 
     let dateString = segments.join(', ')
     return dateString
+  },
+  connectedGuilds: async (guilds) => {
+    console.log(guilds)
   }
 }
