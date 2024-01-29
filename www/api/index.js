@@ -9,6 +9,7 @@ console.log(client)
 const router = Router()
 
 router.get('/', async (req, res, next) => {
+    res.setHeader('X-Some-Name', 'Some Value')
     res.json({
         vrsn: '0.0.3',
         repo: 'https://github.com/valaxin/scrambed',

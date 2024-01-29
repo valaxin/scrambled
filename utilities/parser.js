@@ -54,6 +54,6 @@ export default {
     return dateString
   },
   connectedGuilds: async (guilds) => {
-    console.log(guilds)
+    // console.log(guilds)
   }
 }
