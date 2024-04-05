@@ -1,7 +1,7 @@
-import pkgInfo from '../package.json' assert { type: 'json' }
+import pkgInfo from '../../../package.json' assert { type: 'json' }
 import parsers from '../utilities/parser.js'
 import { Client } from 'discord.js'
-import client from '../index.js'
+import client from '../../../index.js'
 
 export const registration = {
   status: ':yellow_square:',

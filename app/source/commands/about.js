@@ -1,4 +1,4 @@
-import pkgInfo from '../package.json' assert { type: 'json' }
+import pkgInfo from '../../../package.json' assert { type: 'json' }
 import parsers from '../utilities/parser.js'
 import { Client } from 'discord.js'
 

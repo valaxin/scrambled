@@ -1,6 +1,8 @@
 import fs from 'fs'
-import config from './config.js'
-import { Client, Collection, Intents } from 'discord.js'
+import config from '../../config.js'
+import pkg from 'discord.js'
+
+const { Client, Collection, Intents } = pkg
 
 // Define properties and objects within
 // a new "Bot" constructor class.

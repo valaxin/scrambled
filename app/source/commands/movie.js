@@ -1,7 +1,7 @@
 
 import fs from 'fs'
 import axios from 'axios'
-import cfg from '../config.js'
+import cfg from '../../../config.js'
 import { Constants } from 'discord.js'
 
 // INPUTS: query for media by search

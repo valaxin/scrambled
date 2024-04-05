@@ -2,7 +2,7 @@ import { Router } from 'express'
 import path from 'path'
 import app from '../server.js'
 import parser from '../../utilities/parser.js'
-import client from '../../index.js'
+import client from '../../src/index.js'
 
 console.log(client)
 
