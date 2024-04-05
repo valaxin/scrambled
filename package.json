@@ -1,38 +1,21 @@
 {
   "name": "scrambled",
-  "description": "",
+  "description": "~",
   "version": "0.1.0",
   "main": "index.js",
   "license": "MIT",
-  "author": {
-    "name": "valaxin",
-    "url": "https://github.com/valaxin"
-  },
-  "type": "module",
+  "authors": [
+    "valaxin@github"
+  ],
   "scripts": {
-    "clean": "rm -rf ./.web-temp/* ./.bot-temp/*",
-    "start:bot": "nodemon -i ./config.js -i ./app/www/* -w ./app/source/* --verbose --trace-warnings --experimental-json-modules ./app/source/index.js",
-    "start:web": "nodemon -i ./config.js -i ./app/src/* -w ./app/www/* --verbose --trace-warnings ./app/www/index.js",
-    "start": "npm run clean && concurrently 'npm run start:web' 'npm run start:bot'"
+    "start:bot": "nodemon --verbose --trace-warnings ./app/bot/main.js"
   },
   "dependencies": {
-    "@babel/core": "^7.15.5",
-    "@babel/node": "^7.15.4",
-    "@discordjs/opus": "^0.9.0",
-    "axios": "^1.6.0",
-    "body-parser": "^1.20.2",
-    "chalk": "^5.0.1",
-    "cheerio": "^1.0.0-rc.12",
-    "colors": "^1.4.0",
-    "cookie-parser": "^1.4.6",
+    "bufferutil": "^4.0.8",
     "discord.js": "^14.14.1",
-    "express": "^4.18.2",
-    "ffmpeg": "0.0.4",
-    "fluent-ffmpeg": "^2.1.2",
-    "morgan": "^1.10.0",
-    "node-fetch": "^3.1.1",
-    "nodemon": "~3.1.0",
-    "socket.io": "^4.7.2",
-    "ytdl-core": "^4.9.2"
+    "eslint": "^9.0.0",
+    "nodemon": "^3.1.0",
+    "utf-8-validate": "^6.0.3",
+    "zlib-sync": "^0.1.9"
   }
 }
