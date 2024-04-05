@@ -41,8 +41,6 @@ export const projectInfoEmbedObject = async (data) => {
   return deo
 }
 
-console.log(client)
-
 export const responses = async (interaction) => {
   let embeds = await projectInfoEmbedObject({ pkgInfo, interaction })
   let itData = await parsers.parseInteractionData(interaction)

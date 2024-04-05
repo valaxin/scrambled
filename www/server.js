@@ -5,6 +5,7 @@ import logger from 'morgan'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import http from 'http'
+
 import APIController from './api/index.js'
 
 const PORT = '3000'
