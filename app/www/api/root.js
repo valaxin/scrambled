@@ -1,10 +1,9 @@
 import { Router } from 'express'
 import path from 'path'
-import app from '../server.js'
-import parser from '../../utilities/parser.js'
-import client from '../../src/index.js'
-
-console.log(client)
+import app from '../index.js'
+import parser from '../../source/utilities/parser.js'
+// import client from '../../source/index.js'
+// console.log(client)
 
 const router = Router()
 

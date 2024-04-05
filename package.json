@@ -1,6 +1,6 @@
 {
   "name": "scrambled",
-  "description": "Lightweight ",
+  "description": "",
   "version": "0.1.0",
   "main": "index.js",
   "license": "MIT",
@@ -8,21 +8,16 @@
     "name": "valaxin",
     "url": "https://github.com/valaxin"
   },
-  "bugs": {
-    "url": "https://github.com/valaxin/scrambled/issues"
-  },
   "type": "module",
   "scripts": {
     "clean": "rm -rf ./.web-temp/* ./.bot-temp/*",
-    "start:bot": "nodemon -i ./config.js -i ./App/www/* -w ./App/src/* --verbose --trace-warnings --experimental-json-modules ./app/src/index.js",
-    "start:web": "nodemon -i ./config.js -i ./App/src/* -w ./App/www/* --verbose --trace-warnings ./app/www/index.js",
+    "start:bot": "nodemon -i ./config.js -i ./app/www/* -w ./app/source/* --verbose --trace-warnings --experimental-json-modules ./app/source/index.js",
+    "start:web": "nodemon -i ./config.js -i ./app/src/* -w ./app/www/* --verbose --trace-warnings ./app/www/index.js",
     "start": "npm run clean && concurrently 'npm run start:web' 'npm run start:bot'"
   },
-  "devDependencies": {
-    "@babel/core": "^7.15.5",
-    "@babel/node": "^7.15.4"
-  },
   "dependencies": {
+    "@babel/core": "^7.15.5",
+    "@babel/node": "^7.15.4",
     "@discordjs/opus": "^0.9.0",
     "axios": "^1.6.0",
     "body-parser": "^1.20.2",
