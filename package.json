@@ -8,7 +8,10 @@
     "valaxin@github"
   ],
   "scripts": {
-    "start:bot": "nodemon --verbose --trace-warnings ./app/bot/main.js"
+    "bot:dev": "nodemon --verbose --trace-warnings ./app/bot/main.js",
+    "bot": "node ./app/bot/main.js",
+    "reg": "node ./app/bot/register.js",
+    "del": "node ./app/bot/remove.js"
   },
   "dependencies": {
     "bufferutil": "^4.0.8",
