@@ -1,3 +1,7 @@
 /node_modules
+
 /config.json
-/.temp
+/app/bot/config.json
+/app/web/config.json
+
+/app/.temp

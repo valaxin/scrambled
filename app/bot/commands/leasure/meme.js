@@ -1,6 +1,5 @@
-const { SlashCommandBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder, EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const axios = require('axios')
-const { omdb } = require('../../config.json')
 
 const queryRedditForRandomImage = async (query, options) => {}
 

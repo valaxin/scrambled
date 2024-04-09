@@ -1,10 +1,10 @@
 const { REST, Routes } = require('discord.js');
-const { keys } = require('../../config.json');
+const { keys } = require('./config.json');
 const fs = require('node:fs');
 const path = require('node:path');
 
-const commands = [];
 // Grab all the command folders from the commands directory you created earlier
+const commands = [];
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
 
@@ -24,10 +24,8 @@ for (const folder of commandFolders) {
 	}
 }
 
-console.log(keys)
-
 // Construct and prepare an instance of the REST module
-const rest = new REST().setToken(keys.wumpus.token);
+const rest = new REST().setToken(keys.discord.token);
 
 // and deploy your commands!
 (async () => {
@@ -36,7 +34,7 @@ const rest = new REST().setToken(keys.wumpus.token);
 
 		// The put method is used to fully refresh all commands in the guild with the current set
 		const data = await rest.put(
-			Routes.applicationGuildCommands(keys.wumpus.clientId, keys.wumpus.guildId),
+			Routes.applicationGuildCommands(keys.discord.client, keys.discord.guild),
 			{ body: commands },
 		);
 

@@ -1,5 +1,5 @@
 const { REST, Routes } = require('discord.js');
-const { keys } = require('../../config.json');
+const { keys } = require('./config.json');
 
 const rest = new REST().setToken(keys.wumpus.token);
 
