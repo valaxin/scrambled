@@ -81,11 +81,16 @@ module.exports = {
         .setColor(0xffe135)
         .setTitle(`${results.Title} [${results.Year}]`)
         .setURL(`https://imdb.com/title/${results.imdbID}`)
-        .setDescription(`Season ${options.season} Episode ${options.episode}`)
         .setThumbnail(`${results.Poster}`);
-      
-      if (option.type = 'movie') {
-        embed.setDescription()
+
+      let statement =
+        "The links below are provided by vid.src, some advice ensure ublock or something alike is installed on your web browser. \n\n";
+      if (options.type === "movie") {
+        embed.setDescription(`${statement} enjoy the movie`);
+      } else {
+        embed.setDescription(
+          `${statement} Season ${options.season} Episode ${options.episode}`
+        );
       }
 
       await interaction.reply({
