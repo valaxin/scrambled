@@ -45,11 +45,18 @@ module.exports = {
       const options = {
         type: interaction.options.getString("type"),
         query: interaction.options.getString("title"),
-        season: interaction.options.getString("season") || 1,
-        episode: interaction.options.getString("episode") || 1,
+        season: interaction.options.getNumber("season") || 1,
+        episode: interaction.options.getNumber("episode") || 1,
       };
 
       const results = await search(keys.omdb, options); // replace me with call from external file, as per the new structure
+
+      if (results === null) {
+        throw new Error(
+          "searching returned zero results, check the query and try again."
+        );
+      }
+
       const row = new ActionRowBuilder();
 
       row.addComponents(
