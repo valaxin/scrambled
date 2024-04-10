@@ -99,7 +99,6 @@ module.exports = {
           `${statement} Season ${options.season} Episode ${options.episode}`
         );
       }
-
       await interaction.reply({
         embeds: [embed],
         components: [row],

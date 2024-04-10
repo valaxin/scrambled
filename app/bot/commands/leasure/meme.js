@@ -1,8 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const axios = require("axios");
 
-const queryRedditForRandomImage = async (query, options) => {};
-
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("meme")
