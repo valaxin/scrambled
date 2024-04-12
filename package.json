@@ -1,17 +1,15 @@
 {
   "name": "scrambled",
   "description": "~",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "index.js",
   "license": "MIT",
-  "authors": [
-    "valaxin@github"
-  ],
+  "author": "valaxin",
   "scripts": {
     "bot:dev": "nodemon --verbose --trace-warnings ./app/bot/main.js",
-    "bot": "node ./app/bot/main.js",
-    "reg": "node ./app/bot/register.js",
-    "del": "node ./app/bot/remove.js"
+    "bot:run": "node ./app/bot/main.js",
+    "bot:reg": "node ./app/bot/support/_registerCommands.js",
+    "bot:del": "node ./app/bot/support/_removeRegisteredCommands.js"
   },
   "dependencies": {
     "bufferutil": "^4.0.8",

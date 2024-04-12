@@ -1,14 +1,14 @@
 const { REST, Routes } = require("discord.js");
-const { keys } = require("./config.json");
+const { keys } = require("../config.json");
 
-const rest = new REST().setToken(keys.wumpus.token);
+const rest = new REST().setToken(keys.discord.token);
 
 // ...
 
 // for guild-based commands
 rest
   .put(
-    Routes.applicationGuildCommands(keys.wumpus.clientId, keys.wumpus.guildId),
+    Routes.applicationGuildCommands(keys.discord.client, keys.discord.guild),
     { body: [] }
   )
   .then(() => console.log("Successfully deleted all guild commands."))
@@ -16,6 +16,6 @@ rest
 
 // for global commands
 rest
-  .put(Routes.applicationCommands(keys.wumpus.clientId), { body: [] })
+  .put(Routes.applicationCommands(keys.discord.client), { body: [] })
   .then(() => console.log("Successfully deleted all application commands."))
   .catch(console.error);
