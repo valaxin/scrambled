@@ -14,6 +14,8 @@ module.exports = async function (key, options) {
       return result.Type === options.type ? result : null;
     })[0];
 
+    if (jsondata === null) throw new Error('Sorry! Nothing found for that query.');
+
     const domains = ["vidsrc.in", "vidsrc.pm", "vidsrc.xyz", "vidsrc.net"];
 
     if (options.type === "series") {

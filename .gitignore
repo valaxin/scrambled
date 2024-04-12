@@ -5,3 +5,5 @@
 /app/web/config.json
 
 /app/.temp
+
+/.vscode

@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
-const axios = require("axios");
+const { getSingleRandomImageFromSubTop25 } = require('../../support/redditInteractions.js')
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -10,25 +10,37 @@ module.exports = {
         .setName("subreddit")
         .setDescription("Define a subreddit")
         .setRequired(false)
+    )
+    .addStringOption((option) =>
+      option
+        .setName('sorting')
+        .setDescription('What reddit')
+        .setRequired(false)
     ),
   async execute(interaction) {
     try {
       const options = {
-        subreddit: interaction.options.getString("subreddit"),
+        key: interaction.options.getString("subreddit") || 'funny',
+        sort: interaction.options.getString("sorting") || 'hot',
+        limit: 50
       };
-      // const results = await contentSearch(omdb.key, options)
-      // const row = new ActionRowBuilder()
+      const results = await getSingleRandomImageFromSubTop25(options)
+      const getRandomArbitrary = (min, max) => {
+        return Math.floor(Math.random() * (max - min) + min);
+      }
+      const position = getRandomArbitrary(0, results.length - 1)
+      const selected = results[position].data
+
+      console.log(selected)
 
       const embed = new EmbedBuilder()
         .setColor(0xffe135)
-        .setTitle(`${results.Title} [${results.Year}]`)
-        .setURL(`https://imdb.com/title/${results.imdbID}`)
-        .setDescription(`Season ${options.season} Episode ${options.episode}`)
-        .setThumbnail(`${results.Poster}`);
+        .setTitle(selected.title)
+        .setImage(selected.url)
+        .setDescription(`--`)
 
       await interaction.reply({
         embeds: [embed],
-        components: [row],
         ephemeral: true,
       });
     } catch (error) {
