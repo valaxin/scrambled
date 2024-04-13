@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+const { Client, SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const probe = require("../../support/probeSystem.js");
 
 // server information, uptime,
@@ -15,11 +15,12 @@ module.exports = {
     try {
 
       const info = await probe()
-
+      /*
       console.log(info)
       console.log(interaction.guild.name)
       console.log(interaction.guild.memberCount)
       console.log(interaction.user)
+      */
 
       const meta = {
         guilds: []
@@ -27,7 +28,7 @@ module.exports = {
 
       const embed = new EmbedBuilder()
         .setColor(0xffe135)
-        .setTitle(`whoami: ${info.host.name}@${info.host.version}`)
+        .setTitle(`**${info.host.name}@${info.host.version}**`)
         .setAuthor({ name: info.host.author.username, url: info.host.author.profile })
         .setDescription(info.host.description)
         .setURL(info.host.repo)
@@ -36,10 +37,8 @@ module.exports = {
             name: `${info.system.hostname}.local/${info.system.platform} [${info.system.architecture}] :: ${info.host.name}[${info.host.version}] \n`, 
             value: `\n **System Uptime:** \n > ${info.system.uptime.t.friendly} \n **Bot Uptime:** \n > ${info.host.uptime.t.friendly} \n`,
             inline: false
-          },
+          }
         );
-
-      // get commands and list them and their arguments... 
 
       await interaction.reply({
         embeds: [embed],

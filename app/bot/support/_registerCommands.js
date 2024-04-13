@@ -52,3 +52,4 @@ const rest = new REST().setToken(keys.discord.token);
     console.error(error);
   }
 })();
+
