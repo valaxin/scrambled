@@ -1,0 +1,16 @@
+#todo
+
+---
+
+[] - a command `/alarm` allowing the user to create either a reoccuring or oneshot alarm
+[] - `/alarm` has two sub-commands. one path if the alarm is a one shot, the other if the user wants it to reoccur on an interval
+[] - `/alarm` time format should be input `DD/MM/YYYY @ 00:00` ("day/month/year" "at-symbol" "twenty-four:hour-time") but also accept whatever the libray for `cron` jobs accepts
+[] - `/alarm` should have three id generated from the `requestor/guild` id and one from the alarm `title/timestamp` and finally a `random-uuid`
+[] - oneshot alarms should be issued and handled by the `bot`, these jobs should STILL be issued to the same `cron` job manager
+[] - reoccuring alarms should be registered to the webserver and continuiously run as long as the registation object exists within the database
+[] - `/alarm list` should list all the alarms on the server registered to the job manager under your requestor/guild id
+[] - `/alarm [[list][delete|edit]once|repeated] [id?] body:String [when:String|interval:String[count:Number]]` = example command issueance
+
+(as this bot/server isn't intended to be run at scale for large servers this should all be okay)
+
+---
