@@ -21,6 +21,7 @@
     "discord.js": "^14.14.1",
     "express": "^4.19.2",
     "morgan": "^1.10.0",
+    "node-cron": "^3.0.3",
     "nodemon": "^3.1.0",
     "rss-parser": "^3.13.0",
     "utf-8-validate": "^6.0.3",
