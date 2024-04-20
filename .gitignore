@@ -1,10 +1,5 @@
+/.vscode
 /node_modules
 
-/config.json
-/app/bot/config.json
-/app/web/config.json
-
-/app/.temp
-/app/web/db/subscriptions.json
-
-/.vscode
+/bot/config.json
+/bot/data

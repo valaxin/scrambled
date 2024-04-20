@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
-const client = require("../../main.js");
+const client = require("../../client.js");
 const { register } = require("../../support/_registerSubscriptions.js");
 
 module.exports = {
