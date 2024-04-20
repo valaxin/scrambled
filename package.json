@@ -1,23 +1,20 @@
 {
   "name": "scrambled",
   "description": "~",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "index.js",
   "license": "MIT",
   "author": "valaxin",
   "scripts": {
-    "dev": "concurrently --kill-others \"npm run bot:dev\" \"npm run web:dev\"",
-    "bot:dev": "nodemon --watch app/bot --verbose --trace-warnings app/bot/main.js",
-    "bot:run": "node ./app/bot/main.js",
-    "bot:reg": "node ./app/bot/support/_registerCommands.js",
-    "bot:del": "node ./app/bot/support/_removeRegisteredCommands.js",
-    "web:dev": "nodemon --watch app/web --ignore '/app/web/db/*.*' --verbose --trace-warnings app/web/server.js"
+    "run": "node ./app/bot/main.js",
+    "dev": "nodemon --watch app/bot --ignore app/bot/data --verbose --trace-warnings app/bot/main.js",
+    "reg": "node ./app/bot/support/_registerCommands.js",
+    "rem": "node ./app/bot/support/_removeRegisteredCommands.js"
   },
   "dependencies": {
     "axios": "^1.6.8",
     "body-parser": "^1.20.2",
     "bufferutil": "^4.0.8",
-    "concurrently": "^8.2.2",
     "discord.js": "^14.14.1",
     "express": "^4.19.2",
     "morgan": "^1.10.0",
