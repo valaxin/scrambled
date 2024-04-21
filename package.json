@@ -1,26 +1,22 @@
 {
   "name": "scrambled",
-  "description": "~",
+  "description": "personal discord bot",
   "version": "0.1.2",
-  "main": "index.js",
+  "main": "client.js",
   "license": "MIT",
   "author": "valaxin",
   "scripts": {
-    "run": "node ./app/bot/main.js",
-    "dev": "nodemon --watch app/bot --ignore app/bot/data --verbose --trace-warnings app/bot/main.js",
-    "reg": "node ./app/bot/support/_registerCommands.js",
-    "rem": "node ./app/bot/support/_removeRegisteredCommands.js"
+    "run": "node bot/client.js",
+    "dev": "nodemon --watch bot --ignore bot/data --verbose --trace-warnings bot/client.js",
+    "reg": "node bot/support/_registerCommands.js",
+    "rem": "node bot/support/_removeRegisteredCommands.js"
   },
   "dependencies": {
     "axios": "^1.6.8",
-    "body-parser": "^1.20.2",
     "bufferutil": "^4.0.8",
     "discord.js": "^14.14.1",
-    "express": "^4.19.2",
-    "morgan": "^1.10.0",
     "node-cron": "^3.0.3",
     "nodemon": "^3.1.0",
-    "rss-parser": "^3.13.0",
     "utf-8-validate": "^6.0.3",
     "zlib-sync": "^0.1.9"
   }

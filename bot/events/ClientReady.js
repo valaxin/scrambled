@@ -1,6 +1,6 @@
 const { Events } = require("discord.js");
 const { keys } = require("../config.json");
-const { name, version } = require('../../../package.json');
+const { name, version } = require('../../package.json');
 
 module.exports = {
   name: Events.ClientReady,

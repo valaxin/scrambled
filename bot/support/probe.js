@@ -1,5 +1,5 @@
 const os = require('node:os')
-const pkg = require('../../../package.json')
+const pkg = require('../../package.json')
 
 function secondsIntoReadableString (input) {
   try {
