@@ -1,5 +1,5 @@
 const { Client, SlashCommandBuilder, EmbedBuilder } = require("discord.js");
-const probe = require("../../support/probe.js");
+const probe = require("../../support/probeSystem.js");
 
 // server information, uptime,
 

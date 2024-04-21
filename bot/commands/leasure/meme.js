@@ -1,5 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
-const { getSingleRandomImageFromSubTop25 } = require('../../support/snoo.js')
+const { getSingleRandomImageFromSubTop25 } = require('../../support/snooInteractions.js')
 
 module.exports = {
   data: new SlashCommandBuilder()
