@@ -1,0 +1,40 @@
+{
+  "commands": {
+    "catagories": [
+      "leasure",
+      "utility"
+    ],
+    "meme": {
+      "ephemeral": false,
+      "description": "returns a random meme from reddit",
+      "arguments": {
+        "subreddit": {
+          "description": "desired subreddit",
+          "required": false,
+          "default": "funny"
+        },
+        "sorting": {
+          "description": "desired sort type",
+          "required": false,
+          "default": "hot",
+          "selection": [ "hot", "top", "new" ]
+        }
+      }
+    },
+    "stream": {
+      "ephemeral": true,
+      "description": "",
+      "arguments": {
+        "type": {},
+        "title": {},
+        "season": {},
+        "episode": {}
+      }
+    },
+    "about": {
+      "ephemeral": true,
+      "description": "returns information about this bot"
+    },
+    "alarm": {}
+  }
+}
