@@ -1,6 +1,12 @@
+const path = require("node:path");
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
-const client = require("../../client.js");
 const { register } = require("../../support/_registerSubscriptions.js");
+const vcmd = require("../../support/_validateCommand.js");
+
+const data = vcmd(
+  path.basename(__filename).split(".")[0],
+  require("../../manifest.json").commands
+);
 
 module.exports = {
   data: new SlashCommandBuilder()

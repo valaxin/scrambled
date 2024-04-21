@@ -9,11 +9,13 @@
       "description": "returns a random meme from reddit",
       "arguments": {
         "subreddit": {
+          "type": "string",
           "description": "desired subreddit",
           "required": false,
           "default": "funny"
         },
         "sorting": {
+          "type": "string",
           "description": "desired sort type",
           "required": false,
           "default": "hot",
@@ -23,18 +25,74 @@
     },
     "stream": {
       "ephemeral": true,
-      "description": "",
+      "description": "Watch content from the internet",
       "arguments": {
-        "type": {},
-        "title": {},
-        "season": {},
-        "episode": {}
+        "type": {
+          "type": "string",
+          "description": "type of content (tv/movie)",
+          "required": true,
+          "default": "movie",
+          "selection": [ "series", "movie" ]
+        },
+        "title": {
+          "type": "string",
+          "description": "title of the content you wish to see",
+          "required": true,
+          "default": "Seinfeld"
+        },
+        "season": {
+          "type": "number",
+          "description": "season interger, defaults to 1",
+          "required": false,
+          "default": "1"
+        },
+        "episode": {
+          "type": "number",
+          "description": "episode interger, defaults to 1",
+          "required": false,
+          "default": "1"
+        }
       }
     },
     "about": {
       "ephemeral": true,
       "description": "returns information about this bot"
     },
-    "alarm": {}
+    "alarm": {
+      "ephemeral": true,
+      "description": "Set either a oneshot or repeating alarm",
+      "arguments": {
+        "repeat": {
+          "type": "boolean",
+          "description": "should this alarm repeat",
+          "required": true,
+          "default": false
+        },
+        "message": {
+          "type": "string",
+          "description": "message said when alarm fires",
+          "required": true,
+          "default": false
+        },
+        "time": {
+          "type": "string",
+          "description": "time of day that the alarm goes off hh:mm:(am|pm)",
+          "required": true,
+          "default": false
+        },
+        "interval": {
+          "type": "number",
+          "description": "how often?",
+          "required": false,
+          "default": false,
+          "selection": [
+            { "key": "Half Hour", "value": "1" },
+            { "key": "Hourly", "value": "2" },
+            { "key": "Twice Daily", "value": "3" },
+            { "key": "Daily", "value": "4" }
+          ]
+        }
+      }
+    }
   }
 }

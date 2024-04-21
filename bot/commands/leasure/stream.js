@@ -5,55 +5,72 @@ const {
   ActionRowBuilder,
   EmbedBuilder,
 } = require("discord.js");
-const search = require("../../support/searchQuery.js");
+
+const path = require("node:path");
 const { keys } = require("../../config.json");
+const search = require("../../support/searchQuery.js");
+const data = require("../../support/_validateCommand.js")(
+  path.basename(__filename).split(".")[0],
+  require("../../manifest.json").commands
+);
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("stream")
-    .setDescription("Watch content from the internet")
+    .setName(data.filename)
+    .setDescription(data.command.description)
     .addStringOption((option) =>
       option
-        .setName("type")
-        .setDescription("type of content (tv/movie)")
-        .setRequired(true)
+        .setName(data.arguments[0])
+        .setDescription(data.command.arguments[data.arguments[0]].description)
+        .setRequired(data.command.arguments[data.arguments[0]].required)
         .addChoices(
-          { name: "series", value: "series" },
-          { name: "movie", value: "movie" }
+          {
+            name: data.command.arguments[data.arguments[0]].selection[0],
+            value: data.command.arguments[data.arguments[0]].selection[0],
+          },
+          {
+            name: data.command.arguments[data.arguments[0]].selection[1],
+            value: data.command.arguments[data.arguments[0]].selection[1],
+          }
         )
     )
     .addStringOption((option) =>
       option
-        .setName("title")
-        .setDescription("title of the content you wish to see")
-        .setRequired(true)
+        .setName(data.arguments[1])
+        .setDescription(data.command.arguments[data.arguments[1]].description)
+        .setRequired(data.command.arguments[data.arguments[1]].required)
     )
     .addNumberOption((option) =>
       option
-        .setName("season")
-        .setDescription("season interger, defaults to 1")
-        .setRequired(false)
+        .setName(data.arguments[2])
+        .setDescription(data.command.arguments[data.arguments[2]].description)
+        .setRequired(data.command.arguments[data.arguments[2]].required)
     )
     .addNumberOption((option) =>
       option
-        .setName("episode")
-        .setDescription("episode interger, defaults to 1")
-        .setRequired(false)
+        .setName(data.arguments[3])
+        .setDescription(data.command.arguments[data.arguments[3]].description)
+        .setRequired(data.command.arguments[data.arguments[3]].required)
     ),
   async execute(interaction) {
     try {
       const options = {
-        type: interaction.options.getString("type"),
-        query: interaction.options.getString("title"),
-        season: interaction.options.getNumber("season") || 1,
-        episode: interaction.options.getNumber("episode") || 1,
+        type: interaction.options.getString(data.arguments[0]),
+        query:
+          interaction.options.getString(data.arguments[1]) ||
+          data.command.arguments[data.arguments[1]].default,
+        season:
+          interaction.options.getNumber(data.arguments[2]) ||
+          data.command.arguments[data.arguments[2]].default,
+        episode:
+          interaction.options.getNumber(data.arguments[3]) ||
+          data.command.arguments[data.arguments[3]].default,
       };
 
-      const results = await search(keys.omdb, options); // replace me with call from external file, as per the new structure
-
+      const results = await search(keys.omdb, options);
       if (results === null) {
         throw new Error(
-          "searching returned zero results, check the query and try again."
+          "Searching returned zero results, check the query and try again."
         );
       }
 
@@ -102,7 +119,7 @@ module.exports = {
       await interaction.reply({
         embeds: [embed],
         components: [row],
-        ephemeral: true,
+        ephemeral: data.command.ephemeral,
       });
     } catch (error) {
       console.error("[stream.js]", error);

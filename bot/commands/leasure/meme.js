@@ -2,64 +2,51 @@ const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const {
   getSingleRandomImageFromSubTop25,
 } = require("../../support/snooInteractions.js");
-const { commands } = require("../../manifest.json");
 const path = require("node:path");
-
-const filename = path.basename(__filename).split(".")[0];
-if (!commands[filename]) {
-  module.exports = new Error("missing information within ./manifest.json");
-}
-
-const sentence = (on, at, by) => {
-  return ``;
-};
-
-const cmd = commands[filename];
-const arg = Object.keys(cmd.arguments);
-
-console.log(arg, cmd);
+const data = require("../../support/_validateCommand.js")(
+  path.basename(__filename).split(".")[0],
+  require("../../manifest.json").commands
+);
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName(filename)
-    .setDescription(cmd.description)
+    .setName(data.filename)
+    .setDescription(data.command.description)
     .addStringOption((option) =>
       option
-        .setName(arg[0])
-        .setDescription(cmd.arguments[arg[0]].description)
-        .setRequired(cmd.arguments[arg[0]].required)
+        .setName(data.arguments[0])
+        .setDescription(data.command.arguments[data.arguments[0]].description)
+        .setRequired(data.command.arguments[data.arguments[0]].required)
     )
     .addStringOption((option) =>
       option
-        .setName(arg[1])
-        .setDescription(cmd.arguments[arg[1]].description)
-        .setRequired(cmd.arguments[arg[1]].required)
+        .setName(data.arguments[1])
+        .setDescription(data.command.arguments[data.arguments[1]].description)
+        .setRequired(data.command.arguments[data.arguments[1]].required)
         .addChoices(
           {
-            name: cmd.arguments[arg[1]].selection[0],
-            value: cmd.arguments[arg[1]].selection[0],
+            name: data.command.arguments[data.arguments[1]].selection[0],
+            value: data.command.arguments[data.arguments[1]].selection[0],
           },
           {
-            name: cmd.arguments[arg[1]].selection[1],
-            value: cmd.arguments[arg[1]].selection[1],
+            name: data.command.arguments[data.arguments[1]].selection[1],
+            value: data.command.arguments[data.arguments[1]].selection[1],
           },
           {
-            name: cmd.arguments[arg[1]].selection[2],
-            value: cmd.arguments[arg[1]].selection[2],
+            name: data.command.arguments[data.arguments[1]].selection[2],
+            value: data.command.arguments[data.arguments[1]].selection[2],
           }
         )
     ),
   async execute(interaction) {
-    console.log(arg);
-    console.log(cmd.arguments[arg[0]].default);
     try {
       const options = {
         slug:
-          interaction.options.getString(arg[0]) ||
-          cmd.arguments[arg[0]].default,
+          interaction.options.getString(data.arguments[0]) ||
+          data.command.arguments[data.arguments[0]].default,
         sort:
-          interaction.options.getString(arg[1]) ||
-          cmd.arguments[arg[1]].default,
+          interaction.options.getString(data.arguments[1]) ||
+          data.command.arguments[data.arguments[1]].default,
         limit: 50,
       };
       const results = await getSingleRandomImageFromSubTop25(options);
@@ -88,7 +75,7 @@ module.exports = {
 
       await interaction.reply({
         embeds: [embed],
-        ephemeral: cmd.ephemeral,
+        ephemeral: data.command.ephemeral,
       });
     } catch (error) {
       console.error(error);
