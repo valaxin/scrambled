@@ -122,9 +122,8 @@ module.exports = {
         ephemeral: data.command.ephemeral,
       });
     } catch (error) {
-      console.error("[stream.js]", error);
       await interaction.error({
-        content: `Apologies an error has occured, please try something else.`,
+        content: `Apologies an error has occured, please try something else. \n\n \`\`\`${error}\`\`\``,
         ephemeral: true,
       });
     }

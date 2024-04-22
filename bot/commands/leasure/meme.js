@@ -55,10 +55,7 @@ module.exports = {
       };
       const position = getRandomArbitrary(0, results.length - 1);
       const selected = results[position].data;
-
-      console.log(selected);
       const domain = "https://reddit.com/";
-
       const embed = new EmbedBuilder()
         .setColor(0xffe135)
         .setTitle(selected.title)
