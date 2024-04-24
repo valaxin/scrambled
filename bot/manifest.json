@@ -58,26 +58,32 @@
       "ephemeral": true,
       "description": "returns information about this bot"
     },
-    "alarm": {
+    "cron": {
       "ephemeral": true,
-      "description": "Set either a oneshot or repeating alarm",
+      "description": "create cron message",
       "arguments": {
         "repeat": {
           "type": "boolean",
-          "description": "should this alarm repeat",
+          "description": "should this repeat",
           "required": true,
           "default": false
         },
         "message": {
           "type": "string",
-          "description": "message said when alarm fires",
+          "description": "message sent when executed",
           "required": true,
           "default": false
         },
         "time": {
           "type": "string",
-          "description": "time of day that the alarm goes off hh:mm:(am|pm)",
-          "required": true,
+          "description": "time (HH:MM)",
+          "required": false,
+          "default": false
+        },
+        "date": {
+          "type": "string",
+          "description": "date (MM/DD)",
+          "required": false,
           "default": false
         },
         "interval": {
@@ -86,10 +92,11 @@
           "required": false,
           "default": false,
           "selection": [
-            { "key": "Half Hour", "value": "1" },
-            { "key": "Hourly", "value": "2" },
-            { "key": "Twice Daily", "value": "3" },
-            { "key": "Daily", "value": "4" }
+            { "key": "30 Seconds", "value": "*/30 * * * * *"},
+            { "key": "1 Minute", "value": "*/1 * * * *" },
+            { "key": "15 Minutes", "value": "*/15 * * * *" },
+            { "key": "1 Hour", "value": " 0 * * * *" },
+            { "key": "2 Hours", "value": "0 */2 * * *"}
           ]
         }
       }

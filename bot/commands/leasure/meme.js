@@ -1,16 +1,12 @@
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
-const {
-  getSingleRandomImageFromSubTop25,
-} = require("../../support/snooInteractions.js");
+
 const path = require("node:path");
-const data = require("../../support/_validateCommand.js")(
-  path.basename(__filename).split(".")[0],
-  require("../../manifest.json").commands
-);
+const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+const { getImage } = require("../../support/reddit.js");
+const data = require("../../support/_internal.js").exists(__filename)
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName(data.filename)
+    .setName(data.name)
     .setDescription(data.command.description)
     .addStringOption((option) =>
       option
@@ -49,7 +45,7 @@ module.exports = {
           data.command.arguments[data.arguments[1]].default,
         limit: 50,
       };
-      const results = await getSingleRandomImageFromSubTop25(options);
+      const results = await getImage(options);
       const getRandomArbitrary = (min, max) => {
         return Math.floor(Math.random() * (max - min) + min);
       };

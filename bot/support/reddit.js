@@ -2,7 +2,7 @@ const axios = require("axios");
 const fs = require("node:fs");
 
 module.exports = {
-  getSingleRandomImageFromSubTop25: async (options) => {
+  getImage: async (options) => {
     const address = `https://api.reddit.com/r/${options.slug}/${
       options.sort
     }.json?limit=${options.limit || 25}`;

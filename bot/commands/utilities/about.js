@@ -1,24 +1,16 @@
+
 const { Client, SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const path = require("node:path");
-const probe = require("../../support/probeSystem.js");
-const data = require("../../support/_validateCommand.js")(
-  path.basename(__filename).split(".")[0],
-  require("../../manifest.json").commands
-);
-
-// server information, uptime,
-
-// bot inforamtion,  uptime, commands, author/repo information
-
-// connected guild information
+const probe = require("../../support/probe.js");
+const { exists, register } = require('../../support/_internal.js')
+const data = exists(__filename)
 
 module.exports = {
-  data: new SlashCommandBuilder()
-    .setName(data.filename)
-    .setDescription(data.command.description),
+  data: new SlashCommandBuilder().setName(data.name).setDescription(data.command.description),
   async execute(interaction) {
     try {
       const info = await probe();
+      
       /*
       console.log(info)
       console.log(interaction.guild.name)
@@ -26,9 +18,7 @@ module.exports = {
       console.log(interaction.user)
       */
 
-      const meta = {
-        guilds: [],
-      };
+      const meta = { guilds: [] };
 
       const embed = new EmbedBuilder()
         .setColor(0xffe135)

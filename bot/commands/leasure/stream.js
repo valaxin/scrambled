@@ -1,3 +1,4 @@
+
 const {
   SlashCommandBuilder,
   ButtonBuilder,
@@ -8,15 +9,14 @@ const {
 
 const path = require("node:path");
 const { keys } = require("../../config.json");
-const search = require("../../support/searchQuery.js");
-const data = require("../../support/_validateCommand.js")(
-  path.basename(__filename).split(".")[0],
-  require("../../manifest.json").commands
-);
+const search = require("../../support/media.js");
+const { exists } = require("../../support/_internal.js")
+const data = exists(path.basename(__filename).split(".")[0]);
+
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName(data.filename)
+    .setName(data.name)
     .setDescription(data.command.description)
     .addStringOption((option) =>
       option

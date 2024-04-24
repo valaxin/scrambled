@@ -1,5 +1,5 @@
 const { Events } = require("discord.js");
-const log = require('../support/_eventLogger.js')
+const { log } = require('../support/_internal.js')
 
 // https://discord.com/developers/docs/interactions/receiving-and-responding
 // export a interactionCreate
@@ -7,7 +7,7 @@ const log = require('../support/_eventLogger.js')
 module.exports = {
   name: Events.InteractionCreate,
   async execute(interaction) {
-    log(`"/${interaction.commandName}" ${interaction.isChatInputCommand()} ${interaction.user}/${interaction.guild.id}`, 'RUNNING!' );
+    log(`"/${interaction.commandName}" ${interaction.isChatInputCommand()} ${interaction.user}/${interaction.guild.id}`, 0);
 
     // input isn't a command
     if (!interaction.isChatInputCommand()) return;
