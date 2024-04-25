@@ -2,7 +2,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const { Client, Collection, GatewayIntentBits } = require("discord.js");
 const { keys } = require("./config.json");
-const { log } = require('./support/_internal.js')
+const { log } = require('./support/internal.js')
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.commands = new Collection();
@@ -35,7 +35,5 @@ for (const file of eventFiles) {
 }
 
 client.login(keys.discord.token);
-
-// console.log(`this is the exported client object`, client)
 
 module.exports = client;

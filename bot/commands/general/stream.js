@@ -10,7 +10,7 @@ const {
 const path = require("node:path");
 const { keys } = require("../../config.json");
 const search = require("../../support/media.js");
-const { exists } = require("../../support/_internal.js")
+const { exists } = require("../../support/internal.js")
 const data = exists(path.basename(__filename).split(".")[0]);
 
 

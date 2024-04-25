@@ -26,4 +26,5 @@ module.exports = {
     }
     return false;
   },
+  getPost: async () => {}
 };

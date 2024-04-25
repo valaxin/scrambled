@@ -8,8 +8,8 @@
   "scripts": {
     "run": "node bot/client.js",
     "dev": "nodemon --watch bot --ignore bot/data --verbose --trace-warnings bot/client.js",
-    "reg": "node bot/support/_registerCommands.js",
-    "rem": "node bot/support/_removeRegisteredCommands.js"
+    "reg": "node bot/support/scripts/register.js",
+    "rem": "node bot/support/scripts/remove.js"
   },
   "dependencies": {
     "axios": "^1.6.8",

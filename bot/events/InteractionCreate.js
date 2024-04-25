@@ -1,5 +1,5 @@
 const { Events } = require("discord.js");
-const { log } = require('../support/_internal.js')
+const { log } = require('../support/internal.js')
 
 // https://discord.com/developers/docs/interactions/receiving-and-responding
 // export a interactionCreate

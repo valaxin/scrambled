@@ -4,9 +4,7 @@ const chalk = require("chalk");
 
 // internal calls
 const { name, version } = require("../../package.json");
-const dbpath = path.join(__dirname, "../data/scheduled.json");
 const manifest = require('../manifest.json')
-const db = require(dbpath);
 
 async function log(message, status) {
   let types = ["OK!", "WARN!", "ERR!"];
@@ -37,32 +35,6 @@ function exists(filename) {
   };
 }
 
-const jobObjectTemplate = {
-  eventType: "alarm",
-  updatedAt: "",
-  latestEvent: {},
-  alarms: db.alarms === undefined ? [] : db.alarms,
-};
 
-async function alarm(options) {
-  jobObjectTemplate.updatedAt = Date.now()
-  jobObjectTemplate.latestEvent = options
-  jobObjectTemplate.alarms.push(options)
-  try {
-    return await fs.writeFile(
-      dbpath,
-      JSON.stringify(jobObjectTemplate, null, 2),
-      "utf8",
-      (error) => {
-        if (error) {
-          return error;
-        }
-        return true;
-      }
-    );
-  } catch (error) {
-    return error;
-  }
-}
 
-module.exports = { log, exists, register: { alarm }}
+module.exports = { log, exists }
