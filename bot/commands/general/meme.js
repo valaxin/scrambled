@@ -1,8 +1,8 @@
+"use strict";
 
-const path = require("node:path");
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const { getImage } = require("../../support/reddit.js");
-const data = require("../../support/internal.js").exists(__filename)
+const data = require("../../support/internal.js").exists(__filename);
 
 module.exports = {
   data: new SlashCommandBuilder()

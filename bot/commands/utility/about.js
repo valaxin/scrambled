@@ -1,16 +1,19 @@
+"use strict";
 
 const { Client, SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const path = require("node:path");
 const probe = require("../../support/probe.js");
-const { exists } = require('../../support/internal.js')
-const data = exists(__filename)
+const { exists } = require("../../support/internal.js");
+const data = exists(__filename);
 
 module.exports = {
-  data: new SlashCommandBuilder().setName(data.name).setDescription(data.command.description),
+  data: new SlashCommandBuilder()
+    .setName(data.name)
+    .setDescription(data.command.description),
   async execute(interaction) {
     try {
       const info = await probe();
-      
+
       /*
       console.log(info)
       console.log(interaction.guild.name)

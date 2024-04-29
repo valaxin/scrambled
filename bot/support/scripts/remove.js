@@ -1,6 +1,6 @@
 const { REST, Routes } = require("discord.js");
 const { keys } = require("../../config.json");
-const { log } = require('../../support/internal.js')
+const { log } = require("../../support/internal.js");
 const rest = new REST().setToken(keys.discord.token);
 
 rest

@@ -1,5 +1,7 @@
+"use strict";
+
 const { Events } = require("discord.js");
-const { log } = require('../support/internal.js')
+const { log } = require("../support/internal.js");
 
 // https://discord.com/developers/docs/interactions/receiving-and-responding
 // export a interactionCreate
@@ -7,7 +9,12 @@ const { log } = require('../support/internal.js')
 module.exports = {
   name: Events.InteractionCreate,
   async execute(interaction) {
-    log(`"/${interaction.commandName}" ${interaction.isChatInputCommand()} ${interaction.user}/${interaction.guild.id}`, 0);
+    log(
+      `"/${interaction.commandName}" ${interaction.isChatInputCommand()} ${
+        interaction.user
+      }/${interaction.guild.id}`,
+      0
+    );
 
     // input isn't a command
     if (!interaction.isChatInputCommand()) return;

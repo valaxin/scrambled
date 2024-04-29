@@ -1,6 +1,6 @@
 const { REST, Routes } = require("discord.js");
 const { keys, directory } = require("../../config.json");
-const { log } = require('../internal')
+const { log } = require("../internal");
 const fs = require("node:fs");
 const path = require("node:path");
 
@@ -10,16 +10,21 @@ const commandFolders = fs.readdirSync(foldersPath);
 
 for (const folder of commandFolders) {
   const commandsPath = path.join(foldersPath, folder);
-  const commandFiles = fs.readdirSync(commandsPath).filter((file) => file.endsWith(".js"));
-  
+  const commandFiles = fs
+    .readdirSync(commandsPath)
+    .filter((file) => file.endsWith(".js"));
+
   for (const file of commandFiles) {
     const filePath = path.join(commandsPath, file);
     const command = require(filePath);
-    
+
     if ("data" in command && "execute" in command) {
       commands.push(command.data.toJSON());
     } else {
-      log(`"${filePath}" is missing a required "data" or "execute" property.`, 1);
+      log(
+        `"${filePath}" is missing a required "data" or "execute" property.`,
+        1
+      );
     }
   }
 }

@@ -1,10 +1,10 @@
-const fs = require("node:fs");
+"use strict";
+
 const path = require("node:path");
 const chalk = require("chalk");
 
-// internal calls
 const { name, version } = require("../../package.json");
-const manifest = require('../manifest.json')
+const manifest = require("./_commands.json");
 
 async function log(message, status) {
   let types = ["OK!", "WARN!", "ERR!"];
@@ -20,8 +20,8 @@ async function log(message, status) {
 }
 
 function exists(filename) {
-  const key = path.basename(filename).split(".")[0]
-  const data = manifest.commands
+  const key = path.basename(filename).split(".")[0];
+  const data = manifest.commands;
   // console.log(data)
   if (!data[key]) {
     return new Error();
@@ -35,6 +35,4 @@ function exists(filename) {
   };
 }
 
-
-
-module.exports = { log, exists }
+module.exports = { log, exists };

@@ -1,3 +1,5 @@
+"use strict";
+
 const axios = require("axios");
 const fs = require("node:fs");
 
@@ -26,5 +28,4 @@ module.exports = {
     }
     return false;
   },
-  getPost: async () => {}
 };

@@ -7,7 +7,7 @@
   "author": "valaxin",
   "scripts": {
     "run": "node bot/client.js",
-    "dev": "nodemon --watch bot --ignore bot/data --verbose --trace-warnings bot/client.js",
+    "dev": "nodemon --watch bot --ignore bot/support/data --verbose --trace-warnings bot/client.js",
     "reg": "node bot/support/scripts/register.js",
     "rem": "node bot/support/scripts/remove.js"
   },
@@ -16,7 +16,6 @@
     "bufferutil": "^4.0.8",
     "chalk": "^4.1.0",
     "discord.js": "^14.14.1",
-    "node-cron": "^3.0.3",
     "nodemon": "^3.1.0",
     "utf-8-validate": "^6.0.3",
     "zlib-sync": "^0.1.9"
