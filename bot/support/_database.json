@@ -1,0 +1,30 @@
+{
+  "creators": [
+    "rektcorpse",
+    "piratesoftware",
+    "tfue",
+    "nickeh30"
+  ],
+  "status": [
+    {
+      "username": "rektcorpse",
+      "url": "https://twitch.tv/rektcorpse",
+      "live": false
+    },
+    {
+      "username": "piratesoftware",
+      "url": "https://twitch.tv/piratesoftware",
+      "live": false
+    },
+    {
+      "username": "tfue",
+      "url": "https://twitch.tv/tfue",
+      "live": false
+    },
+    {
+      "username": "nickeh30",
+      "url": "https://twitch.tv/nickeh30",
+      "live": false
+    }
+  ]
+}

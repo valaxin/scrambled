@@ -7,7 +7,7 @@
   "author": "valaxin",
   "scripts": {
     "run": "node bot/client.js",
-    "dev": "nodemon --watch bot --ignore bot/support/data --verbose --trace-warnings bot/client.js",
+    "dev": "nodemon --watch bot --ignore 'bot/support/*.json' --verbose --trace-warnings bot/client.js",
     "reg": "node bot/support/scripts/register.js",
     "rem": "node bot/support/scripts/remove.js"
   },

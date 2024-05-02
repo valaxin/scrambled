@@ -57,6 +57,18 @@
     "about": {
       "ephemeral": true,
       "description": "returns information about this bot"
+    },
+    "watch": {
+      "ephemeral": true,
+      "description": "add streamer to monitor loop",
+      "arguments": {
+        "creator": {
+          "type": "string",
+          "description": "twitch creator username",
+          "required": false,
+          "default": "shroud"
+        }
+      }
     }
   }
 }

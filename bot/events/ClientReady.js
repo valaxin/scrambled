@@ -1,8 +1,9 @@
 "use strict";
 
 const { Events, EmbedBuilder } = require("discord.js");
-const { keys } = require("../config.json");
+const { keys, defaults } = require("../config.json");
 const { log } = require("../support/internal.js");
+const monitor = require('../support/monitor.js')
 
 module.exports = {
   name: Events.ClientReady,
@@ -17,5 +18,8 @@ module.exports = {
     // isolate the default channel and guild objects for later use by workers...
     // const channel = client.channels.cache.get(keys.discord.channels.default)
     // example: await worker ({ channel, guild, client, embed: Embedbuilder, log })
+
+    await monitor(client, 10000, defaults.creators, () => {})
+
   },
 };
