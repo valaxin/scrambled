@@ -1,6 +1,6 @@
 const { REST, Routes } = require("discord.js");
-const { keys, directory } = require("../../config.json");
-const { log } = require("../internal");
+const { keys, directory } = require("./config.json");
+const { log } = require("./library/internal");
 const fs = require("node:fs");
 const path = require("node:path");
 

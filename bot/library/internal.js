@@ -4,7 +4,7 @@ const path = require("node:path");
 const chalk = require("chalk");
 
 const { name, version } = require("../../package.json");
-const manifest = require("./_commands.json");
+const manifest = require("../data/commands.json");
 
 async function log(message, status) {
   let types = ["OK!", "WARN!", "ERR!"];

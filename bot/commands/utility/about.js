@@ -2,8 +2,8 @@
 
 const { Client, SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const path = require("node:path");
-const probe = require("../../support/probe.js");
-const { exists } = require("../../support/internal.js");
+const probe = require("../../library/probe.js");
+const { exists } = require("../../library/internal.js");
 const data = exists(__filename);
 
 module.exports = {

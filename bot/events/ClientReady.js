@@ -1,9 +1,9 @@
 "use strict";
 
 const { Events, EmbedBuilder } = require("discord.js");
-const { keys, defaults } = require("../config.json");
-const { log } = require("../support/internal.js");
-const monitor = require('../support/monitor.js')
+const { keys, defaults } = require("../data/config.json");
+const { log } = require("../library/internal.js");
+const monitor = require('../services/MonitorTwitch.js')
 
 module.exports = {
   name: Events.ClientReady,

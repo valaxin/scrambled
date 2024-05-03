@@ -1,7 +1,7 @@
 "use strict";
 
 const { Events } = require("discord.js");
-const { log } = require("../support/internal.js");
+const { log } = require("../library/internal.js");
 
 // https://discord.com/developers/docs/interactions/receiving-and-responding
 // export a interactionCreate

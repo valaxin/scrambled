@@ -9,9 +9,9 @@ const {
 } = require("discord.js");
 
 const path = require("node:path");
-const { keys } = require("../../config.json");
-const search = require("../../support/media.js");
-const { exists } = require("../../support/internal.js");
+const { keys } = require("../../data/config.json");
+const search = require("../../library/media.js");
+const { exists } = require("../../library/internal.js");
 const data = exists(path.basename(__filename).split(".")[0]);
 
 module.exports = {

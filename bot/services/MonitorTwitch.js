@@ -1,10 +1,10 @@
 "use strict";
 
-const store = require("./storage.js");
+const store = require("../library/storage.js");
 const path = require("node:path");
-const { log } = require('../support/internal.js')
+const { log } = require('../library/internal.js')
 
-const filename = path.join(__dirname, `./_database.json`);
+const filename = path.join(__dirname, `../data/database.json`);
 
 async function checkIfLive(username) {
   try {
@@ -66,3 +66,4 @@ module.exports = async function monitor(channel, timeout, creators) {
     }
   }
 };
+
