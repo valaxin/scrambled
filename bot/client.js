@@ -1,10 +1,10 @@
 "use strict";
 
+require('./library/internal');
 const fs = require("node:fs");
 const path = require("node:path");
 const { Client, Collection, GatewayIntentBits } = require("discord.js");
 const { keys } = require("./data/config.json");
-const { log } = require("./library/internal.js");
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.commands = new Collection();
@@ -23,7 +23,7 @@ for (const folder of commandFolders) {
     if ("data" in command && "execute" in command) {
       client.commands.set(command.data.name, command);
     } else {
-      log(
+      console.report(
         `The command at ${filePath} is missing a required "data" or "execute" property.`,
         1
       );

@@ -2,47 +2,46 @@
 
 const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const { getImage } = require("../../library/reddit.js");
-const data = require("../../library/internal.js").exists(__filename);
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName(data.name)
-    .setDescription(data.command.description)
+    .setName("meme")
+    .setDescription("fetch a meme from reddit")
     .addStringOption((option) =>
       option
-        .setName(data.arguments[0])
-        .setDescription(data.command.arguments[data.arguments[0]].description)
-        .setRequired(data.command.arguments[data.arguments[0]].required)
+        .setName("subreddit")
+        .setDescription(
+          "define the subreddit you wish to fetch from, defaults to r/funny"
+        )
+        .setRequired(false)
     )
     .addStringOption((option) =>
       option
-        .setName(data.arguments[1])
-        .setDescription(data.command.arguments[data.arguments[1]].description)
-        .setRequired(data.command.arguments[data.arguments[1]].required)
+        .setName("sort")
+        .setDescription(
+          "how would you like the data sorted before a random post is picked?"
+        )
+        .setRequired(false)
         .addChoices(
           {
-            name: data.command.arguments[data.arguments[1]].selection[0],
-            value: data.command.arguments[data.arguments[1]].selection[0],
+            name: "top",
+            value: "top",
           },
           {
-            name: data.command.arguments[data.arguments[1]].selection[1],
-            value: data.command.arguments[data.arguments[1]].selection[1],
+            name: "hot",
+            value: "hot",
           },
           {
-            name: data.command.arguments[data.arguments[1]].selection[2],
-            value: data.command.arguments[data.arguments[1]].selection[2],
+            name: "new",
+            value: "new",
           }
         )
     ),
   async execute(interaction) {
     try {
       const options = {
-        slug:
-          interaction.options.getString(data.arguments[0]) ||
-          data.command.arguments[data.arguments[0]].default,
-        sort:
-          interaction.options.getString(data.arguments[1]) ||
-          data.command.arguments[data.arguments[1]].default,
+        slug: interaction.options.getString("subreddit") || "funny",
+        sort: interaction.options.getString("sort") || "top",
         limit: 50,
       };
       const results = await getImage(options);
@@ -65,13 +64,13 @@ module.exports = {
             timezone: "EST",
           })}**`
         );
-
       await interaction.reply({
         embeds: [embed],
-        ephemeral: data.command.ephemeral,
+        ephemeral: false,
       });
+      console.report("enjoy the meme", 0);
     } catch (error) {
-      console.error(error);
+      console.report(error, 2);
       await interaction.reply({
         content: `Apologies an error has occured, please try something else.`,
         ephemeral: true,

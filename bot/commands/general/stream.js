@@ -8,63 +8,54 @@ const {
   EmbedBuilder,
 } = require("discord.js");
 
-const path = require("node:path");
 const { keys } = require("../../data/config.json");
 const search = require("../../library/media.js");
-const { exists } = require("../../library/internal.js");
-const data = exists(path.basename(__filename).split(".")[0]);
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName(data.name)
-    .setDescription(data.command.description)
+    .setName("stream")
+    .setDescription("obtain a shareable link to watch movies/tvshows")
     .addStringOption((option) =>
       option
-        .setName(data.arguments[0])
-        .setDescription(data.command.arguments[data.arguments[0]].description)
-        .setRequired(data.command.arguments[data.arguments[0]].required)
+        .setName("type")
+        .setDescription("which type of media would you like to look for?")
+        .setRequired(true)
         .addChoices(
           {
-            name: data.command.arguments[data.arguments[0]].selection[0],
-            value: data.command.arguments[data.arguments[0]].selection[0],
+            name: "series",
+            value: "series",
           },
           {
-            name: data.command.arguments[data.arguments[0]].selection[1],
-            value: data.command.arguments[data.arguments[0]].selection[1],
+            name: "movie",
+            value: "movie",
           }
         )
     )
     .addStringOption((option) =>
       option
-        .setName(data.arguments[1])
-        .setDescription(data.command.arguments[data.arguments[1]].description)
-        .setRequired(data.command.arguments[data.arguments[1]].required)
+        .setName("query")
+        .setDescription("title of the content you wish to view")
+        .setRequired(true)
     )
     .addNumberOption((option) =>
       option
-        .setName(data.arguments[2])
-        .setDescription(data.command.arguments[data.arguments[2]].description)
-        .setRequired(data.command.arguments[data.arguments[2]].required)
+        .setName("season")
+        .setDescription("if series, please state the season number")
+        .setRequired(false)
     )
     .addNumberOption((option) =>
       option
-        .setName(data.arguments[3])
-        .setDescription(data.command.arguments[data.arguments[3]].description)
-        .setRequired(data.command.arguments[data.arguments[3]].required)
+        .setName("episode")
+        .setDescription("if series, please state the episode number")
+        .setRequired(false)
     ),
   async execute(interaction) {
     try {
       const options = {
-        type: interaction.options.getString(data.arguments[0]),
-        query:
-          interaction.options.getString(data.arguments[1]) ||
-          data.command.arguments[data.arguments[1]].default,
-        season:
-          interaction.options.getNumber(data.arguments[2]) ||
-          data.command.arguments[data.arguments[2]].default,
-        episode:
-          interaction.options.getNumber(data.arguments[3]) ||
-          data.command.arguments[data.arguments[3]].default,
+        type: interaction.options.getString("type"),
+        query: interaction.options.getString("query") || "zaboomafo",
+        season: interaction.options.getNumber("season") || 1,
+        episode: interaction.options.getNumber("episode") || 1,
       };
 
       const results = await search(keys.omdb, options);
@@ -119,7 +110,7 @@ module.exports = {
       await interaction.reply({
         embeds: [embed],
         components: [row],
-        ephemeral: data.command.ephemeral,
+        ephemeral: true,
       });
     } catch (error) {
       await interaction.error({

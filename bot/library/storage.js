@@ -1,29 +1,23 @@
-// CRUD Operations On a JSON file ?
+"use strict";
 
 const fs = require("node:fs");
-const { log } = require("./internal.js");
 
-function read(file) {
+module.exports.read = function (file) {
   const data = fs.readFileSync(file, "utf8", (err, data) => {
     if (err) {
-      log(`sorry, unable to read ${file}`, 2, err);
+      console.report(`sorry, unable to read ${file} -- ${err}`, 2);
       return [];
     }
   });
-  return JSON.parse(data)
-}
+  return JSON.parse(data);
+};
 
-function write(file, data) {
+module.exports.write = function (file, data) {
   return fs.writeFileSync(file, JSON.stringify(data, null, 2), (err) => {
     if (err) {
-      log(`sorry, unable to write`, 2, err);
+      console.report(`sorry, unable to write ${file} -- ${err}`, 2);
       return false;
     }
     return true;
   });
-}
-
-module.exports = {
-  write,
-  read,
 };

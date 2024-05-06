@@ -2,15 +2,17 @@
 
 const { Events, EmbedBuilder } = require("discord.js");
 const { keys, defaults } = require("../data/config.json");
-const { log } = require("../library/internal.js");
-const monitor = require('../services/MonitorTwitch.js')
+const monitor = require('../services/MonitorTwitch.js');
+
+// lazy get?
+const { creators } = require('../data/database.json')
 
 module.exports = {
   name: Events.ClientReady,
   once: true,
   execute: async (client) => {
     const guild = client.guilds.cache.get(keys.discord.guild)
-    log(
+    console.report(
       `[${client.user.username}#${client.user.discriminator}] > [${guild.id}]`,
       0
     );
@@ -19,7 +21,9 @@ module.exports = {
     // const channel = client.channels.cache.get(keys.discord.channels.default)
     // example: await worker ({ channel, guild, client, embed: Embedbuilder, log })
 
-    await monitor(client, 10000, defaults.creators, () => {})
+    // ... ?
+
+    await monitor(client, 5000, creators || defaults.creators, () => {})
 
   },
 };

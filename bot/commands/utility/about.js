@@ -3,13 +3,11 @@
 const { Client, SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const path = require("node:path");
 const probe = require("../../library/probe.js");
-const { exists } = require("../../library/internal.js");
-const data = exists(__filename);
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName(data.name)
-    .setDescription(data.command.description),
+    .setName("about")
+    .setDescription("about this bot and its host and creator"),
   async execute(interaction) {
     try {
       const info = await probe();
@@ -21,7 +19,7 @@ module.exports = {
       console.log(interaction.user)
       */
 
-      const meta = { guilds: [] };
+      // const meta = { guilds: [] };
 
       const embed = new EmbedBuilder()
         .setColor(0xffe135)

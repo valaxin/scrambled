@@ -35,7 +35,7 @@ module.exports = async function (key, options) {
 
     return jsondata;
   } catch (error) {
-    console.log("searchQuery", error);
+    console.report(error, 2);
     return error;
   }
 };

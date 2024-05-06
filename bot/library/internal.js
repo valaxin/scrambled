@@ -1,38 +1,39 @@
 "use strict";
 
-const path = require("node:path");
 const chalk = require("chalk");
+const { name } = require("../../package.json");
 
-const { name, version } = require("../../package.json");
-const manifest = require("../data/commands.json");
-
-async function log(message, status) {
-  let types = ["OK!", "WARN!", "ERR!"];
-  const color1 = chalk.magenta.bold;
-  const color2 = chalk.green;
-  console.log(
-    color1(
-      `[${name}@${version}] [${color2(Date.now())}] ${message} ${color2(
-        types[status]
-      )}`
-    )
-  );
-}
-
-function exists(filename) {
-  const key = path.basename(filename).split(".")[0];
-  const data = manifest.commands;
-  // console.log(data)
-  if (!data[key]) {
-    return new Error();
-  }
-  log(`Command "/${key}"`, 0);
-
-  return {
-    name: key,
-    command: data[key],
-    arguments: Object.keys(data[key].arguments || {}),
+console.__proto__.report = (message, status) => {
+  const type = ["OK!", "WARN!", "ERR!", "INFO!"];
+  const styles = {
+    default: chalk.white,
+    success: chalk.green.bold,
+    failure: chalk.red.bold,
+    warning: chalk.yellow.bold,
+    information: chalk.blue,
   };
-}
-
-module.exports = { log, exists };
+  switch (status) {
+    default:
+      console.log(
+        styles.default(`[${name}] ${message} ${styles.success(type[status])}`)
+      );
+      break;
+    case 1:
+      console.log(
+        styles.default(`[${name}] ${message} ${styles.warning(type[status])}`)
+      );
+      break;
+    case 2:
+      console.log(
+        styles.default(`[${name}] ${message} ${styles.failure(type[status])}`)
+      );
+      break;
+    case 3:
+      console.log(
+        styles.default(
+          `[${name}] ${message} ${styles.information(type[status])}`
+        )
+      );
+      break;
+  }
+};
