@@ -23,7 +23,7 @@ module.exports = async function monitor(channel, timeout, creators) {
   // creators = !creators ? ["rektcorpse", "piratesoftware"] : creators;
   let start = true;
   let tick = 0;
-  let limit = 2;
+  let limit = -1;
 
   const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
@@ -34,6 +34,7 @@ module.exports = async function monitor(channel, timeout, creators) {
         username: creator,
         url: `https://twitch.tv/${creator}`,
         live: await checkIfLive(creator),
+        date: Date.now()
       };
       return output;
     });

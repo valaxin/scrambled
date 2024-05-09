@@ -23,7 +23,7 @@ module.exports = {
 
     // ... ?
 
-    await monitor(client, 5000, creators || defaults.creators, () => {})
+    await monitor(client, 10000, creators || defaults.creators, () => {})
 
   },
 };
