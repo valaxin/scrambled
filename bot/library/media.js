@@ -12,7 +12,6 @@ module.exports = async function (key, options) {
     )}`;
     const response = await axios.get(endpoint);
     const jsondata = await response.data.Search.map((result) => {
-      // expects value of type to be 'series' or 'movie'
       return result.Type === options.type ? result : null;
     })[0];
 

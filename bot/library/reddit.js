@@ -28,4 +28,7 @@ module.exports = {
     }
     return false;
   },
+  collectionOf: async (sub) => {
+    
+  }
 };

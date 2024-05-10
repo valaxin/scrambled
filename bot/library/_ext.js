@@ -15,23 +15,23 @@ console.__proto__.report = (message, status) => {
   switch (status) {
     default:
       console.log(
-        styles.default(`[${name}] ${message} ${styles.success(type[status])}`)
+        styles.default(`[${name}] [${styles.success(type[status])}] ${message}`)
       );
       break;
     case 1:
       console.log(
-        styles.default(`[${name}] ${message} ${styles.warning(type[status])}`)
+        styles.default(`[${name}] [${styles.warning(type[status])}] ${message}`)
       );
       break;
     case 2:
       console.log(
-        styles.default(`[${name}] ${message} ${styles.failure(type[status])}`)
+        styles.default(`[${name}] [${styles.failure(type[status])}] ${message}`)
       );
       break;
     case 3:
       console.log(
         styles.default(
-          `[${name}] ${message} ${styles.information(type[status])}`
+          `[${name}] [${styles.information(type[status])}] ${message}`
         )
       );
       break;

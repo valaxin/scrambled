@@ -6,10 +6,10 @@
   "license": "MIT",
   "author": "valaxin",
   "scripts": {
-    "run": "node bot/client.js",
-    "dev": "nodemon --watch bot --ignore 'bot/data/*.json' --verbose --trace-warnings bot/client.js",
-    "reg": "node bot/RegisterCommands.js",
-    "rem": "node bot/RemoveCommands.js"
+    "run": "node bot/Client.js",
+    "dev": "nodemon --watch bot --ignore 'bot/data/*.json' --verbose --trace-warnings bot/Client.js",
+    "remove": "node bot/RemoveCommands.js",
+    "register": "node bot/RegisterCommands.js"
   },
   "dependencies": {
     "axios": "^1.6.8",
