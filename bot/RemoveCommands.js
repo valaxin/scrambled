@@ -1,3 +1,5 @@
+
+require('./library/_ext'); // add some .__proto__ garbarge
 const { REST, Routes } = require("discord.js");
 const { keys } = require("./data/config.json");
 const rest = new REST().setToken(keys.discord.token);

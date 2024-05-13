@@ -1,7 +1,6 @@
 "use strict";
 
 const path = require("node:path");
-const store = require("../library/storage.js");
 const filename = path.join(__dirname, `../data/database.json`);
 
 async function checkIfLive(username) {
@@ -43,7 +42,7 @@ module.exports = async function monitor(channel, timeout, creators) {
   };
 
   while (start) {
-    const current = await store.read(filename);
+    const current = await JSON.readLocalFileSync(filename);
     const updated = await routine(creators);
     updated.creators = current.creators;
     for (let pos = 0; pos < current.status.length; pos++) {
@@ -54,7 +53,7 @@ module.exports = async function monitor(channel, timeout, creators) {
         console.report(`${current.creators[pos]} online`, 3);
       }
     }
-    await store.write(filename, updated);
+    JSON.writeLocalFileSync(filename, updated);
     await delay(timeout);
     console.report(`monitor ${tick + 1}/${limit}`, 0);
     tick++;

@@ -2,7 +2,6 @@
 
 const { Client, SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const path = require("node:path");
-const store = require("../../library/storage.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -23,9 +22,9 @@ module.exports = {
       };
 
       const filepath = path.join(__dirname, "../../data/database.json");
-      const db = await store.read(filepath);
+      const db = await JSON.readLocalFileSync(filepath);
       db.creators.push(options.creator);
-      await store.write(filepath, db);
+      await JSON.writeLocalFileSync(filepath, db);
 
       await interaction.reply({
         content: "something",

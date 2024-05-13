@@ -1,11 +1,12 @@
+
+require('./library/_ext'); // add some .__proto__ garbarge
 const { REST, Routes } = require("discord.js");
-const { keys, directory } = require("./data/config.json");
-const { log } = require("./library/internal");
+const config = require("./data/config.json");
 const fs = require("node:fs");
-const path = require("node:path");
+const path = require("path");
 
 const commands = [];
-const foldersPath = path.join(__dirname, directory);
+const foldersPath = path.join(__dirname, config.commands);
 const commandFolders = fs.readdirSync(foldersPath);
 
 for (const folder of commandFolders) {
@@ -29,7 +30,7 @@ for (const folder of commandFolders) {
   }
 }
 
-const rest = new REST().setToken(keys.discord.token);
+const rest = new REST().setToken(config.keys.discord.token);
 
 (async () => {
   try {
@@ -38,7 +39,7 @@ const rest = new REST().setToken(keys.discord.token);
       1
     );
     const data = await rest.put(
-      Routes.applicationGuildCommands(keys.discord.client, keys.discord.guild),
+      Routes.applicationGuildCommands(config.keys.discord.client, config.keys.discord.guild),
       { body: commands }
     );
     console.report(

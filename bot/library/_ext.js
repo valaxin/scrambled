@@ -1,6 +1,7 @@
 "use strict";
 
 const chalk = require("chalk");
+const fs = require("node:fs");
 const { name } = require("../../package.json");
 
 console.__proto__.report = (message, status) => {
@@ -36,4 +37,25 @@ console.__proto__.report = (message, status) => {
       );
       break;
   }
+};
+
+JSON.__proto__.readLocalFileSync = (filepath) => {
+  const result = fs.readFileSync(filepath, "utf8", (error) => {
+    if (error) {
+      console.report(`sorry, unable to read ${file} -- ${err}`, 2);
+      return [ err     ];
+    }
+    console.log(`hi fromt he JSON.localRead(path)`, data);
+  });
+  return JSON.parse(result);
+};
+
+JSON.__proto__.writeLocalFileSync = (filepath, data) => {
+  return fs.writeFileSync(filepath, JSON.stringify(data, null, 2), (err) => {
+    if (err) {
+      console.report(`sorry, unable to write ${filepath} -- ${err}`, 2);
+      return false;
+    }
+    return { successful: true, data };
+  });
 };
