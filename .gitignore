@@ -1,7 +1,4 @@
-/.vscode
+
+/.env
 /node_modules
-
-/bot/config.json
-/bot/data/**.**
-
-/.temp
+/todo

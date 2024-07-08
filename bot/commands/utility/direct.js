@@ -1,1 +1,0 @@
-// return the direct link for media when given a url.

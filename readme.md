@@ -1,14 +1,7 @@
 # scrambled
 
-Personal Discord bot
+> personal automations by way of discord
 
-## commands
+## project structure
 
-- `/about`
-- `/meme <?subreddit:String> [top|hot|new]`
-- `/stream [series|movie] <?title:String> <?season:Number> <?episode:Number>`
-- `/watch <?creator:String>`
-
-
-## services
-
+todo
