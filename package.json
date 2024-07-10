@@ -7,15 +7,21 @@
   "author": "valaxin",
   "type": "module",
   "scripts": {
-    "start": "node bot/index.js",
-    "register": "node bot/deploy.js"
+    "start-bot": "node bot/index.js",
+    "start-web": "node web/app.js",
+    "register-commands": "node bot/deploy.js"
   },
   "dependencies": {
     "axios": "^1.7.2",
+    "body-parser": "^1.20.2",
     "bufferutil": "^4.0.8",
+    "cookie-parser": "^1.4.6",
     "discord.js": "^14.15.3",
     "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "morgan": "^1.10.0",
     "nodemon": "^3.1.4",
+    "socket.io": "^4.7.5",
     "utf-8-validate": "^6.0.4",
     "zlib-sync": "^0.1.9"
   }
