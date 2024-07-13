@@ -6,7 +6,7 @@ import bodyParser from 'body-parser'
 import { Server } from 'socket.io'
 import http from 'http'
 
-import controller from './routes/basics.js'
+import controllers from './api.js'
 
 const app = express()
 const httpServer = http.createServer(app)
@@ -31,7 +31,7 @@ app.get('/vendor/socket.io.js.map', (req, res, next) => {
   res.sendFile(path.resolve('./node_modules/socket.io/client-dist/socket.io.js.map'))
 })
 
-app.use('/api', controller)
+app.use('/api/v1/', controllers)
 
 app.use(async (req, res, next) => {
   const error = new Error('Not Found')
@@ -47,8 +47,8 @@ app.use(async (err, req, res, next) => {
 })
 
 httpServer.listen(3000, () => {
-  console.log('> your express server is running...')
-  console.log('> http://localhost:3000')
+  console.log('> [express] your express server is running!')
+  console.log('> [express] http://localhost:3000')
 })
 
 export default app

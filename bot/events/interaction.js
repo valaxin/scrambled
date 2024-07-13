@@ -8,9 +8,7 @@ import { Events } from 'discord.js'
 export default {
   name: Events.InteractionCreate,
   async execute(interaction) {
-    console.log(
-      `"/${interaction.commandName}" ${interaction.isChatInputCommand()} ${interaction.user}/${interaction.guild.id}`
-    )
+    console.log(`> [discord] "/${interaction.commandName}" ${interaction.isChatInputCommand()} ${interaction.user}/${interaction.guild.id}`)
 
     // input isn't a command
     if (!interaction.isChatInputCommand()) return
@@ -20,7 +18,7 @@ export default {
 
     // command doesn't exist or isn't registered
     if (!command) {
-      console.report(`No command matching ${interaction.commandName} was found.`, 1)
+      console.log(`> [discord] No command matching ${interaction.commandName} was found.`)
       return
     }
 

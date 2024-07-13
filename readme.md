@@ -2,6 +2,17 @@
 
 > personal automations by way of discord
 
-## project structure
-
-todo
+```shell
+HOST=''
+PORT=''
+WUMPUS_TOKEN=''
+WUMPUS_CLIENT=''
+WUMPUS_GUILD=''
+OMDB_APIKEY=''
+INT_TOKEN=''
+SPOTIFY_CLIENT_ID=''
+SPOTIFY_CLIENT_SECRET=''
+SPOTIFY_REFRESH_TOKEN=''
+SPOTIFY_NOWPLAYING_ENDPOINT=''
+SPOTIFY_ACCESS_ENDPOINT=''
+```
