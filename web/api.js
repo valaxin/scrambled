@@ -12,7 +12,7 @@ async function tokenCheck(request, response, next) {
     if ('access_token' in request.body) {
       if (request.body.access_token === process.env.INT_TOKEN) {
         request.body.access_token = true
-        console.log(`> [express] token check passed!`)
+        console.log(`[express] token check passed`)
         next()
       } else {
         response.send(401)
@@ -21,7 +21,7 @@ async function tokenCheck(request, response, next) {
       response.send(403)
     }
   } catch (ex) {
-    console.error('invalid app token, unable to proceed', ex)
+    console.error('[express] invalid app token, unable to proceed', ex)
     response.send(500)
   }
 }
@@ -30,5 +30,6 @@ const router = Router()
 
 router.post('/alert/:author/:message', tokenCheck, alertMessage)
 router.post('/now-playing', tokenCheck, getSpotifyAccessToken, nowPlaying)
+// router.post('/is-live/:streamer')
 
 export default router

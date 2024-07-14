@@ -1,7 +1,7 @@
 'use strict'
 
 import 'dotenv/config'
-import { Client, SlashCommandBuilder, EmbedBuilder } from 'discord.js'
+import { Client, SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } from 'discord.js'
 
 const name = 'song'
 const description = 'get the song currently playing on stream, if any.'
@@ -33,14 +33,24 @@ export default {
           ephemeral: true,
         })
       } else {
-        embed.setTitle(name).setDescription(description)
+        console.log(jsondata)
+
+        const actionRow = new ActionRowBuilder().addComponents(
+          new ButtonBuilder().setLabel('Spotify').setURL(jsondata.data.songUrl).setStyle(ButtonStyle.Link)
+        )
+
+        embed
+          .setTitle(jsondata.data.title)
+          .setDescription(`${jsondata.data.artist} - ${jsondata.data.album}`)
+          .setThumbnail(jsondata.data.albumImageUrl)
         await interaction.reply({
           embeds: [embed],
+          components: [actionRow],
           ephemeral: true,
         })
       }
     } catch (ex) {
       console.log(ex)
     }
-  }
+  },
 }

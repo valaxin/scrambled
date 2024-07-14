@@ -25,7 +25,7 @@ export default async function getSpotifyAccessToken(req, res, next) {
     req.spotify = await res.json()
     next()
   } catch (ex) {
-    console.error('unable to obtain access token: ', ex)
+    console.error('[express] unable to obtain spotify access token: ', ex)
     res.send(500)
   }
 }

@@ -28,7 +28,7 @@ export async function getCommands(directory) {
               commands.push(module.default.data.toJSON())
               files.push(module.default)
             } else {
-              console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`)
+              console.warn(`[discord] the command at ${filePath} is missing a required "data" or "execute" property`)
             }
           }
         }
@@ -42,13 +42,14 @@ export async function getCommands(directory) {
           commands.push(module.default.data.toJSON())
           files.push(module.default)
         } else {
-          console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`)
+          console.warn(`[discord] the command at ${filePath} is missing a required "data" or "execute" property`)
         }
       }
     }
 
     return { commands, files }
   } catch (ex) {
+    console.error(`[discord] error occured processing command files`, ex)
     return ex
   }
 }

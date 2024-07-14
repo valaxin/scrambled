@@ -9,7 +9,7 @@ import 'dotenv/config'
 import * as url from 'url'
 import { resolve } from 'node:path'
 import { REST, Routes } from 'discord.js'
-import { getCommands } from './modules/get-commands.js'
+import { getCommands } from './helpers/get-commands.js'
 
 const guild = process.env.WUMPUS_GUILD
 const token = process.env.WUMPUS_TOKEN
@@ -24,31 +24,29 @@ async function register(foldername) {
     const registered = await rest.put(Routes.applicationGuildCommands(client, guild), {
       body: data.commands,
     })
-    console.log(`> successfully registered ${registered.length} slash commands [${guild}]`)
+    console.log(`[discord] successfully registered ${registered.length} slash commands [${guild}]`)
 
     const output = {
       directory: { __dirname, foldername },
       success: true,
       len: registered.length,
       data,
-      registered
+      registered,
     }
 
     return output
   } catch (ex) {
-    console.error('Slash command registration error!', ex)
+    console.error('[discord] slash command registration error!', ex)
     const output = {
       ex,
       directory: { __dirname, foldername },
       success: true,
       len: registered.length,
       data,
-      registered
+      registered,
     }
     return output
   }
 }
 
 const reg = await register('commands')
-
-console.log(reg)

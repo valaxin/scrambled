@@ -10,7 +10,7 @@ export default async function (req, res, next) {
       message: req.params.message,
     }
     app.io.emit('alert', data)
-    res.send(200)
+    res.send({ status: 200, alert: data })
   } catch (ex) {
     res.send(500)
   }

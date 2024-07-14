@@ -27,6 +27,7 @@ async function getSpotifyNowPlaying(token) {
     const timePlayed = song.progress_ms
     const timeTotal = song.item.duration_ms
     const artistUrl = song.item.album.artists[0].external_urls.spotify
+    const album = song.item.album.name
 
     return {
       albumImageUrl,
@@ -37,9 +38,10 @@ async function getSpotifyNowPlaying(token) {
       timePlayed,
       timeTotal,
       artistUrl,
+      album,
     }
   } catch (ex) {
-    console.error('error fetching currently playing song: ', ex)
+    console.error('[express] error fetching currently playing song', ex)
     return ex.message.toString()
   }
 }
@@ -50,7 +52,7 @@ export default async function (req, res, next) {
     app.io.emit('now-playing', data)
     res.json({ emit: 'now-playing', token: true, data })
   } catch (ex) {
-    console.error('nowplaying middleware has encounted an error: ', ex)
+    console.error(`[express] "now-playing.js" middleware has encounted an error`, ex)
     res.send(500)
   }
 }

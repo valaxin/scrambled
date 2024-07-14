@@ -14,7 +14,7 @@ const httpServer = http.createServer(app)
 app.io = new Server(httpServer)
 
 app.io.on('connection', (socket) => {
-  console.log('> A new web socket connection has occured!')
+  console.log('[express] a new web socket connection has occured')
 })
 
 app.use(logger('dev'))
@@ -22,6 +22,10 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.resolve('./web/public')))
+
+app.get('/favicon.ico', (req, res, next) => {
+  res.sendFile(path.resolve('./web/public/resources/favicon.ico'))
+}) 
 
 app.get('/vendor/socket.io.js', (req, res, next) => {
   res.sendFile(path.resolve('./node_modules/socket.io/client-dist/socket.io.js'))
@@ -47,8 +51,7 @@ app.use(async (err, req, res, next) => {
 })
 
 httpServer.listen(3000, () => {
-  console.log('> [express] your express server is running!')
-  console.log('> [express] http://localhost:3000')
+  console.log('[express] your server is available at http://localhost:3000')
 })
 
 export default app

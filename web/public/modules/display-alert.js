@@ -1,15 +1,16 @@
 'use strict'
 
 export default async function displayAlert(stage, data) {
-  console.log(stage, data)
-  
-  const alertElement = document.createElement('div')
-  alertElement.classList.add('alert')
-  alertElement.innerText = `${data.author} :: ${data.message}`
-  stage.appendChild(alertElement)
-
+  const template = `
+    <div class="alert">
+      <span class="alert-author">${data.author}</span>
+      <span class="alert-message">${data.message}</span>
+      <span class="alert-date"></span>
+    </div>
+  `
+  stage.innerHTML += template
+  const alertElement = stage.querySelectorAll('div.alert')[0]
   setTimeout(() => {
     alertElement.remove()
-  }, 4500)
+  }, 5000) // 5 seconds
 }
-

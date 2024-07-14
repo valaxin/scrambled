@@ -5,7 +5,7 @@ import * as url from 'url'
 import { readdir, lstat } from 'fs/promises'
 import { resolve } from 'path'
 import { Client, Collection, GatewayIntentBits } from 'discord.js'
-import { getCommands } from './modules/get-commands.js'
+import { getCommands } from './helpers/get-commands.js'
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 const client = new Client({ intents: [GatewayIntentBits.Guilds] })
@@ -17,7 +17,7 @@ for (const command of collection.files) {
   if ('data' in command && 'execute' in command) {
     client.commands.set(command.data.name, command)
   } else {
-    console.log(`> [discord] The command at ${filePath} is missing a required "data" or "execute" property.`)
+    console.log(`[discord] The command at ${filePath} is missing a required "data" or "execute" property.`)
   }
 }
 
@@ -29,7 +29,6 @@ for (const file of eventsFiles) {
   const filePath = resolve(eventsPath, file)
   const module = await import(filePath)
   const event = module.default
-
   event.once
     ? client.once(event.name, (...args) => event.execute(...args))
     : client.on(event.name, (...args) => event.execute(...args))
