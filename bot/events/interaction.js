@@ -2,29 +2,23 @@
 
 import { Events } from 'discord.js'
 
-// https://discord.com/developers/docs/interactions/receiving-and-responding
-// export a interactionCreate
-
 export default {
   name: Events.InteractionCreate,
   async execute(interaction) {
-    console.log(`[discord] "${interaction.commandName}" interaction.isChatInputCommand()=${interaction.isChatInputCommand()} from ${interaction.user}/${interaction.guild.id}`)
+    console.log(`[discord] "${interaction.commandName}" from ${interaction.user}/${interaction.guild.id}`)
 
-    // input isn't a command
-    if (!interaction.isChatInputCommand()) return
+    if (!interaction.isChatInputCommand()) return // input isn't a command
 
-    // look for matching command
     const command = interaction.client.commands.get(interaction.commandName)
 
-    // command doesn't exist or isn't registered
     if (!command) {
-      console.log(`[discord] no command matching ${interaction.commandName} was found`)
+      console.error(`[discord] no command matching ${interaction.commandName} was found`)
       return
     }
 
-    // input IS command, matching command IS registered
+    // input IS command AND registered
     try {
-      await command.execute(interaction) // = bingo
+      await command.execute(interaction)
     } catch (commandError) {
       // if error reply via one of three methods? not sure why this todo: read/investigate
       // guess: dependant on the state of execution within the command?

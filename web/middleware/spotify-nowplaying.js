@@ -3,19 +3,22 @@
 import 'dotenv/config'
 import app from '../app.js'
 
-async function getSpotifyNowPlaying(token) {
+async function songInformationFromSpotify(token) {
   try {
-    const nowplayingEndpoint = process.env.SPOTIFY_NOWPLAYING_ENDPOINT
-    const response = await fetch(nowplayingEndpoint, {
+    
+    const endpoint = process.env.SPOTIFY_NOWPLAYING_ENDPOINT
+    const response = await fetch(endpoint, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
 
     if (response.status > 400) {
-      throw new Error('an error has occured, unable to Fetch Song')
-    } else if (response.status === 204) {
-      throw new Error('successful, nothing currently playing')
+      throw new Error('[express] an error has occured, unable to fetch now playing info')
+    } 
+    
+    if (response.status === 204) {
+      return { status: response.status, data: 'nothing playing' }
     }
 
     const song = await response.json()
@@ -38,19 +41,26 @@ async function getSpotifyNowPlaying(token) {
       timePlayed,
       timeTotal,
       artistUrl,
-      album,
+      album
     }
-  } catch (ex) {
-    console.error('[express] error fetching currently playing song', ex)
-    return ex.message.toString()
+    
+  } catch (error) {
+    return false
   }
 }
 
 export default async function (req, res, next) {
   try {
-    const data = await getSpotifyNowPlaying(req.spotify.access_token)
-    app.io.emit('now-playing', data)
-    res.json({ emit: 'now-playing', token: true, data })
+    
+    const data = await songInformationFromSpotify(req.spotify.access_token)
+    app.io.emit('display-song', data)
+
+    // if the request for song information is coming from discord.
+    if (req.body.wumpus && req.body.wumpus === true) {
+      data.wumpus = true
+    }
+
+    res.json({ emit: 'ws://display-song', status: 200,  data })
   } catch (ex) {
     console.error(`[express] "now-playing.js" middleware has encounted an error`, ex)
     res.send(500)

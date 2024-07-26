@@ -20,6 +20,7 @@ export default {
         },
         body: JSON.stringify({
           access_token: process.env.INT_TOKEN,
+          from: 'srambled-bot',
         }),
       }
 
@@ -33,12 +34,9 @@ export default {
           ephemeral: true,
         })
       } else {
-        console.log(jsondata)
-
         const actionRow = new ActionRowBuilder().addComponents(
           new ButtonBuilder().setLabel('Spotify').setURL(jsondata.data.songUrl).setStyle(ButtonStyle.Link)
         )
-
         embed
           .setTitle(jsondata.data.title)
           .setDescription(`${jsondata.data.artist} - ${jsondata.data.album}`)

@@ -3,8 +3,8 @@
 import 'dotenv/config'
 import { Client, SlashCommandBuilder, EmbedBuilder } from 'discord.js'
 
-const name = 'alert'
-const description = 'send a message to the webfront for display'
+const name = 'msg'
+const description = 'send a message to be displayed on stream, if stream.'
 
 const embed = new EmbedBuilder().setTitle(name).setDescription(description)
 
@@ -30,11 +30,17 @@ export default {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          access_token: process.env.INT_TOKEN,
+          token: process.env.SCRAMBLED,
+          author: cmd.author,
+          message: cmd.message,
+          timeout: 15000
         }),
       }
 
-      const response = await fetch(`http://localhost:3000/api/v1/alert/${cmd.author}/${cmd.message}`, opts)
+      const response = await fetch(`http://localhost:3000/api/v1/display/message`, opts)
+
+      console.log(opts, {... response} )
+
       const data = await response.json()
 
       await interaction.reply({

@@ -4,20 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <script src="modules/display-alert.js" type="module"></script>
-    <script src="modules/video-player.js" type="module"></script>
-    <script src="vendor/socket.io.js"></script>
+    
+    <script src="/modules/display-song.js" type="module"></script>
+    <script src="/modules/display-message.js" type="module"></script>
+    
+    <script src="/resources/vendor/socket.io.js"></script>
   </head>
   <body translate="no">
-    <div id="stage" data-active="false">
-
-      <div class="alert">
-        <span class="alert-author">${data.author}</span>
-        <span class="alert-message">${data.message}</span>
-        <span class="alert-date"></span>
-      </div>
-
-    </div>
+    <div id="stage" data-active="false"></div>
     <script src="main.js" type="module"></script>
   </body>
 </html>
