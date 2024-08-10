@@ -33,7 +33,7 @@ export default {
           token: process.env.SCRAMBLED,
           author: cmd.author,
           message: cmd.message,
-          timeout: 15000
+          timeout: 10000
         }),
       }
 

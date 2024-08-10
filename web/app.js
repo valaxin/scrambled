@@ -10,7 +10,6 @@ import APIRouter from './router.js'
 import songd from './services/daemon-song.js'
 import tokenCheckMiddleware from './middleware/token-check.js' 
 
-
 const app = express()
 const httpServer = http.createServer(app)
 
@@ -45,8 +44,6 @@ app.use(async (req, res, next) => {
   next(error)
 })
 
-app.use(async (req, res, next) => {})
-
 app.use(async (err, req, res, next) => {
   res.locals.message = err.message
   res.locals.error = err
@@ -57,7 +54,6 @@ app.use(async (err, req, res, next) => {
 httpServer.listen(3000, () => {
   console.log('[express] your server is available at http://localhost:3000')
 })
-
 
 await songd(5000) // every 5 seconds
 

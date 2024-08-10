@@ -10,7 +10,7 @@ const stage = document.querySelectorAll('div#stage')[0]
 
 const animateText = () => {
   const animatedText = document.querySelectorAll('.animated-text')
-  
+
   function animate(element) {
     const textArray = element.innerText.split('')
     element.firstChild.remove()
@@ -26,7 +26,7 @@ const animateText = () => {
     })
     element.innerHtml = elArray
   }
-  
+
   animate(animatedText)
 }
 

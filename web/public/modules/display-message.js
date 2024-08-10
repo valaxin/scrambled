@@ -1,7 +1,7 @@
 'use strict'
 
 const sanitize_timeout = (value) => {
-  if (typeof(value) === 'number') {
+  if (typeof value === 'number') {
     return value
   } else {
     return 15000
@@ -16,7 +16,7 @@ const shorten_message = (value, length) => {
   }
 }
 
-export default async function DisplayMessage (stage, data, selector) {
+export default async function DisplayMessage(stage, data, selector) {
   try {
     const charLimit = 128
     const timeout = sanitize_timeout(data.timeout)
@@ -24,8 +24,15 @@ export default async function DisplayMessage (stage, data, selector) {
     template.classList.add(selector)
     template.innerHTML = `
       <div class="${selector}-container">
-        <span class="${selector}-author animated-text wave">${data.author}</span>
-        <span class="${selector}-body animated-text wave">${shorten_message(data.message, charLimit)}</span>
+        <div class="wrapper">
+          <div class="pie spinner"></div>
+          <div class="pie filler"></div>
+          <div class="mask"></div>
+        </div>
+        <div class="user-${selector}">
+          <span class="${selector}-author animated-text wave">${data.author}</span>
+          <span class="${selector}-body animated-text wave">${shorten_message(data.message, charLimit)}</span>
+        </div>
       </div>
     `
     stage.appendChild(template)

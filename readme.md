@@ -1,49 +1,32 @@
-# scrambled
+#scrambled
 
-> personal automations by way of discord
+## rest api
 
----
+`POST /display/song`
+`POST /display/message`
 
-## directory spec
+## commands
 
-> two applications as one
+`/msg %message%`
+`/help`
 
-#### /bot
+## running locally
 
-| pattern            | type   | purpose                                           |
-| ------------------ | ------ | ------------------------------------------------- |
-| .                  | folder | top most folder for discord bot                   |
-| ./commands/**/*.js | folder | container for every commands available to the bot |
-| ./events/*.js      | folder | event handers for discord/user interactions       |
-| ./helpers/*.js     | folder | bot related helper scripts                        |
-| ./deploy.js        | file   | register slash commands to guild                  |
-| ./remove.js        | file   | remove commands from guild/global                 |
-| ./index.js         | file   | bot entry point                                   |
+ensure all required enviroment variables are valid install `node.js` then from within the project directory.
 
-#### /web
+```shell
 
-| pattern                | type   | purpose                                         |
-| ---------------------- | ------ | ----------------------------------------------- |
-| .                      | folder | top most folder for companion express app       |
-| ./middleware/*.js      | folder | local express middleware                        |
-| ./public/*             | folder | served public directory                         |
-| ./public/modules/*.js  | folder | client facing javascript modules                |
-| ./public/resources/*.* | folder | static client resources                         |
-| ./public/index.html    | file   | client html markup                              |
-| ./public/styles.css    | file   | client stylesheet                               |
-| ./public/main.js       | file   | client javascript entry point                   |
-| ./services/*.js        | folder | daemons that run to provide live data to client |
-| ./app.js               | file   | express web app entry point                     |
-| ./api.js               | file   | small route handler                             |
+npm install
+npm run bot:deploy
+npm run start:bot
+npm run start:web
 
-#### /scrambled
+```
 
-| pattern             | type   | purpose                                        |
-| ------------------- | ------ | -----------------------------------------------|
-| .                   | folder | project folder                                 |
-| ./package.json      | file   | project dependencies                           |
-| ./package-lock.json | file   | lock file (generated; shouldn't edit directly) |
-| ./.env              | file   | environment variables (required)               |
-| ./.gitignore        | file   | tell git scm what to ignore                    |
-| ./readme.md         | file   | information about this application             |
-| ./license.md        | file   | license information                            |
+at this point locally at the defined port you'll find the "green screen" element, this should be opened in OBS as a browser view. by default the element is only 1280x720.
+
+the song-daemon will show the current spotify track for a defined amount of the elasped time. then hiding.
+
+users of the discord bot who are also tuned into the stream can send messages directly. they feature a 128 character limit and a 10 second timeout by default.
+
+!! discord usernames are shown

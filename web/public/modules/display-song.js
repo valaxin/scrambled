@@ -1,17 +1,18 @@
 'use strict'
 
 export default async function displaySong(stage, data, selector) {
-  
   const existing = stage.querySelectorAll(`.${selector}`)
   const template = document.createElement(`div`)
-  
-  for (const div of existing) { div.remove() }
-  
+
+  for (const div of existing) {
+    div.remove()
+  }
+
   template.classList.add(selector)
 
   if (data.title === undefined) {
     template.innerHTML = `
-      <span class="${selector}-title animated-text wave">spotify isn't playing</span>
+      <span class="${selector}-title animated-text wave"></span>
     `
   } else {
     template.innerHTML = `

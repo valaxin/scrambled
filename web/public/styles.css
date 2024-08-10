@@ -106,11 +106,24 @@ span {
 }
 
 .message-container {
-  background-color: red;
+  background-color: transparent;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-content: flex-start;
+  justify-items: flex-start;
+  align-items: flex-start;
+}
+
+.user-message {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-content: flex-start;
+  justify-items: flex-start;
+  align-items: flex-start;
+  margin-left: 20px;
 }
 
 .message-author {
@@ -123,3 +136,102 @@ span {
 }
 
 .message > span { text-align: center; }
+
+/*--- ---*/
+
+.wrapper {
+  position: relative;
+  /* margin: 40px auto; */
+  background: limegreen;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.wrapper, .wrapper * {
+  box-sizing: border-box;
+}
+
+.wrapper {
+  width: 64px;
+  height: 64px;
+}
+
+.wrapper .pie {
+  width: 50%;
+  height: 100%;
+  transform-origin: 100% 50%;
+  position: absolute;
+  background: #000;
+  border: 10px solid rgba(0,0,0,1);
+}
+
+.wrapper .spinner {
+  border-radius: 100% 0 0 100%/50% 0 0 50%;
+  z-index: 200;
+  border-right: none;
+  -webkit-animation: rotate 10s linear infinite;
+          animation: rotate 10s linear infinite;
+}
+
+.wrapper:hover .spinner,
+.wrapper:hover .filler,
+.wrapper:hover .mask {
+  -webkit-animation-play-state: running;
+          animation-play-state: running;
+}
+
+.wrapper .filler {
+  border-radius: 0 100% 100% 0/0 50% 50% 0;
+  left: 50%;
+  opacity: 0;
+  z-index: 100;
+  animation: opacity 10s steps(1, end) infinite reverse;
+  border-left: none;
+}
+
+.wrapper .mask {
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  background: inherit;
+  opacity: 1;
+  z-index: 300;
+  -webkit-animation: opacity 10s steps(1, end) infinite;
+          animation: opacity 10s steps(1, end) infinite;
+}
+
+@-webkit-keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes opacity {
+  0% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+}
+@keyframes opacity {
+  0% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+}
+
+/*--- ---*/

@@ -2,3 +2,5 @@
 /.env
 /node_modules
 /todo
+
+/web/public/locals.json

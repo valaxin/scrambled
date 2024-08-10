@@ -4,7 +4,7 @@ export default async function token(req, res, next) {
   try {
     if ('token' in req.body) {
       if (req.body.token === process.env.SCRAMBLED) {
-        req.body.token = true 
+        req.body.token = true
         next() // successful
       } else {
         res.send(401)

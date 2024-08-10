@@ -5,7 +5,6 @@ import app from '../app.js'
 
 async function songInformationFromSpotify(token) {
   try {
-    
     const endpoint = process.env.SPOTIFY_NOWPLAYING_ENDPOINT
     const response = await fetch(endpoint, {
       headers: {
@@ -15,8 +14,8 @@ async function songInformationFromSpotify(token) {
 
     if (response.status > 400) {
       throw new Error('[express] an error has occured, unable to fetch now playing info')
-    } 
-    
+    }
+
     if (response.status === 204) {
       return { status: response.status, data: 'nothing playing' }
     }
@@ -41,9 +40,8 @@ async function songInformationFromSpotify(token) {
       timePlayed,
       timeTotal,
       artistUrl,
-      album
+      album,
     }
-    
   } catch (error) {
     return false
   }
@@ -51,7 +49,6 @@ async function songInformationFromSpotify(token) {
 
 export default async function (req, res, next) {
   try {
-    
     const data = await songInformationFromSpotify(req.spotify.access_token)
     app.io.emit('display-song', data)
 
@@ -60,7 +57,7 @@ export default async function (req, res, next) {
       data.wumpus = true
     }
 
-    res.json({ emit: 'ws://display-song', status: 200,  data })
+    res.json({ emit: 'ws://display-song', status: 200, data })
   } catch (ex) {
     console.error(`[express] "now-playing.js" middleware has encounted an error`, ex)
     res.send(500)
