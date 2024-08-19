@@ -4,16 +4,17 @@ import 'dotenv/config'
 import app from '../app.js'
 
 export default async function (req, res, next) {
+  const event = 'display-message'
   try {
     const data = {
       author: req.body.author,
       message: req.body.message,
       timeout: req.body.timeout || 15000,
     }
-    app.io.emit('display-message', data)
-    res.send({ emit: 'ws://display-message', status: 200, data })
+    app.io.emit(event, data)
+    res.send({ emit: event, status: 200, data })
   } catch (ex) {
-    console.error('unable to process incoming request', req, ex)
-    res.send(500)
+    console.error(`[express] ".../middleware/user-message.js" has encounted an error`, req, ex)
+    res.sendStatus(500)
   }
 }

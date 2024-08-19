@@ -11,19 +11,38 @@ export default async function displaySong(stage, data, selector) {
   template.classList.add(selector)
 
   if (data.title === undefined) {
-    template.innerHTML = `
-      <span class="${selector}-title animated-text wave"></span>
-    `
+    template.innerHTML = ``
   } else {
     template.innerHTML = `
-      <span class="${selector}-title animated-text wave">${data.title}</span>
-      <span class="${selector}-artist animated-text wave">${data.artist}</span>
-      <span class="${selector}-album animated-text wave">${data.album}</span>
+      <div class="${selector}-container">
+        <span class="${selector}-title">${data.title}</span>
+        <span class="${selector}-artist">${data.artist}</span>
+        <span class="${selector}-album">${data.album}</span>
+      </div>
     `
   }
-  stage.appendChild(template)
 
-  if (data.timePlayed >= data.timeTotal / 3) {
-    template.remove()
+  let rate = 1000
+  let wait = 30
+  let time = data.timePlayed
+  const elapsed = setInterval(() => {
+    console.log(`displaying data for ${rate} x ${wait} ms`)
+    time += rate
+    if (time > data.timePlayed + rate * wait) {
+      console.log('hiding...')
+      clearInterval(elapsed)
+      template.remove()
+    }
+  }, rate)
+  
+  stage.appendChild(template)
+  
+  if (data.force !== true) {
+    console.log('no force flag')
+    if (data.timePlayed >= data.timeTotal / 3) {
+      console.log('song is already beyond allowable display time, please provide force flag')
+      template.remove()
+    }
   }
+
 }

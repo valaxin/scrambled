@@ -24,14 +24,14 @@ export default async function DisplayMessage(stage, data, selector) {
     template.classList.add(selector)
     template.innerHTML = `
       <div class="${selector}-container">
-        <div class="wrapper">
+        <div class="pie-timer">
           <div class="pie spinner"></div>
           <div class="pie filler"></div>
           <div class="mask"></div>
         </div>
         <div class="user-${selector}">
-          <span class="${selector}-author animated-text wave">${data.author}</span>
-          <span class="${selector}-body animated-text wave">${shorten_message(data.message, charLimit)}</span>
+          <span class="${selector}-author">${data.author}</span>
+          <span class="${selector}-body">${decodeURI(shorten_message(data.message, charLimit))}</span>
         </div>
       </div>
     `

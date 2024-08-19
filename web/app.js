@@ -1,3 +1,5 @@
+import 'dotenv/config'
+
 import path from 'path'
 import http from 'http'
 import logger from 'morgan'
@@ -7,8 +9,9 @@ import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 
 import APIRouter from './router.js'
+import validateToken from './middleware/validate-access.js' 
+
 import songd from './services/daemon-song.js'
-import tokenCheckMiddleware from './middleware/token-check.js' 
 
 const app = express()
 const httpServer = http.createServer(app)
@@ -36,7 +39,7 @@ app.get('/resources/vendor/socket.io.js.map', async (req, res, next) => {
   res.sendFile(path.resolve('./node_modules/socket.io/client-dist/socket.io.js.map'))
 })
 
-app.use('/api/v1/', tokenCheckMiddleware, APIRouter)
+app.use('/api/v1/', validateToken, APIRouter)
 
 app.use(async (req, res, next) => {
   const error = new Error('Not Found')
@@ -51,10 +54,10 @@ app.use(async (err, req, res, next) => {
   res.json(err)
 })
 
-httpServer.listen(3000, () => {
-  console.log('[express] your server is available at http://localhost:3000')
+httpServer.listen(process.env.PORT, process.env.HOST, () => {
+  console.log(`[express] your server is available at http://${process.env.HOST}:${process.env.PORT}`)
 })
 
-await songd(5000) // every 5 seconds
+// await songd(10000) // every 10 seconds
 
 export default app

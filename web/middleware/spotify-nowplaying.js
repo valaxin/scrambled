@@ -48,18 +48,22 @@ async function songInformationFromSpotify(token) {
 }
 
 export default async function (req, res, next) {
+  const event = 'display-song'
   try {
     const data = await songInformationFromSpotify(req.spotify.access_token)
-    app.io.emit('display-song', data)
+    if (req.body.force === true) {
+      data.force = true
+    }
+    app.io.emit(event, data)
 
     // if the request for song information is coming from discord.
     if (req.body.wumpus && req.body.wumpus === true) {
       data.wumpus = true
     }
 
-    res.json({ emit: 'ws://display-song', status: 200, data })
+    res.json({ emit: event, status: 200, data })
   } catch (ex) {
-    console.error(`[express] "now-playing.js" middleware has encounted an error`, ex)
-    res.send(500)
+    console.error(`[express] ".../middleware/spotify-nowplaying.js" has encounted an error`, ex)
+    res.sendStatus(500)
   }
 }
