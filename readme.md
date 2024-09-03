@@ -1,9 +1,17 @@
-#scrambled
+# scrambled
 
-## rest api
+## API
 
-`POST /display/song`
-`POST /display/message`
+| method | uri                               | purpose                                                   |
+| ------ | --------------------------------- | --------------------------------------------------------- |
+| POST   | /display/message                  | display a message on the client stage, if any.            |
+| POST   | /display/element                  | spawn a small floating image to the client stage, if any. |
+| POST   | /spotify/now                      | display the currently playing track from Spotify.         |
+| POST   | /twitch/creator                   | obtain creator id for authenticated account.              |
+| POST   | /twitch/creator/ads               | ad schedule information from Twitch.                      |
+| POST   | /twitch/creator/channel           | account channel information.                              |
+| POST   | /twitch/creator/channel/followers | account followers list                                    |
+|        |                                   |                                                           |
 
 ## commands
 
@@ -22,11 +30,3 @@ npm run start:bot
 npm run start:web
 
 ```
-
-at this point locally at the defined port you'll find the "green screen" element, this should be opened in OBS as a browser view. by default the element is only 1280x720.
-
-the song-daemon will show the current spotify track for a defined amount of the elasped time. then hiding.
-
-users of the discord bot who are also tuned into the stream can send messages directly. they feature a 128 character limit and a 10 second timeout by default.
-
-!! discord usernames are shown

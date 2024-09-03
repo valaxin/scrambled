@@ -33,11 +33,13 @@
 }
 
 .message-author {
-  font-size: .75rem
+  font-size: 1.5rem;
+  margin: 0 0 25px 0;
+  font-family: 'vcr-jp';
 }
 
 .message-body {
-  font-size: 1.5rem;
+  font-size: 3rem;
   max-width: 720px;
 }
 
@@ -48,8 +50,8 @@
   background: limegreen;
   border-radius: 50%;
   overflow: hidden;
-  width: 64px;
-  height: 64px;
+  width: 128px;
+  height: 128px;
 }
 
 .pie-timer .pie {

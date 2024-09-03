@@ -7,12 +7,12 @@ export default async function validateToken (req, res, next) {
         req.body.token = true
         next()
       } else {
-        res.send(401)
+        res.sendStatus(401)
       }
     } else {
-      res.send(401)
+      res.sendStatus(401)
     }
   } catch (ex) {
-    res.send(500)
+    res.sendStatus(500)
   }
 }
