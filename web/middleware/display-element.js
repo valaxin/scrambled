@@ -15,6 +15,7 @@ export default async function (req, res, next) {
   try {
     event.data = {
       author: decodeURI(req.body.author),
+      image: decodeURI(req.body.image),
     }
     app.io.emit(event.name, event.data)
     res.send({

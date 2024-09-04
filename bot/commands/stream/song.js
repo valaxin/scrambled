@@ -31,7 +31,7 @@ export default {
         }),
       }
 
-      const response = await fetch(`http://localhost:3000/api/v1/display/song`, opts)
+      const response = await fetch(`http://localhost:3000/api/v1/spotify/now`, opts)
 
       console.log(opts, {... response} )
 

@@ -11,7 +11,6 @@
 | POST   | /twitch/creator/ads               | ad schedule information from Twitch.                      |
 | POST   | /twitch/creator/channel           | account channel information.                              |
 | POST   | /twitch/creator/channel/followers | account followers list                                    |
-|        |                                   |                                                           |
 
 ## commands
 

@@ -3,7 +3,7 @@
 import 'dotenv/config'
 
 async function songRequest(token) {
-  const location = 'http://localhost:3000/api/v1/display/song'
+  const location = 'http://localhost:3000/api/v1/spotify/now'
   try {
     const response = await fetch(location, {
       method: 'POST',

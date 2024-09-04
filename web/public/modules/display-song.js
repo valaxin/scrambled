@@ -31,7 +31,7 @@ export default async function displaySong(stage, data, selector) {
     if (time > data.timePlayed + rate * wait) {
       console.log('hiding...')
       clearInterval(elapsed)
-      template.remove()
+      // template.remove()
     }
   }, rate)
   
@@ -41,7 +41,7 @@ export default async function displaySong(stage, data, selector) {
     console.log('no force flag')
     if (data.timePlayed >= data.timeTotal / 3) {
       console.log('song is already beyond allowable display time, please provide force flag')
-      template.remove()
+      // template.remove()
     }
   }
 

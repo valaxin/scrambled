@@ -58,6 +58,6 @@ httpServer.listen(process.env.PORT, process.env.HOST, () => {
   console.log(`[express] your server is available at http://${process.env.HOST}:${process.env.PORT}`)
 })
 
-// await songd(10000) // every 10 seconds
+await songd(5000) // every 5 seconds
 
 export default app
