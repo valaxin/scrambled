@@ -9,9 +9,9 @@ import bodyParser from 'body-parser'
 import cookieParser from 'cookie-parser'
 
 import APIRouter from './router.js'
-import validateToken from './middleware/validate-access.js' 
+import ValidateToken from './middleware/authenticate.js' 
 
-import songd from './services/daemon-song.js'
+import songd from './services/songd.js'
 
 const app = express()
 const httpServer = http.createServer(app)
@@ -39,7 +39,7 @@ app.get('/resources/vendor/socket.io.js.map', async (req, res, next) => {
   res.sendFile(path.resolve('./node_modules/socket.io/client-dist/socket.io.js.map'))
 })
 
-app.use('/api/v1/', validateToken, APIRouter)
+app.use('/api/v1/', ValidateToken, APIRouter)
 
 app.use(async (req, res, next) => {
   const error = new Error('Not Found')
@@ -47,9 +47,9 @@ app.use(async (req, res, next) => {
   next(error)
 })
 
-app.use(async (err, req, res, next) => {
-  res.locals.message = err.message
-  res.locals.error = err
+app.use(async (ex, req, res, next) => {
+  res.locals.message = ex.message
+  res.locals.error = ex
   res.status(err.status || 500)
   res.json(err)
 })

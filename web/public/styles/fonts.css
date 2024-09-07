@@ -1,13 +1,4 @@
 @font-face {
-  font-family: "daydream";
-  src: url("/resources/fonts/daydream.woff2") format("woff2"),
-       url("/resources/fonts/daydream.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
   font-family: "vcr-jp";
   src: url("/resources/fonts/vcr-jp.woff") format("woff");
   font-weight: normal;
@@ -16,8 +7,8 @@
 }
 
 @font-face {
-  font-family: "phonixea";
-  src: url("/resources/fonts/phonixea.woff") format("woff");
+  font-family: "sono-bold";
+  src: url("/resources/fonts/sono/sono-bold.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;

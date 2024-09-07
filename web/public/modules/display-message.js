@@ -1,46 +1,43 @@
 'use strict'
 
-const sanitize_timeout = (value) => {
+const isTypeNumber = (value, defined) => {
   if (typeof value === 'number') {
     return value
   } else {
-    return 15000
+    return defined
   }
 }
 
-const shorten_message = (value, length) => {
+const truncateString = (value, length, ellipses) => {
   if (value.length > length) {
-    return value.substring(0, length) + '...'
+    const str = value.substring(0, length).trim()
+    return ellipses ? `${str}...` : str
   } else {
     return value
   }
 }
 
-export default async function DisplayMessage(stage, data, selector) {
+export default async function DisplayIncomingMessage (stage, data) {
   try {
-    const charLimit = 128
-    const timeout = sanitize_timeout(data.timeout)
-    const template = document.createElement(`div`)
-    template.classList.add(selector)
-    template.innerHTML = `
-      <div class="${selector}-container">
-        <div class="pie-timer">
-          <div class="pie spinner"></div>
-          <div class="pie filler"></div>
-          <div class="mask"></div>
-        </div>
-        <div class="user-${selector}">
-          <span class="${selector}-author">${data.author}</span>
-          <span class="${selector}-body">${decodeURI(shorten_message(data.message, charLimit))}</span>
-        </div>
-      </div>
+    const timeout = isTypeNumber(data.timeout)
+    const message = truncateString(data.message, 128, true)
+    const element = document.createElement(`div`)
+    element.classList.add('message')
+    element.classList.add('visible')
+    element.innerHTML = `
+      <span class="message-author">${data.author}</span>
+      <span class="message-body">${message}</span>
     `
-    stage.appendChild(template)
+    stage.appendChild(element)
     setTimeout(() => {
-      template.remove()
-      console.log(`removed message element by: "${data.author}" from the stage after "${timeout}" milliseconds.`)
+      element.classList.add('animation-state-now') // ...
+      // provide 5 more seconds for fade out animation?
+      setTimeout(() => {
+        // ... then remove?
+        element.remove()
+      }, 5000)
     }, timeout)
   } catch (ex) {
-    console.error('an excepection displaying incoming messages has occured', ex)
+    console.error(ex)
   }
 }

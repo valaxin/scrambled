@@ -47,7 +47,7 @@ async function songInformationFromSpotify(token) {
   }
 }
 
-export default async function (req, res, next) {
+export async function getSpotifyNowPlaying(req, res, next) {
   const event = 'display-song'
   try {
     const data = await songInformationFromSpotify(req.spotify.access_token)

@@ -1,23 +1,26 @@
 'use strict'
 
-import displayMessage from '/modules/display-message.js'
-import displaySong from './modules/display-song.js'
+import DisplayIncomingMessage from '/modules/display-message.js'
+import DisplaySpotifySong from '/modules/display-song.js'
 
+const stageElement = document.querySelector('div#stage')
 const socket = io(window.location.origin)
-const stage = document.querySelectorAll('div#stage')[0]
-
-socket.on('display-song', async (data) => {
-  try {
-    displaySong(stage, data, 'song')
-  } catch (ex) {
-    console.error(ex)
-  }
-})
 
 socket.on('display-message', async (data) => {
   try {
-    displayMessage(stage, data, 'message')
+    console.log('display-message init')
+    await DisplayIncomingMessage(stageElement, data)
   } catch (ex) {
     console.error(ex)
   }
 })
+
+socket.on('display-song', async (data) => {
+  try {
+    console.log('display-song init')
+    await DisplaySpotifySong(stageElement, data)
+  } catch (ex) {
+    console.error(ex)
+  }
+})
+

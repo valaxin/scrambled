@@ -1,13 +1,11 @@
 @import url('/styles/fonts.css');
-@import url('/styles/animations.css');
-@import url('/styles/message.css');
 
 :root {
   --height: 720px;
   --width: 1280px;
   --padding: 96px;
   --color: limegreen;
-  --font: 'daydream'
+  --font: 'phonixea'
 }
 
 *,
@@ -31,22 +29,3 @@
   font-family: var(--font);
   font-weight: 900;
 }
-
-.song,
-.message {
-  position: absolute;
-  /* background: red; */
-}
-
-.message-container {}
-
-.message-container .pie-timer {}
-.message-container .pie-timer .pie {}
-.message-container .pie-timer .spinner {}
-.message-container .pie-timer .filler {}
-.message-container .pie-timer .mask {}
-
-.message-container .user-message {}
-.message-container .user-message .message-author {}
-.message-container .user-message .message-body {}
-
