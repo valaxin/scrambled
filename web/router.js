@@ -2,11 +2,8 @@
 
 import 'dotenv/config'
 import { Router } from 'express'
-
 import { getSpotifyAccessToken, getTwitchAccessToken } from './middleware/authenticate.js'
-
-import getUserMessage from './middleware/message.js'
-
+import { incomingImageReq, incomingMessageReq, incomingMarqueeReq } from './middleware/events.js'
 import { getSpotifyNowPlaying } from './middleware/spotify.js'
 import {
   getTwitchBroadcastor,
@@ -21,8 +18,12 @@ const returnCreatorID = (req, res, next) => {
   res.json([req.twitch.creator.id])
 }
 
-router.post('/dom/message', getUserMessage)
 router.post('/spotify/now', getSpotifyAccessToken, getSpotifyNowPlaying)
+
+router.post('/dom/image', incomingImageReq)
+router.post('/dom/marquee', incomingMarqueeReq)
+router.post('/dom/message', incomingMessageReq)
+
 router.post('/twitch/creator', getTwitchAccessToken, getTwitchBroadcastor, returnCreatorID)
 router.post('/twitch/creator/ads', getTwitchAccessToken, getTwitchBroadcastor, getTwitchAdSchedule)
 router.post('/twitch/creator/channel', getTwitchAccessToken, getTwitchBroadcastor, getTwitchChannelInfo)

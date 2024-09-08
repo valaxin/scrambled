@@ -12,6 +12,7 @@ import APIRouter from './router.js'
 import ValidateToken from './middleware/authenticate.js' 
 
 import songd from './services/songd.js'
+import marqueed from './services/marqueed.js'
 
 const app = express()
 const httpServer = http.createServer(app)
@@ -50,8 +51,8 @@ app.use(async (req, res, next) => {
 app.use(async (ex, req, res, next) => {
   res.locals.message = ex.message
   res.locals.error = ex
-  res.status(err.status || 500)
-  res.json(err)
+  res.status(ex.status || 500)
+  res.json(ex)
 })
 
 httpServer.listen(process.env.PORT, process.env.HOST, () => {
@@ -59,5 +60,6 @@ httpServer.listen(process.env.PORT, process.env.HOST, () => {
 })
 
 await songd(5000) // every 5 seconds
+await marqueed(30000) // every 1 minute
 
 export default app
