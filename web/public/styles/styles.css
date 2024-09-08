@@ -19,6 +19,8 @@
 }
 
 #stage {
+  font-family: 'sono-bold';
+  font-weight: 400;
   height: var(--height);
   width: var(--width);
   position: absolute;
@@ -28,4 +30,11 @@
   margin: 0 0 10px 0;
   font-family: var(--font);
   font-weight: 900;
+}
+
+#stage div.marquee {
+  width: 100%;
+  height: 20%;
+  font-size: 1rem;
+  background-color: pink;
 }
