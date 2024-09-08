@@ -2,15 +2,15 @@
 
 import 'dotenv/config'
 
-async function songRequest(token) {
-  const location = 'http://localhost:3000/api/v1/spotify/now'
+async function imageRequest(token) {
+  const location = 'http://localhost:3000/api/v1/dom/image'
   try {
     const response = await fetch(location, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ token }),
+      body: JSON.stringify({ token, author: 'scrambled', image: '/resources/favicon.png'  }),
     })
     const data = await response.json()
     return data
@@ -22,9 +22,10 @@ async function songRequest(token) {
 export default async function (rate) {
   try {
     setInterval(async () => {
-      await songRequest(process.env.SCRAMBLED) // run every "rate"
+      await imageRequest(process.env.SCRAMBLED) // run every "rate"
     }, rate)
   } catch (ex) {
-    console.error('[daemon - songd]', ex)
+    console.error('[daemon - imaged]', ex)
   }
 }
+

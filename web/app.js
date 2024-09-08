@@ -12,6 +12,7 @@ import APIRouter from './router.js'
 import ValidateToken from './middleware/authenticate.js' 
 
 import songd from './services/songd.js'
+import imaged from './services/imaged.js'
 import marqueed from './services/marqueed.js'
 
 const app = express()
@@ -59,7 +60,8 @@ httpServer.listen(process.env.PORT, process.env.HOST, () => {
   console.log(`[express] your server is available at http://${process.env.HOST}:${process.env.PORT}`)
 })
 
-await songd(5000) // every 5 seconds
-await marqueed(30000) // every 1 minute
+await imaged(10000)   // every 10 seconds
+await songd(5000)     // every 5 seconds
+await marqueed(60000) // every 1.5 minute
 
 export default app

@@ -5,7 +5,7 @@
   --width: 1280px;
   --padding: 96px;
   --color: limegreen;
-  --font: 'phonixea'
+  --font: 'sono-bold'
 }
 
 *,
@@ -19,11 +19,10 @@
 }
 
 #stage {
-  font-family: 'sono-bold';
   font-weight: 400;
   height: var(--height);
   width: var(--width);
-  position: absolute;
+  position: relative;
   background-color: var(--color);
   overflow: hidden;
   font-size: 2.5rem;
@@ -33,8 +32,51 @@
 }
 
 #stage div.marquee {
-  width: 100%;
-  height: 20%;
-  font-size: 1rem;
-  background-color: pink;
+  height: 75px;
+  overflow: visible;
+  position: relative;
+}
+
+#stage div.marquee span {
+  display: inline;
+  position: absolute;
+  white-space: nowrap;
+  line-height: 75px;
+  text-align: justify;
+  transform: translateX(100%);
+  animation: scroll-left 30s linear 2;
+}
+
+#stage div.nowplaying {
+  position: absolute;
+  bottom: 75px;
+  left: 75px;
+}
+
+#stage div.message {
+  position: absolute;
+  top: 150px;
+  left: 75px;
+}
+
+#stage div.message span.message-author {
+  margin-bottom: 15px;
+}
+
+#stage img.branding-image {
+  position: absolute;
+  filter: grayscale(1);
+  bottom: 75px;
+  right: 75px;
+  height: 128px;
+  width: 128px;
+}
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }

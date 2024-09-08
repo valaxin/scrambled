@@ -12,8 +12,8 @@ async function marqueeText(token) {
       },
       body: JSON.stringify({
         token,
-        author: 'owner',
-        message: 'welcome to my stream! this is a marquee message, it should scroll across the top to bottom of the screen. -enjoy!'
+        author: '!!',
+        message: 'Thanks For Watching : !!'
       }),
     })
     const data = await response.json()
@@ -25,11 +25,10 @@ async function marqueeText(token) {
 
 export default async function (rate) {
   try {
-    await marqueeText(process.env.SCRAMBLED) // run once...
     setInterval(async () => {
-      await marqueeText(process.env.SCRAMBLED) // then every "rate"
+      await marqueeText(process.env.SCRAMBLED) // run every "rate"
     }, rate)
   } catch (ex) {
-    console.error('[daemon]', ex)
+    console.error('[daemon - marqueed]', ex)
   }
 }

@@ -1,81 +1,42 @@
 # scrambled
 
-## API
+## Installation
 
-> every endpoint expects `token` to be provided in body.
+`git clone https://github.com/valaxin/scrambled.git`
 
-<details>
-  <summary>POST /dom/message</summary>
-  
-  display a message on the client stage, if any.</span>
-  
-  ```shell
-  # example request
-  curl --request POST \
-  --url http://localhost:3000/api/v1/dom/message \
-  --header 'content-type: application/json' \
-  --data '{ "token": "TOKEN", "author": "AUTHOR", "message": "MESSAGE", "timeout": 10000 }'
-  ```
+`cd ./scrambled && npm install`
 
-  ```JSON
-  // successful...
-  {
-    "emit": {
-      "name": "message",
-      "data": {
-        "author": "author",
-        "message": "message",
-        "timeout": 10000,
-        "delay": 0,
-        "animation": ""
-      }
-    },
-    "status": 200
-  }
-  ```
+`npm run dev`
 
-  ```js
-  // display the posted data on the stage
-  socket.on('message', async (data) => { await stage.display('message', data) })
-  ```
+## Features
 
-</details>
+- small rest api for issuing commands to the stage.
+- easy to understand data flow and handling expections.
+- locally run and operated, small maintainable codebase.
+- connected to twitch/spotify/discord.
+- intergrated chat bot for viewer stage interaction.
+- gate interation to those present both as a twitch follower and discord server memeber.
 
-<details>
-<summary>POST /dom/element</summary>
-  - spawn a small floating image to the client stage, if any.
-</details>
-<details>
-  <summary>POST /spotify/now</summary>
-  display the currently playing track from Spotify.
-</details>
-<details>
-<summary>POST /twitch/creator`</summary>
-  - obtain creator id for authenticated account.
-</details>
-- `POST /twitch/creator/ads`
-  - ad schedule information from Twitch.
-- `POST /twitch/creator/channel`
-  - account channel information.
-- `POST /twitch/creator/channel/followers`
-  - account followers list.
+## API Endpoints
 
+prefix: `/api/v1`
 
+all end points will basically echo back what you gave it on success
 
-## commands
+- `POST /spotify/now` - now playing information
 
-`/msg %message%`
-`/help`
+- `POST /display/image` - branding image, bottom right corner 128x128
+- `POST /display/marquee` - horizontally scrolling text
+- `POST /display/message` - front and centre message, 128 character limit
 
-## running locally
+- `POST /twitch/creator` - returns id
+- `POST /twitch/ads` - returns twitch ad schedule
+- `POST /twitch/channel` - returns channel basic information
+- `POST /twitch/followers` - returns follower information
 
-ensure all required enviroment variables are valid install `node.js` then from within the project directory.
+## Bot Commands
 
-```shell
+- `/help` - provides information about the discord bot.
+- `/msg <message>` - send a message to the stream.
+- `/song` - returns the currently playing song. 
 
-npm install
-npm run bot:deploy
-npm run start:bot
-npm run start:web
-
-```

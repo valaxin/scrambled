@@ -24,9 +24,9 @@ router.post('/dom/image', incomingImageReq)
 router.post('/dom/marquee', incomingMarqueeReq)
 router.post('/dom/message', incomingMessageReq)
 
+router.post('/twitch/ads', getTwitchAccessToken, getTwitchBroadcastor, getTwitchAdSchedule)
 router.post('/twitch/creator', getTwitchAccessToken, getTwitchBroadcastor, returnCreatorID)
-router.post('/twitch/creator/ads', getTwitchAccessToken, getTwitchBroadcastor, getTwitchAdSchedule)
-router.post('/twitch/creator/channel', getTwitchAccessToken, getTwitchBroadcastor, getTwitchChannelInfo)
-router.post('/twitch/creator/channel/followers', getTwitchAccessToken, getTwitchBroadcastor, getTwitchChannelFollowers)
+router.post('/twitch/channel', getTwitchAccessToken, getTwitchBroadcastor, getTwitchChannelInfo)
+router.post('/twitch/followers', getTwitchAccessToken, getTwitchBroadcastor, getTwitchChannelFollowers)
 
 export default router
