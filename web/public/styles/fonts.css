@@ -1,0 +1,15 @@
+@font-face {
+  font-family: "vcr-jp";
+  src: url("/resources/fonts/vcr-jp.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "sono-bold";
+  src: url("/resources/fonts/sono/sono-bold.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

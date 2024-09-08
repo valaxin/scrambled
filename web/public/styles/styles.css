@@ -1,0 +1,31 @@
+@import url('/styles/fonts.css');
+
+:root {
+  --height: 720px;
+  --width: 1280px;
+  --padding: 96px;
+  --color: limegreen;
+  --font: 'phonixea'
+}
+
+*,
+*::before,
+*::after {
+  display: block;
+  box-sizing: border-box;
+  text-rendering: optimizeLegibility;
+  padding: 0;
+  margin: 0;
+}
+
+#stage {
+  height: var(--height);
+  width: var(--width);
+  position: absolute;
+  background-color: var(--color);
+  overflow: hidden;
+  font-size: 2.5rem;
+  margin: 0 0 10px 0;
+  font-family: var(--font);
+  font-weight: 900;
+}

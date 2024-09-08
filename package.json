@@ -2,22 +2,33 @@
   "name": "scrambled",
   "description": "personal discord bot",
   "version": "0.1.2",
-  "main": "client.js",
+  "main": "bot/index.js",
   "license": "MIT",
+  "private": "true",
   "author": "valaxin",
+  "type": "module",
   "scripts": {
-    "run": "node bot/Client.js",
-    "dev": "nodemon --watch bot --ignore 'bot/data/*.json' --verbose --trace-warnings bot/Client.js",
-    "remove": "node bot/RemoveCommands.js",
-    "register": "node bot/RegisterCommands.js"
+    "start:bot": "node bot/client.js",
+    "start:web": "node web/app.js",
+    "bot:deploy": "node bot/deploy.js",
+    "bot:remove": "node bot/remove.js",
+    "dev:web": "nodemon --watch web --exec node web/app.js",
+    "dev:bot": "nodemon --watch bot --exec node bot/client.js",
+    "dev": "conc \"npm run dev:web\" \"npm run dev:bot\""
   },
   "dependencies": {
     "axios": "^1.7.4",
+    "body-parser": "^1.20.2",
     "bufferutil": "^4.0.8",
-    "chalk": "^4.1.0",
-    "discord.js": "^14.15.2",
-    "nodemon": "^3.1.0",
-    "utf-8-validate": "^6.0.3",
+    "concurrently": "^8.2.2",
+    "cookie-parser": "^1.4.6",
+    "discord.js": "^14.15.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.4",
+    "socket.io": "^4.7.5",
+    "utf-8-validate": "^6.0.4",
     "zlib-sync": "^0.1.9"
   }
 }

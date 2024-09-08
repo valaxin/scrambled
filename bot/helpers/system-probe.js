@@ -1,7 +1,7 @@
 "use strict";
 
-const os = require("node:os");
-const pkg = require("../../package.json");
+import os from 'node:os'
+import * as pkg from '../../package.json' with { type: 'json' }
 
 function secondsIntoReadableString(input) {
   try {
@@ -45,7 +45,7 @@ function secondsIntoReadableString(input) {
   }
 }
 
-module.exports = async function probe() {
+export default async function probe() {
   try {
     const result = {
       system: {

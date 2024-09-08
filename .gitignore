@@ -1,7 +1,6 @@
-/.vscode
+
+/.env
 /node_modules
+/todo
 
-/bot/config.json
-/bot/data/**.**
-
-/.temp
+/web/public/locals.json
