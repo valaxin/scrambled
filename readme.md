@@ -39,4 +39,3 @@ all end points will basically echo back what you gave it on success
 - `/help` - provides information about the discord bot.
 - `/msg <message>` - send a message to the stream.
 - `/song` - returns the currently playing song. 
-
