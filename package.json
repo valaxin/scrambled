@@ -8,11 +8,12 @@
   "author": "valaxin",
   "type": "module",
   "scripts": {
+    "start": "conc \"npm run start:web\" \"npm run bot:deploy & npm run dev:bot\"",
     "start:bot": "node bot/client.js",
-    "start:web": "node web/app.js",
+    "start:web": "node server/app.js",
     "bot:deploy": "node bot/deploy.js",
     "bot:remove": "node bot/remove.js",
-    "dev:web": "nodemon --watch web --exec node web/app.js",
+    "dev:web": "nodemon --watch server --exec node server/app.js",
     "dev:bot": "nodemon --watch bot --exec node bot/client.js",
     "dev": "conc \"npm run dev:web\" \"npm run dev:bot\""
   },

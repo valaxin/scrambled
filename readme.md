@@ -19,23 +19,18 @@
 
 ## API Endpoints
 
-prefix: `/api/v1`
+prefix: `/api/`
 
-all end points will basically echo back what you gave it on success
+- `POST /api/spotify`
+- `Query Parameters : ?data` 
+- `Body : { "token": String, "name" : String }`
+- `Returns : Status Code (200|204|403|500) or Object (?data)`
 
-- `POST /spotify/now` - now playing information
-
-- `POST /display/image` - branding image, bottom right corner 128x128
-- `POST /display/marquee` - horizontally scrolling text
-- `POST /display/message` - front and centre message, 128 character limit
-
-- `POST /twitch/creator` - returns id
-- `POST /twitch/ads` - returns twitch ad schedule
-- `POST /twitch/channel` - returns channel basic information
-- `POST /twitch/followers` - returns follower information
+Token is required. A static value set within .env or inline and just a simple mesure to prevent unauthorized access as the software could be run in such a way that's it's exposed to wide web.
 
 ## Bot Commands
 
 - `/help` - provides information about the discord bot.
-- `/msg <message>` - send a message to the stream.
 - `/song` - returns the currently playing song. 
+
+---
