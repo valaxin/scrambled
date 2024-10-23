@@ -5,9 +5,7 @@ import { Client, SlashCommandBuilder, EmbedBuilder } from 'discord.js'
 
 const name = 'msg'
 const description = 'send a message to be displayed on stream, if stream.'
-
 const embed = new EmbedBuilder().setTitle(name).setDescription(description)
-
 const data = new SlashCommandBuilder()
   .setName(name)
   .setDescription(description)
@@ -33,13 +31,13 @@ export default {
           token: process.env.SCRAMBLED,
           author: cmd.author,
           message: cmd.message,
-          timeout: 10000
+          timeout: 10000,
         }),
       }
 
       const response = await fetch(`http://localhost:3000/api/v1/display/message`, opts)
 
-      console.log(opts, {... response} )
+      console.log(opts, { ...response })
 
       const data = await response.json()
 

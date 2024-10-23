@@ -1,7 +1,7 @@
 'use strict'
 
 import 'dotenv/config'
-import { Client, Events } from 'discord.js'
+import { Client, Events, GuildMemberManager } from 'discord.js'
 
 export default {
   name: Events.ClientReady,
@@ -15,6 +15,7 @@ export default {
       console.log(
         `[discord] logged into "${guild.name}" [${guild.id}] as "${client.user.username}#${client.user.discriminator}"`
       )
+      console.log(guild)
       return true
     } catch (ex) {
       console.error(`[discord] bot unable to start`, ex)

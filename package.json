@@ -18,17 +18,20 @@
     "dev": "conc \"npm run dev:web\" \"npm run dev:bot\""
   },
   "dependencies": {
-    "axios": "^1.7.4",
+    "axios": "^1.7.7",
     "body-parser": "^1.20.3",
     "bufferutil": "^4.0.8",
     "concurrently": "^8.2.2",
-    "cookie-parser": "^1.4.6",
-    "discord.js": "^14.15.3",
+    "connect-mongo": "^5.1.0",
+    "cookie-parser": "^1.4.7",
+    "discord.js": "^14.16.3",
     "dotenv": "^16.4.5",
-    "express": "^4.21.0",
+    "express": "^4.21.1",
+    "express-session": "^1.18.1",
+    "mongoose": "^8.7.2",
     "morgan": "^1.10.0",
-    "nodemon": "^3.1.4",
-    "socket.io": "^4.7.5",
+    "nodemon": "^3.1.7",
+    "socket.io": "^4.8.0",
     "utf-8-validate": "^6.0.4",
     "zlib-sync": "^0.1.9"
   }

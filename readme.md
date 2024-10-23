@@ -1,36 +1,21 @@
 # scrambled
 
-## Installation
+## About
 
-`git clone https://github.com/valaxin/scrambled.git`
+| Method | Endpoint              | Returns | Purpose                                                    |
+| ------ | --------------------- | ------- | ---------------------------------------------------------- |
+| GET    | /api/spotify          | STATUS  | emits to the client the currently playing track on Spotify |
+| GET    | /api/twitch           | JSON    | creator information                                        |
+| GET    | /api/twitch/ads       | JSON    | ad schedule information                                    |
+| GET    | /api/twitch/followers | JSON    | collection of follower objects                             |
+| GET    | /api/messages         | JSON    | collection of message objects                              |
+| GET    | /api/messages/:author | JSON    | collection of messages by the provided author              |
+| GET    | /api/messages/:id     | JSON    | a single message object                                    |
+| POST   | /api/message          | JSON    | create a new message                                       |
+| DELETE | /api/message/:id      | STATUS  | delete a single message by id                              |
+| DELETE | /api/messages/:author | STATUS  | delete all the messages by a single author                 |
 
-`cd ./scrambled && npm install`
+Every endpoint requires a `token` either in `req.body` or `req.query` you choose. This token is set within the `.env` file, the application expects the key `SCRAMBLED`. For what are hopefully obvious reasons this file isn't included.
 
-`npm run dev`
-
-## Features
-
-- small rest api for issuing commands to the stage.
-- easy to understand data flow and handling expections.
-- locally run and operated, small maintainable codebase.
-- connected to twitch/spotify/discord.
-- intergrated chat bot for viewer stage interaction.
-- gate interation to those present both as a twitch follower and discord server memeber.
-
-## API Endpoints
-
-prefix: `/api/`
-
-- `POST /api/spotify`
-- `Query Parameters : ?data` 
-- `Body : { "token": String, "name" : String }`
-- `Returns : Status Code (200|204|403|500) or Object (?data)`
-
-Token is required. A static value set within .env or inline and just a simple mesure to prevent unauthorized access as the software could be run in such a way that's it's exposed to wide web.
-
-## Bot Commands
-
-- `/help` - provides information about the discord bot.
-- `/song` - returns the currently playing song. 
-
----
+> [!information]
+> Work In Progress
