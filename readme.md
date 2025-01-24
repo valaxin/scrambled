@@ -2,6 +2,15 @@
 
 ## About
 
+this here's a automation server that you can interfaces with discord among other services
+
+- discord bot (jimbo)
+- express rest api
+- websocket data daemons
+- alert stage
+
+## Rest API
+
 | Method | Endpoint              | Returns | Purpose                                                    |
 | ------ | --------------------- | ------- | ---------------------------------------------------------- |
 | GET    | /api/spotify          | STATUS  | emits to the client the currently playing track on Spotify |
@@ -17,5 +26,6 @@
 
 Every endpoint requires a `token` either in `req.body` or `req.query` you choose. This token is set within the `.env` file, the application expects the key `SCRAMBLED`. For what are hopefully obvious reasons this file isn't included.
 
-> [!information]
-> Work In Progress
+> [!WARNING]
+> **Work In Progress**
+

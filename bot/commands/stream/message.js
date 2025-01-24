@@ -22,6 +22,13 @@ export default {
         message: encodeURI(interaction.options.getString('message')),
       }
 
+      console.log({
+        token: process.env.SCRAMBLED,
+        author: cmd.author,
+        message: cmd.message,
+        source: 'discord',
+      })
+
       const opts = {
         method: 'POST',
         headers: {
@@ -30,16 +37,19 @@ export default {
         body: JSON.stringify({
           token: process.env.SCRAMBLED,
           author: cmd.author,
-          message: cmd.message,
-          timeout: 10000,
+          content: cmd.message,
+          source: 'discord',
         }),
       }
 
-      const response = await fetch(`http://localhost:3000/api/v1/display/message`, opts)
+      // gate command with role?
 
-      console.log(opts, { ...response })
-
-      const data = await response.json()
+      // console.log(opts, { ...response })
+      const response = await fetch(`http://localhost:42069/api/message`, opts)
+      const data = await response.text()
+      // console.log(data)
+      embed.setTitle(`:"${decodeURI(cmd.message)}"`)
+      embed.setDescription(`...has been sent to stream.`)
 
       await interaction.reply({
         embeds: [embed],

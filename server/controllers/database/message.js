@@ -1,4 +1,4 @@
-import Message from '../models/Messages.js'
+import Message from '../../models/Messages.js'
 import { createHmac } from 'node:crypto'
 
 // CREATE NEW
@@ -79,7 +79,7 @@ export async function getAllMessages(req, res) {
 }
 
 // GET ALL BY AUTHOR
-export async function getMessagesByAuthor(req, res) {
+export async function getAllMessagesByAuthor(req, res) {
   try {
     let messages = await Message.find({ author: req.params.author })
     if (!messages) {
@@ -112,10 +112,10 @@ export async function getMessageById(req, res) {
 }
 
 export default {
-  createAndSaveNewMessage,
-  deleteMessageById,
-  deleteAllMessagesByAuthor,
-  getAllMessages,
-  getMessagesByAuthor,
-  getMessageById,
+  createAndSaveNew: createAndSaveNewMessage,
+  deleteById: deleteMessageById,
+  deleteAllByAuthor: deleteAllMessagesByAuthor,
+  getAll: getAllMessages,
+  getAllByAuthor: getAllMessagesByAuthor,
+  getOneById: getMessageById,
 }

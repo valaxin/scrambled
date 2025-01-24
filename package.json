@@ -1,8 +1,9 @@
 {
   "name": "scrambled",
   "description": "personal discord bot",
-  "version": "0.1.2",
-  "main": "bot/index.js",
+  "version": "0.1.5",
+  "main:bot": "bot/index.js",
+  "main:web": "server/app.js",
   "license": "MIT",
   "private": "true",
   "author": "valaxin",
@@ -18,21 +19,21 @@
     "dev": "conc \"npm run dev:web\" \"npm run dev:bot\""
   },
   "dependencies": {
-    "axios": "^1.7.7",
+    "axios": "^1.7.9",
     "body-parser": "^1.20.3",
     "bufferutil": "^4.0.8",
     "concurrently": "^8.2.2",
     "connect-mongo": "^5.1.0",
     "cookie-parser": "^1.4.7",
     "discord.js": "^14.16.3",
-    "dotenv": "^16.4.5",
-    "express": "^4.21.1",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
     "express-session": "^1.18.1",
-    "mongoose": "^8.7.2",
+    "mongoose": "^8.9.0",
     "morgan": "^1.10.0",
-    "nodemon": "^3.1.7",
-    "socket.io": "^4.8.0",
-    "utf-8-validate": "^6.0.4",
+    "nodemon": "^3.1.9",
+    "socket.io": "^4.8.1",
+    "utf-8-validate": "^6.0.5",
     "zlib-sync": "^0.1.9"
   }
 }
