@@ -1,10 +1,5 @@
 'use strict'
 
-/**
- * responsible for collecting commands
- * and registering them with a single guild
- */
-
 import 'dotenv/config'
 import * as url from 'url'
 import { resolve } from 'node:path'

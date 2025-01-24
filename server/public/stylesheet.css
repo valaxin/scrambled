@@ -1,0 +1,17 @@
+:root {
+  --background: limegreen;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+#stage {
+  height: 720px;
+  width: 1280px;
+  background-color: var(--background);  
+}
