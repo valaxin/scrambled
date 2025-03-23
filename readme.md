@@ -13,7 +13,7 @@ this here's a automation server that you can interfaces with discord among other
 
 | Method | Endpoint              | Returns | Purpose                                                    |
 | ------ | --------------------- | ------- | ---------------------------------------------------------- |
-| GET    | /api/spotify          | STATUS  | emits to the client the currently playing track on Spotify |
+| GET    | /api/song             | STATUS  | emits the currently playing track on Apple Music           |
 | GET    | /api/twitch           | JSON    | creator information                                        |
 | GET    | /api/twitch/ads       | JSON    | ad schedule information                                    |
 | GET    | /api/twitch/followers | JSON    | collection of follower objects                             |
