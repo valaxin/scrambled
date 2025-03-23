@@ -1,41 +1,31 @@
 # scrambled
 
-## Installation
+## About
 
-`git clone https://github.com/valaxin/scrambled.git`
+this here's a automation server that you can interfaces with discord among other services
 
-`cd ./scrambled && npm install`
+- discord bot (jimbo)
+- express rest api
+- websocket data daemons
+- alert stage
 
-`npm run dev`
+## Rest API
 
-## Features
+| Method | Endpoint              | Returns | Purpose                                                    |
+| ------ | --------------------- | ------- | ---------------------------------------------------------- |
+| GET    | /api/song             | STATUS  | emits the currently playing track on Apple Music           |
+| GET    | /api/twitch           | JSON    | creator information                                        |
+| GET    | /api/twitch/ads       | JSON    | ad schedule information                                    |
+| GET    | /api/twitch/followers | JSON    | collection of follower objects                             |
+| GET    | /api/messages         | JSON    | collection of message objects                              |
+| GET    | /api/messages/:author | JSON    | collection of messages by the provided author              |
+| GET    | /api/messages/:id     | JSON    | a single message object                                    |
+| POST   | /api/message          | JSON    | create a new message                                       |
+| DELETE | /api/message/:id      | STATUS  | delete a single message by id                              |
+| DELETE | /api/messages/:author | STATUS  | delete all the messages by a single author                 |
 
-- small rest api for issuing commands to the stage.
-- easy to understand data flow and handling expections.
-- locally run and operated, small maintainable codebase.
-- connected to twitch/spotify/discord.
-- intergrated chat bot for viewer stage interaction.
-- gate interation to those present both as a twitch follower and discord server memeber.
+Every endpoint requires a `token` either in `req.body` or `req.query` you choose. This token is set within the `.env` file, the application expects the key `SCRAMBLED`. For what are hopefully obvious reasons this file isn't included.
 
-## API Endpoints
+> [!WARNING]
+> **Work In Progress**
 
-prefix: `/api/v1`
-
-all end points will basically echo back what you gave it on success
-
-- `POST /spotify/now` - now playing information
-
-- `POST /display/image` - branding image, bottom right corner 128x128
-- `POST /display/marquee` - horizontally scrolling text
-- `POST /display/message` - front and centre message, 128 character limit
-
-- `POST /twitch/creator` - returns id
-- `POST /twitch/ads` - returns twitch ad schedule
-- `POST /twitch/channel` - returns channel basic information
-- `POST /twitch/followers` - returns follower information
-
-## Bot Commands
-
-- `/help` - provides information about the discord bot.
-- `/msg <message>` - send a message to the stream.
-- `/song` - returns the currently playing song. 
