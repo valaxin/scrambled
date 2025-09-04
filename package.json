@@ -17,12 +17,12 @@
     "dev": "conc \"npm run dev:web\" \"npm run dev:bot\""
   },
   "dependencies": {
-    "axios": "^1.7.4",
+    "axios": "^1.8.2",
     "body-parser": "^1.20.3",
     "bufferutil": "^4.0.8",
     "concurrently": "^8.2.2",
     "cookie-parser": "^1.4.7",
-    "discord.js": "^14.15.3",
+    "discord.js": "^14.21.0",
     "dotenv": "^16.4.5",
     "express": "^4.21.2",
     "morgan": "^1.10.1",
