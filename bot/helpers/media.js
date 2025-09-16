@@ -1,8 +1,8 @@
 'use strict'
 
-const axios = require('axios')
+import axios from 'axios'
 
-module.exports = async function (key, options) {
+export const media = async function (key, options) {
   if (!key) throw new Error('Missing OMDB Key')
   if (!options.query || options.query < 1) throw new Error('Missing Query')
 

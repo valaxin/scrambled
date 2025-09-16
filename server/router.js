@@ -14,6 +14,10 @@ import { delayedEmit } from './controllers/support.js'
 const router = Router()
 
 // [OK!]
+
+try {
+
+// [OK!]
 router.get('/spotify', getSpotifyAccessToken, nowPlaying)
 
 // [OK!]
@@ -28,6 +32,10 @@ router.get('/messages/:author', messages.getAllByAuthor)
 router.post('/message', messages.createAndSaveNew)
 router.delete('/message/:id', messages.deleteById)
 router.delete('/messages/:author', messages.deleteAllByAuthor)
+
+} catch (error) {
+  console.log('routererror', error)
+}
 
 // [DO!]
 router.post('/request', createAndSaveUniqueRequest, delayedEmit)

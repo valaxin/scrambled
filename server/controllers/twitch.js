@@ -4,15 +4,20 @@ import 'dotenv/config'
 
 // does not respond, always next.
 export async function getBroadcastor(req, res, next) {
-  const user = await fetch(process.env.TWITCH_CREATOR_ENDPOINT, {
-    headers: {
-      Authorization: `Bearer ${req.twitch.access_token}`,
-      'Client-Id': process.env.TWITCH_CLIENT_ID,
-    },
-  })
-  const data = await user.json()
-  req.twitch.creator = data.data[0]
-  next()
+  try {
+    const user = await fetch(process.env.TWITCH_CREATOR_ENDPOINT, {
+      headers: {
+        Authorization: `Bearer ${req.twitch.access_token}`,
+        'Client-Id': process.env.TWITCH_CLIENT_ID,
+      },
+    })
+    const data = await user.json()
+    req.twitch.creator = data.data[0]
+    next()
+  } catch (error) {
+    console.log('twitch api getBroadcaster()', error)
+    next()
+  }
 }
 
 // response json or err
@@ -70,4 +75,3 @@ export async function getFollowers(req, res, next) {
     res.sendStatus(500)
   }
 }
-

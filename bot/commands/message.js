@@ -45,7 +45,7 @@ export default {
       // gate command with role?
 
       // console.log(opts, { ...response })
-      const response = await fetch(`http://localhost:42069/api/message`, opts)
+      const response = await fetch(`http://[::]:3000/api/message`, opts)
       const data = await response.text()
       // console.log(data)
       embed.setTitle(`:"${decodeURI(cmd.message)}"`)
