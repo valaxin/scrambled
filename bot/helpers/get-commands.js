@@ -18,7 +18,7 @@ export async function getCommands(directory) {
       if (stats.isDirectory()) {
         const subFolderContent = await readdir(path)
         const subContentPaths = subFolderContent.map((file) => resolve(path, file))
-
+ 
         // ...for and import only js files
         for (const subpath of subContentPaths) {
           if (subpath.endsWith('.js')) {

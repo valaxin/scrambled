@@ -16,23 +16,22 @@ const router = Router()
 // [OK!]
 
 try {
+  // [OK!]
+  router.get('/spotify', getSpotifyAccessToken, nowPlaying)
 
-// [OK!]
-router.get('/spotify', getSpotifyAccessToken, nowPlaying)
+  // [OK!]
+  router.get('/twitch', getTwitchAccessToken, getBroadcastor, getChannelInfo)
+  router.get('/twitch/ads', getTwitchAccessToken, getBroadcastor, getAdSchedule)
+  router.get('/twitch/followers', getTwitchAccessToken, getBroadcastor, getFollowers)
 
-// [OK!]
-router.get('/twitch', getTwitchAccessToken, getBroadcastor, getChannelInfo)
-router.get('/twitch/ads', getTwitchAccessToken, getBroadcastor, getAdSchedule)
-router.get('/twitch/followers', getTwitchAccessToken, getBroadcastor, getFollowers)
- 
-// [OK!]
-router.get('/messages', messages.getAll)
-router.get('/message/:id', messages.getOneById)
-router.get('/messages/:author', messages.getAllByAuthor)
-router.post('/message', messages.createAndSaveNew)
-router.delete('/message/:id', messages.deleteById)
-router.delete('/messages/:author', messages.deleteAllByAuthor)
-
+  // [OK!]
+  router.get('/messages', messages.getAll)
+  router.get('/message/:id', messages.getOneById)
+  router.get('/messages/:author', messages.getAllByAuthor)
+  
+  router.post('/message', messages.createAndSaveNew)
+  router.delete('/message/:id', messages.deleteById)
+  router.delete('/messages/:author', messages.deleteAllByAuthor)
 } catch (error) {
   console.log('routererror', error)
 }

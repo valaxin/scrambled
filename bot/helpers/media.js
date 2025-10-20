@@ -31,7 +31,7 @@ export const media = async function (key, options) {
 
     return jsondata
   } catch (error) {
-    console.report(error, 2)
+    console.log(error, 2)
     return error
   }
 }

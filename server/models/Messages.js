@@ -3,19 +3,19 @@ import mongoose from 'mongoose'
 const Message = new mongoose.Schema({
   source: {
     type: String,
-    required: true,
+    required: false
   },
   author: {
     type: String,
-    required: true
+    required: false
   },
   content: {
     type: String,
-    required: true
+    required: false
   },
   hash: {
     type: String,
-    required: true
+    required: false
   }
 })
 
