@@ -45,3 +45,5 @@ async function register(foldername) {
 }
 
 const reg = await register('commands')
+
+console.log(reg)

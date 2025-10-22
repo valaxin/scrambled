@@ -69,12 +69,14 @@ export async function deleteAllMessagesByAuthor(req, res) {
 
 // GET ALL
 export async function getAllMessages(req, res) {
+  console.log('GET ALL MESSAGES')
   try {
     let messages = await Message.find({}) // find all
     res.json({ total: messages.length, messages })
   } catch (error) {
-    console.error('[express://controllers/database.js] getAllMessages()', error)
-    res.sendStatus(500)
+    console.error('[express://controllers/database.js] ERROR! getAllMessages()', error)
+    // res.sendStatus(500)
+    res.json(error)
   }
 }
 

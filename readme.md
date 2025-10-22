@@ -1,3 +1,4 @@
+# Scrambled
 # scrambled
 
 ## About
@@ -27,5 +28,6 @@ this here's a automation server that you can interfaces with discord among other
 Every endpoint requires a `token` either in `req.body` or `req.query` you choose. This token is set within the `.env` file, the application expects the key `SCRAMBLED`. For what are hopefully obvious reasons this file isn't included.
 
 > [!WARNING]
-> **Work In Progress**
+> Unfinished and likely broken...
 
+- can `POST` a new request and message but cant collect them?

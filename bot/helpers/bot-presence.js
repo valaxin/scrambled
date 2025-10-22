@@ -8,7 +8,7 @@ export default presence = {
       name: 'activity',
       state: 'in development',
       type: 'watching',
-      url: 'https://github.com/valaxin',
+      url: 'https://github.com/valaxin/scrambled',
     },
   ],
 }

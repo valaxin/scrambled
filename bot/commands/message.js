@@ -44,11 +44,13 @@ export default {
 
       // gate command with role?
 
-      // console.log(opts, { ...response })
-      const response = await fetch(`http://localhost:42069/api/message`, opts)
+      const localAddress = `http://${process.env.HOST}:${process.env.PORT}`
+
+      /// console.log(opts, { ...response })
+      const response = await fetch(`${localAddress}/api/message`, opts)
       const data = await response.text()
       // console.log(data)
-      embed.setTitle(`:"${decodeURI(cmd.message)}"`)
+      embed.setTitle(`"${decodeURI(cmd.message)}"`)
       embed.setDescription(`...has been sent to stream.`)
 
       await interaction.reply({
