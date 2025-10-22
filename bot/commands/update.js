@@ -1,11 +1,18 @@
 'use strict'
 
+import 'dotenv/config'
 import { Client, SlashCommandBuilder, EmbedBuilder } from 'discord.js'
+import calendar from '../helpers/get-remote-cal'
 
-const name = 'help'
-const description = 'print information on how to use this bot'
+// static
+const name = 'update'
+const description = 'manually check brightspace for updates'
+
 const embed = new EmbedBuilder().setTitle(name).setDescription(description)
-const data = new SlashCommandBuilder().setName(name).setDescription(description)
+
+const data = new SlashCommandBuilder()
+  .setName(name)
+  .setDescription(description)
 
 export default {
   data,

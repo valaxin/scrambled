@@ -15,6 +15,7 @@ import MongoStore from "connect-mongo"
 import APIRouter from './router.js'
 import ValidateToken from './controllers/tokens.js' 
 
+// instance
 const app = express()
 const httpServer = http.createServer(app)
 const mongoConnection = mongoose.connect(process.env.DB_URI)
@@ -26,6 +27,7 @@ app.io.on('scrambled-stage.spotify-pong', (data) => console.log(data, 'SOMETHING
 
 const oneday_ms = 86400000
 
+// what instance uses
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -47,7 +49,7 @@ app.use(session({
 
 app.use(express.static(path.resolve('./server/public')))
 
-// define some semi-static resource routes
+// define some static resource routes
 app.get('/favicon.ico', async (req, res, next) => {
   res.sendFile(path.resolve('./server/public/resources/favicon.ico'))
 })
@@ -68,6 +70,7 @@ app.use(async (req, res, next) => {
   next(ex)
 })
 
+// errors
 app.use(async (ex, req, res, next) => {
   res.locals.message = ex.message
   res.locals.error = ex
