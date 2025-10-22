@@ -4,6 +4,7 @@ import { createHmac } from 'node:crypto'
 const Request = new mongoose.Schema({
   url: {
     type: Array,
+    default: [ 'anonymous' ],
     required: true
   },
   host: {
@@ -22,12 +23,12 @@ const Request = new mongoose.Schema({
     type: Date,
     expires: 3600,
     required: true
-  },
-  hash: {
-    type: String,
-    required: true
   }
 })
 
+Request.pre('save', function(next) {
+  console.log(thi)
+  return createHmac('sha256', null).update(this.url.join('')).digest('hex')
+})
 
 export default mongoose.model('Requests', Request)
