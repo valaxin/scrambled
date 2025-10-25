@@ -46,7 +46,7 @@ npm run bot:deploy
 # then
 npm run dev
 # or
-npm run bot:dev
+npm run dev:bot
 # or
-npm run web:dev
+npm run dev:web
 ```

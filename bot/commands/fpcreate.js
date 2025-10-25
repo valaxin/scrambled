@@ -14,7 +14,7 @@ const description = 'create a single new post within the set forum channel'
 
 // given title and content, create a new discord forum post
 // we assume access to 'interaction'
-const createNewForumPost = async interaction => {
+export const createNewForumPost = async interaction => {
 
     // Retrieve user inputs from the slash command
     const title = interaction.options.getString('title')
