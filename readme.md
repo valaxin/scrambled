@@ -31,3 +31,22 @@ Every endpoint requires a `token` either in `req.body` or `req.query` you choose
 > Unfinished and likely broken...
 
 - can `POST` a new request and message but cant collect them?
+
+
+---
+
+### How To
+
+```shell
+git clone https://github.com/valaxin/scrambled.git
+cd ./scrambled
+npm install
+echo "secrets=here" > ./.env
+npm run bot:deploy
+# then
+npm run dev
+# or
+npm run bot:dev
+# or
+npm run web:dev
+```

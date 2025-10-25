@@ -2,7 +2,7 @@
 
 import 'dotenv/config'
 import { Client, Events, GuildMemberManager } from 'discord.js'
-import calendar from '../helpers/get-remote-cal.js'
+// import { getCalendar } from '../helpers/get-remote-cal.js'
 
 export default {
   name: Events.ClientReady,
@@ -15,12 +15,12 @@ export default {
       console.log(
         `[discord] logged into "${guild.name}" [${guild.id}] as "${client.user.username}#${client.user.discriminator}"`
       )
+      
+      // lets ready iCal events, createCache file
+      // const cal = await getCalendar({ key: 'option_value' })
 
-      // on ready... we should start the ical stuff....
-
-      console.log(await client.guilds)
-
-      console.log(`[discord] ...`)
+      // console.log(await client.guilds)
+      
       return true
     } catch (ex) {
       console.error(`[discord] bot unable to start`, ex)

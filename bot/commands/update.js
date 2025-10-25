@@ -2,7 +2,7 @@
 
 import 'dotenv/config'
 import { Client, SlashCommandBuilder, EmbedBuilder } from 'discord.js'
-import calendar from '../helpers/get-remote-cal'
+// import { getCalendar } from '../helpers/get-remote-cal.js'
 
 // static
 const name = 'update'

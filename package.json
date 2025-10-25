@@ -13,7 +13,7 @@
     "bot:deploy": "node bot/deploy.js",
     "bot:remove": "node bot/remove.js",
     "dev:web": "nodemon --watch web --exec node web/app.js",
-    "dev:bot": "nodemon --watch bot --exec node bot/client.js",
+    "dev:bot": "nodemon --watch bot --exec node bot/client.js --ignore bot/_tmp/*",
     "dev": "conc \"npm run dev:web\" \"npm run dev:bot\""
   },
   "dependencies": {

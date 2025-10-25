@@ -1,34 +1,30 @@
-// fetch the remote source that is the .ics file
-
-// ... if no cache save new cache
-
-// if cache, fetch new and get diff
-
-// ... if diff update cache
-
-// node-ical should return a json object of events.
-
-// parse these events into requests for 'jimbo' to create a thread in the
-// relevent class forum channel.
-
-// modulize this to run as cron job, every hour or manually as bot command
-
-import 'dot/env'
+import 'dotenv/config'
 import ical from 'node-ical'
+import { resolve } from 'path'
+import { readFile, writeFile, accessSync, existsSync} from 'fs'
 
-export default calendar = async () => {
-  console.log('Starting .isc obtainment ...')
-  const url = process.env.BRIGHTSPACE_CALENDAR_URL + process.env.BRIGHTSPACE_TOKEN
-  const calRequest = await fetch(url, { method: 'GET' })
-  const text = await calRequest.text()
+const data = 0
+const cache = resolve(process.env.BRIGHTSPACE_CACHE_PATH)
 
+// check for existing cache file
+const exists = existsSync(cache, err => { return err ? false : true })
 
-  
-  console.log('Parsing ical data into json')
-  const calendar = ical.sync.parseICS(text)
-  const events = Object.values(calendar).filter((e) => e.type === 'VEVENT')
-  
-  const itprog = Object.values(calendar).filter((e) => e.location.includes(process.env.ITPROG1700))
-
-  console.log({ itprog })
+// request a new (updated) .ical file from brightspace
+const createNewCache = async () => {
+  const address = process.env.BRIGHTSPACE_CALENDAR_URL + process.env.BRIGHTSPACE_TOKEN
+  const request = await fetch(address)
+  const text = await request.text()
+  const json = ical.sync.parseICS(text)
+  return json
 }
+
+// format and write to disk
+
+if (!exists) {
+  createNewCache()
+} else {
+  console.log('exists')
+}
+
+
+export default {}

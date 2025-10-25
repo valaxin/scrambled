@@ -11,15 +11,18 @@ const description = 'print information on how to use this bot'
 const embed = new EmbedBuilder()
   .setTitle(name)
   .setDescription(description)
+
 const data = new SlashCommandBuilder()
   .setName(name)
   .setDescription(description)
-  .addStringOption((option) => {
-    return option
-      .setName('type')
-      .setDescription('[0|M|Movies] or [1|S|Series]')
-      .setRequired(true)
-  })
+    .addStringOption(option =>
+      option.setName('type')
+        .setDescription('Type Of Content')
+        .setRequired(true)
+        .addChoices(
+          { name: 'Movie', value: 'Movie' },
+          { name: 'Series ', value: 'Series' },
+        ))
   .addStringOption((option) => {
     return option
       .setName('query')
@@ -30,9 +33,18 @@ const data = new SlashCommandBuilder()
 export default {
   data,
   async execute(interaction) {
+
+    // Retrieve user inputs from the slash command
+    const type = interaction.options.getString('type')
+    const query = interaction.options.getString('query')
+    
     // preform query...
-    let content = await media(process.env.OMDB_APIKEY, { query: 'star wars', type: 'movie' })
-    console.log({content})
+    let content = await media(process.env.OMDB_APIKEY, { query, type })
+
+    embed.setThumbnail()
+    embed.description = 
+
+    
     await interaction.reply({
       embeds: [embed],
       ephemeral: true,
