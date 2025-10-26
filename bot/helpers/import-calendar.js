@@ -4,13 +4,15 @@ import { resolve } from 'path'
 import { existsSync } from 'fs'
 import { readFile, writeFile } from 'fs/promises'
 
+// importing and caching cal data ...
+
 const cache = {
   courses: {
-    prog: { key: 'prog', location: process.env.PROG, events: [] },
-    webd: { key: 'webd', location: process.env.WEBD, events: [] },
-    netw: { key: 'netw', location: process.env.NETW, events: [] },
-    osys: { key: 'osys', location: process.env.OSYS, events: [] },
-    dbas: { key: 'dbas', location: process.env.DBAS, events: [] },
+    prog: { key: 'prog', location: process.env.PROG, events: [], tagId: '' },
+    webd: { key: 'webd', location: process.env.WEBD, events: [], tagId: '' },
+    netw: { key: 'netw', location: process.env.NETW, events: [], tagId: '1432035950397096087' },
+    osys: { key: 'osys', location: process.env.OSYS, events: [], tagId: ''},
+    dbas: { key: 'dbas', location: process.env.DBAS, events: [], tagId: ''},
   },
   write: async function (path, data) {
     try {
@@ -62,6 +64,6 @@ export async function calendar() {
   }
 
   console.log(`[discord] successful`)
-  console.log(`[disocrd] cache preview`, cache)
+  // console.log(`[disocrd] cache preview`, cache)
   return cache
 }

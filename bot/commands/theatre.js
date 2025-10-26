@@ -42,7 +42,7 @@ export default {
     let content = await media(process.env.OMDB_APIKEY, { query, type })
 
     embed.setThumbnail()
-    embed.description = 
+    // embed.description = 
 
     
     await interaction.reply({
