@@ -41,9 +41,10 @@ export default {
     // preform query...
     let content = await media(process.env.OMDB_APIKEY, { query, type })
 
-    embed.setThumbnail()
-    embed.description = 
+    // embed.setThumbnail()
+    // embed.description = 
 
+    console.log(content)
     
     await interaction.reply({
       embeds: [embed],
