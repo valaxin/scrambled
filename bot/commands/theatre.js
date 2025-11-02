@@ -3,7 +3,7 @@
 import 'dotenv/config';
 
 import { Client, SlashCommandBuilder, EmbedBuilder } from 'discord.js'
-import { media } from '../helpers/media.js'
+import { media } from '../helpers/media-broker.js'
 
 const name = 'theatre'
 const description = 'print information on how to use this bot'

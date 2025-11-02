@@ -5,14 +5,14 @@ import { existsSync } from 'fs'
 import { readFile, writeFile } from 'fs/promises'
 
 const cache = {
-  
-  // define truths
+  // bring in all the course variable that were shoehorned into the .env file
+  // we need LOCATION, TAG_ID and FORUM_ID for each enrolled course
   courses: {
-    prog: { key: 'prog', location: process.env.PROG, events: [], tagId: '' },
-    webd: { key: 'webd', location: process.env.WEBD, events: [], tagId: '' },
-    netw: { key: 'netw', location: process.env.NETW, events: [], tagId: process.env.NETW_TAGID },
-    osys: { key: 'osys', location: process.env.OSYS, events: [], tagId: ''},
-    dbas: { key: 'dbas', location: process.env.DBAS, events: [], tagId: ''},
+    prog: { key: 'prog', location: process.env.PROG, events: [], tagId: process.env.PROG_TAGID, forumId: process.env.PROG_WUMPUS_FORUM_CHANNEL },
+    webd: { key: 'webd', location: process.env.WEBD, events: [], tagId: process.env.WEBD_TAGID, forumId: process.env.WEBD_WUMPUS_FORUM_CHANNEL },
+    netw: { key: 'netw', location: process.env.NETW, events: [], tagId: process.env.NETW_TAGID, forumId: process.env.NETW_WUMPUS_FORUM_CHANNEL },
+    osys: { key: 'osys', location: process.env.OSYS, events: [], tagId: process.env.OSYS_TAGID, forumId: process.env.OSYS_WUMPUS_FORUM_CHANNEL },
+    dbas: { key: 'dbas', location: process.env.DBAS, events: [], tagId: process.env.DBAS_TAGID, forumId: process.env.DBAS_WUMPUS_FORUM_CHANNEL },
   },
 
   // write JSON file
@@ -45,9 +45,6 @@ const cache = {
     }
   },
 }
-
-const setup = () => {}
-
 // provide calendar (-> object)
 export async function calendar() {
   // ./temp/*.json

@@ -15,18 +15,18 @@ export default {
       const guild = await client.guilds.cache.get(process.env.WUMPUS_GUILD)
       console.log(`[discord] logged into "${guild.name}" [${guild.id}] as "${client.user.username}#${client.user.discriminator}"`)
       
-      console.log(`[discord] checking calendar data`)
+      // call all ...
       const courseCalendar = await calendar()
-      
-      // check ...
-      await checkExisitingForumEvents(
-        process.env.NETW,
-        courseCalendar.courses,
-        process.env.PROG_WUMPUS_FORUM_CHANNEL,
-        ChannelType,
-        client
-      )
-
+      for (const [k, course] of Object.entries(courseCalendar.courses)) {
+        await checkExisitingForumEvents(
+          course.location,
+          courseCalendar.courses,
+          course.forumId,
+          ChannelType,
+          client
+        )
+        console.log(`[discord] checking "${course.key}"`)
+      }
       return true
     } catch (ex) {
       console.error(`[discord] bot unable to start`, ex)

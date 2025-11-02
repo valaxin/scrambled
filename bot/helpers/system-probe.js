@@ -1,11 +1,11 @@
-"use strict";
+"use strict"
 
 import os from 'node:os'
 import * as pkg from '../../package.json' with { type: 'json' }
 
 function secondsIntoReadableString(input) {
   try {
-    const d = new Date(input * 1000);
+    const d = new Date(input * 1000)
     const t = {
       segments: [],
       uptime_seconds: input,
@@ -67,9 +67,9 @@ export default async function probe() {
         uptime: secondsIntoReadableString(process.uptime()) || "unknown",
         repo: `https://github.com/${pkg.author}/${pkg.name}.git/`,
       },
-    };
-    return result;
+    }
+    return result
   } catch (error) {
-    throw error;
+    throw error
   }
-};
+}

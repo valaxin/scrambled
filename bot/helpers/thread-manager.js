@@ -1,5 +1,7 @@
 'use strict'
 
+import moment from 'moment'
+
 // this module expects to be invoked from within a discord
 // ready event. do with that what you will.
 export async function postNewThread (forum, options) {
@@ -8,9 +10,6 @@ export async function postNewThread (forum, options) {
 
 export async function checkExisitingForumEvents (courseKey, courses, channelId, ChannelType, client) {
 
-
-  // console.log(arguments)
-  
   // get course information
   const courseObjectKey = courseKey.split('').splice(0, 4).join('').toLowerCase()
   const courseObject = courses[courseObjectKey]
@@ -25,40 +24,54 @@ export async function checkExisitingForumEvents (courseKey, courses, channelId, 
     const activeThreads = await forum.threads.fetchActive()
     const botThreads = activeThreads.threads.filter((t) => t.ownerId === client.user.id)
     
-    let threadMatchCounter = 0
+    let threadCountExisting = 0
+    let threadCountNew = 0
+    let threadCountExpired = 0
     
     // for each BOT OWNED thread in channel
     botThreads.forEach(async (thread) => {
       // check the starting 
       const starter = await thread.fetchStarterMessage()
       for (const [evk, ev] of Object.entries(courses[courseObjectKey].events)) {
-        if (!starter.content.includes(courseKey)) {
-          // console.log('no match!')
-
-          // get event date?
-
-
-          let current = new Date().getTime()
-          let start = new Date(ev.start).getTime()
-          let end = new Date(ev.end).getTime()
-          
-          // check time.
-          if (start < current) {
-            console.log(`[event] hasn't happened yet`)
-          } else if (start > current) {
-            console.log(`[event] already happening`)
-          } else if (end > current) {
-            console.log('[event] event over')
-          }
-          
-          // const newThread = await forum.threads.create({ name: '', message: { content } })
         
+        if (!starter.content.includes(courseKey)) {
+          // define time values (all epoch intergers)
+          let eventStart = new Date(ev.start).getTime()
+          let eventEnd = new Date(ev.end).getTime()
+          let timeNow = new Date().getTime()
+
+          // is same or after/before now
+          const isoa = moment(eventStart).isSameOrAfter(timeNow)
+          const isob = moment(eventStart).isSameOrBefore(timeNow)
+
+          const { summary } = ev
+
+          // doesn't have a thread and hasen't already happened
+          if (isoa) {
+            // console.log(`[discord] isSameOrAfter() => ${isoa} \n[discord] "This event hasn't occured yet."`)
+            // console.log({
+            //   courseKey,
+            //   currentTime: moment(timeNow).format('LLLL'),
+            //   eventSummary: summary,
+            //   eventStarts: moment(eventEnd).format('LLLL'),
+            //   eventFinishes: moment(eventStart).format('LLLL')
+            // })
+            threadCountNew++
+            // make form thread for ? valid 🤞 event mayhaps
+            console.log(` ${threadCountNew} -- should make new on ${courseObjectKey} forum`)
+          }
+
+          // no thread but already happened ...
+          if (isob) {
+            threadCountExpired++
+          }
+        
+        // has thread
         } else {
-          threadMatchCounter++
-          console.log(threadMatchCounter, 'match found')
+          threadCountExisting++
         }
       }
+      console.log(courseObjectKey, { threadCountExisting, threadCountNew, threadCountExpired })
     })
-    console.log('matches', threadMatchCounter)
   }
 }
