@@ -6,24 +6,27 @@ export async function getCommands(directory) {
   const files = []
 
   try {
-    // grab the contents of the commands folder
+    // 1. grab the contents of the commands folder
     const folderContent = await readdir(directory)
     const contentPaths = folderContent.map((file) => resolve(directory, file))
 
-    // iterate over its contents
+    // 2. iterate over its contents
     for (const path of contentPaths) {
       const stats = await lstat(path)
 
-      // if we encounter another directory check...
+      // 2.1 IF we encounter another directory check...
       if (stats.isDirectory()) {
         const subFolderContent = await readdir(path)
         const subContentPaths = subFolderContent.map((file) => resolve(path, file))
  
-        // ...for and import only js files
+        // 2.2 ...for and import only js files
         for (const subpath of subContentPaths) {
+          
+          // 2.2.1
           if (subpath.endsWith('.js')) {
             const module = await import(subpath)
 
+            // 2.2.2
             if ('data' in module.default && 'execute' in module.default) {
               commands.push(module.default.data.toJSON())
               files.push(module.default)

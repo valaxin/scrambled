@@ -18,6 +18,7 @@ export default {
       // call all ...
       const courseCalendar = await calendar()
       for (const [k, course] of Object.entries(courseCalendar.courses)) {
+        //console.log(course)
         await checkExisitingForumEvents(
           course.location,
           courseCalendar.courses,

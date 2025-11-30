@@ -11,9 +11,7 @@ export const createOneNewForumThread = async (interaction) => {
   // Retrieve user inputs from the slash command.
   const title = interaction.options.getString('title')
   const content = interaction.options.getString('content')
-
-  // ID of the target forum channel.
-  const forumChannelId = process.env.WUMPUS_FORUM_CHANNEL
+  const forumChannelId = interaction.options.getString('forum_channel_id')
 
   // Fetch the forum channel from cache.
   const forum = interaction.client.channels.cache.get(forumChannelId)
@@ -39,6 +37,7 @@ export const createOneNewForumThread = async (interaction) => {
 const data = new SlashCommandBuilder()
   .setName(name)
   .setDescription(description)
+  .addStringOption((option) => option.setName('forum_channel_id').setDescription('Channel Id of forum you wish to post too').setRequired(true))
   .addStringOption((option) => option.setName('title').setDescription('Title of content').setRequired(true))
   .addStringOption((option) => option.setName('content').setDescription('Initial message content').setRequired(true))
   .setDefaultMemberPermissions(PermissionFlagsBits.SendMessages)
