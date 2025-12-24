@@ -5,10 +5,10 @@ import { Events } from 'discord.js'
 export default {
   name: Events.InteractionCreate,
   async execute(interaction) {
-    console.log(`[discord] "${interaction.commandName}" from ${interaction.user}/${interaction.guild.id}`)
+    console.log(`[discord] "/${interaction.commandName}" command from ${interaction.user}/${interaction.guild.id}`)
 
     // anything we want to do when ANYONE interacts with the bot should go here.
-      
+
     if (!interaction.isChatInputCommand()) return // input isn't a command
 
     const command = interaction.client.commands.get(interaction.commandName)
@@ -18,6 +18,7 @@ export default {
       return
     }
 
+    // ...
     // input IS command AND registered
     try {
       await command.execute(interaction)

@@ -1,7 +1,7 @@
 import { resolve } from 'node:path'
 import { readdir, lstat } from 'fs/promises'
 
-export async function getCommands(directory) {
+export async function getCommands (directory) {
   const commands = []
   const files = []
 
@@ -41,6 +41,7 @@ export async function getCommands(directory) {
       if (stats.isFile() && path.endsWith('.js')) {
         const module = await import(path)
 
+        // do the required keys exist within the module?
         if ('data' in module.default && 'execute' in module.default) {
           commands.push(module.default.data.toJSON())
           files.push(module.default)

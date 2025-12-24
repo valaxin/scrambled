@@ -1,6 +1,9 @@
 'use strict'
 
-import { Client, SlashCommandBuilder, EmbedBuilder } from 'discord.js'
+import { resolve } from 'path'
+import { Client, SlashCommandBuilder, EmbedBuilder, MessageFlags } from 'discord.js'
+
+import probe from '../helpers/system-probe.js'
 
 const name = 'help'
 const description = 'print information on how to use this bot'
@@ -10,9 +13,13 @@ const data = new SlashCommandBuilder().setName(name).setDescription(description)
 export default {
   data,
   async execute(interaction) {
+
+    const sysinfo = await probe()
+
     await interaction.reply({
       embeds: [embed],
-      ephemeral: true,
+      content: 'Private.',
+      flags: MessageFlags.Ephemeral,
     })
   },
 }

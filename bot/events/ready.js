@@ -26,7 +26,8 @@ export default {
           ChannelType,
           client
         )
-        console.log(`[discord] checking "${course.key}"`)
+        // console.log(`[discord] checking "${course.key}"`)
+        // console.log(course)
       }
       return true
     } catch (ex) {

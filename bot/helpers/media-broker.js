@@ -9,14 +9,18 @@ export const media = async function (key, options) {
   try {
     const endpoint = `https://www.omdbapi.com/?apikey=${key}&s=${encodeURI(options.query)}`
     const response = await axios.get(endpoint)
+    // console.log('response.data', response.data)
     const jsondata = await response.data.Search.map((result) => {
-      return result.Type === options.type ? result : null
+      return result.Type === options.type.toLowerCase() ? result : null
     })[0]
 
-    if (jsondata === null) throw new Error('Sorry! Nothing found for that query.')
+    console.log(endpoint)
 
-    const domains = ['vidsrc.in', 'vidsrc.pm', 'vidsrc.xyz', 'vidsrc.net']
-
+    if (jsondata === null) {
+      throw new Error('Sorry! Nothing found for that query.')
+    }
+    
+    const domains = ['vidsrc.xyz', 'vidsrc-embed.ru', 'vidsrc-embed.su', 'vidsrcme.su', 'vsrc.su']
     if (options.type === 'series') {
       jsondata.urls = domains.map((domain) => {
         return `https://${domain}/embed/tv?imdb=${jsondata.imdbID}&season=${options.season}&episode=${options.episode}`
