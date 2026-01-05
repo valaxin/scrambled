@@ -9,33 +9,39 @@ export const media = async function (key, options) {
   try {
     const endpoint = `https://www.omdbapi.com/?apikey=${key}&s=${encodeURI(options.query)}`
     const response = await axios.get(endpoint)
-    // console.log('response.data', response.data)
-    const jsondata = await response.data.Search.map((result) => {
+
+    // ...
+    const results = await response.data.Search.map((result) => {
       return result.Type === options.type.toLowerCase() ? result : null
-    })[0]
+    })
 
-    console.log(endpoint)
-
-    if (jsondata === null) {
+    if (results === null) {
       throw new Error('Sorry! Nothing found for that query.')
     }
-    
+
     const domains = ['vidsrc.xyz', 'vidsrc-embed.ru', 'vidsrc-embed.su', 'vidsrcme.su', 'vsrc.su']
-    if (options.type === 'series') {
-      jsondata.urls = domains.map((domain) => {
-        return `https://${domain}/embed/tv?imdb=${jsondata.imdbID}&season=${options.season}&episode=${options.episode}`
-      })
+    
+    for (const [i, res] of Object.entries(results)) {
+      if (res?.imdbID) {
+        if (options.type === 'series') {
+          res.urls = domains.map((domain) => {
+            return `https://${domain}/embed/tv?imdb=${res.imdbID}&season=${options.season}&episode=${options.episode}`
+          })
+        }
+        if (options.type === 'movie') {
+          res.urls = domains.map((domain) => {
+            return `https://${domain}/embed/movie?imdb=${res.imdbID}`
+          })
+        }
+      }
     }
 
-    if (options.type === 'movie') {
-      jsondata.urls = domains.map((domain) => {
-        return `https://${domain}/embed/movie?imdb=${jsondata.imdbID}`
-      })
-    }
+    // filter out nulls
+    const filtered = results.filter(r => r != null)
+    return filtered
 
-    return jsondata
-  } catch (error) {
-    console.log(error, 2)
-    return error
+  } catch (exception) {
+    console.error(`[bot/helpers/media-broker.js]`, exception)
+    throw new Error(exception)
   }
 }

@@ -1,5 +1,4 @@
 # scrambled
 
-> [!warning]
+> [!WARNING]
 > work in progress
-
