@@ -19,13 +19,13 @@ export default {
       const courseCalendar = await calendar()
       for (const [k, course] of Object.entries(courseCalendar.courses)) {
         //console.log(course)
-        await checkExisitingForumEvents(
-          course.location,
-          courseCalendar.courses,
-          course.forumId,
-          ChannelType,
-          client
-        )
+        // await checkExisitingForumEvents(
+        //   course.location,
+        //   courseCalendar.courses,
+        //   course.forumId,
+        //   ChannelType,
+        //   client
+        // )
         // console.log(`[discord] checking "${course.key}"`)
         // console.log(course)
       }

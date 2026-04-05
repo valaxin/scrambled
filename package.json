@@ -16,24 +16,27 @@
     "dev:bot": "nodemon --watch bot --exec node bot/client.js --trace-warnings --ignore bot/_tmp/*",
     "dev": "conc \"npm run dev:web\" \"npm run dev:bot\""
   },
+  "overrides": {
+    "undici": "^6.23.1"
+  },
   "dependencies": {
-    "axios": "^1.12.0",
-    "body-parser": "^2.2.0",
-    "bufferutil": "^4.0.9",
+    "axios": "^1.13.6",
+    "body-parser": "^2.2.2",
+    "bufferutil": "^4.1.0",
     "concurrently": "^9.2.1",
-    "connect-mongo": "^5.1.0",
+    "connect-mongo": "^6.0.0",
     "cookie-parser": "^1.4.7",
-    "discord.js": "^14.22.1",
-    "dotenv": "^17.2.2",
-    "express": "^5.1.0",
-    "express-session": "^1.18.2",
+    "discord.js": "^14.25.1",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
     "moment": "^2.30.1",
-    "mongoose": "^8.18.1",
+    "mongoose": "^9.3.2",
     "morgan": "^1.10.1",
     "node-cron": "^4.2.1",
-    "node-ical": "^0.22.0",
-    "nodemon": "^3.1.10",
-    "socket.io": "^4.8.1",
-    "utf-8-validate": "^6.0.5"
+    "node-ical": "^0.25.6",
+    "nodemon": "^3.1.14",
+    "socket.io": "^4.8.3",
+    "utf-8-validate": "^6.0.6"
   }
 }
