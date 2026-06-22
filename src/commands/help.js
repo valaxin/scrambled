@@ -17,11 +17,7 @@ export default {
   async execute(interaction) {
 
     const sysinfo = await probe()
-
-    embed.setFields.
-
-    console.log(sysinfo)
-
+    
     await interaction.reply({
       embeds: [embed],
       content: 'Private.',

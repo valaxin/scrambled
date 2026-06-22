@@ -4,7 +4,7 @@ import 'dotenv/config'
 import * as url from 'url'
 import { resolve } from 'node:path'
 import { REST, Routes } from 'discord.js'
-import { getCommands } from './helpers/get-commands.js'
+import { getCommands } from './utilites/get-commands.js'
 
 // locals
 const guild = process.env.WUMPUS_GUILD
@@ -22,6 +22,7 @@ async function register(foldername) {
   try {
     // get commands from folder using helper function
     const data = await getCommands(resolve(__dirname, foldername))
+    console.log(`[discord] Attempting to register ${data.commands.length} slash commands to [${guild}]!`)
     const registered = await rest.put(Routes.applicationGuildCommands(client, guild), { body: data.commands })
     console.log(`[discord] Successfully ${registered.length} slash commands to [${guild}]!`)
 
@@ -37,3 +38,5 @@ async function register(foldername) {
     return new Error(`[discord] Slash command registration error.`, error)
   }
 }
+
+await register('commands')
