@@ -2,4 +2,6 @@
 /.env
 node_modules
 /.DS_Store
-/bot/_tmp
+/.idea
+/src/.temp
+/.vscode
