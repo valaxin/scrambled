@@ -3,7 +3,7 @@
 import 'dotenv/config';
 
 import { Client, SlashCommandBuilder, EmbedBuilder, MessageFlags } from 'discord.js'
-import { media } from '../helpers/media-broker.js'
+import { media } from '../utilites/media-broker.js'
 
 const name = 'content'
 const description = 'A simple command to provide streaming sources.'
@@ -12,7 +12,7 @@ const data = new SlashCommandBuilder()
   .setName(name)
   .setDescription(description)
 
-  // movie route ...
+  // movie ...
   .addSubcommand(movie =>
     movie.setName('movie')
       .setDescription('search for a movie, special or short film')
@@ -23,7 +23,7 @@ const data = new SlashCommandBuilder()
       )
   )
 
-  // series route ...
+  // series ...
   .addSubcommand(series =>
     series.setName('series')
       .setDescription('search for a single episode of a show')
@@ -60,17 +60,18 @@ export default {
       const episode = interaction.options.get('episode')?.value || false
       const season = interaction.options.get('season')?.value || false
 
-      const limit = 5
+      const limit = 3
       const m_opstring = `... searched for a **${type}** named **${query}**, here are at most **${limit}** results.`
       const s_opstring = `... searched for season **${season}** episode **${episode}** of a **${type}** named **${query}**, here are at most **${limit}** results.`
 
-      // ...
+      // search omdb with data and begin building embed
       const content = await media(process.env.OMDB_APIKEY, { query, type, season, episode })
       const parent = new EmbedBuilder()
         .setTitle(`${name}`)
         .setDescription(type == 'series' ? s_opstring : m_opstring )
 
       const embeds = []
+      
       for (const [index, item] of Object.entries(content)) {
         if (index >= limit) { break }
         embeds.push(
@@ -88,9 +89,10 @@ export default {
         ) 
       }
 
+      // replay
       await interaction.reply({
         embeds: [parent, ...embeds],
-        content: 'Theatre',
+        content: '',
         flags: ''
       })
     } catch (err) {

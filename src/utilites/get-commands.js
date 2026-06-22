@@ -6,54 +6,49 @@ export async function getCommands (directory) {
   const files = []
 
   try {
-    // 1. grab the contents of the commands folder
+    // fetch the contents of directory and begin
+    // iterating over the entries.
     const folderContent = await readdir(directory)
     const contentPaths = folderContent.map((file) => resolve(directory, file))
-
-    // 2. iterate over its contents
     for (const path of contentPaths) {
+
+      // each files stats
       const stats = await lstat(path)
 
-      // 2.1 IF we encounter another directory check...
+      // if we encounter a directory check content
       if (stats.isDirectory()) {
         const subFolderContent = await readdir(path)
         const subContentPaths = subFolderContent.map((file) => resolve(path, file))
- 
-        // 2.2 ...for and import only js files
         for (const subpath of subContentPaths) {
-          
-          // 2.2.1
           if (subpath.endsWith('.js')) {
             const module = await import(subpath)
-
-            // 2.2.2
+            
+            // check that imported file has proper exports
             if ('data' in module.default && 'execute' in module.default) {
               commands.push(module.default.data.toJSON())
               files.push(module.default)
             } else {
-              console.warn(`[discord] the command at ${filePath} is missing a required "data" or "execute" property`)
+              throw new Error(`[discord] the command at ${filePath} is missing a required "data" or "execute" property`)
             }
           }
         }
       }
 
-      // ... it's a javascript file
+      // not a sub directory,
+      // check the each javascript file for the correct exports
       if (stats.isFile() && path.endsWith('.js')) {
         const module = await import(path)
-
-        // do the required keys exist within the module?
         if ('data' in module.default && 'execute' in module.default) {
           commands.push(module.default.data.toJSON())
           files.push(module.default)
         } else {
-          console.warn(`[discord] the command at ${filePath} is missing a required "data" or "execute" property`)
+          throw new Error(`[discord] the command at ${filePath} is missing a required "data" or "execute" property`)
         }
       }
     }
 
     return { commands, files }
-  } catch (ex) {
-    console.error(`[discord] error occured processing command files`, ex)
-    return ex
+  } catch (error) {
+    return new Error(`[discord] error occured processing command files`, error)
   }
 }

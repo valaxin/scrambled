@@ -5,34 +5,38 @@ import { Events } from 'discord.js'
 export default {
   name: Events.InteractionCreate,
   async execute(interaction) {
+    
     console.log(`[discord] "/${interaction.commandName}" command from ${interaction.user}/${interaction.guild.id}`)
 
-    // anything we want to do when ANYONE interacts with the bot should go here.
-
-    if (!interaction.isChatInputCommand()) return // input isn't a command
-
-    const command = interaction.client.commands.get(interaction.commandName)
-
-    if (!command) {
-      console.error(`[discord] no command matching ${interaction.commandName} was found`)
-      return
+    // check that input is command
+    if (!interaction.isChatInputCommand()) {
+      return new Error('[discord] input in not a command')
     }
 
-    // ...
-    // input IS command AND registered
+    // when command
+    const command = interaction.client.commands.get(interaction.commandName)
+
+    // when command but not ours
+    if (!command) {
+      return new Error(`[discord] no command matching ${interaction.commandName} was found`)
+    }
+
+    console.log(`[discord-debug]`, {interaction, command})
+
+    // execute command
     try {
       await command.execute(interaction)
     } catch (commandError) {
-      // if error reply via one of three methods? not sure why this todo: read/investigate
-      // guess: dependant on the state of execution within the command?
+      
+      // 
       if (interaction.replied || interaction.deferred) {
         await interaction.followUp({
-          content: 'There was an error while executing this command!',
+          content: 'error follow up message from the bot',
           ephemeral: true,
         })
       } else {
         await interaction.reply({
-          content: 'There was an error while executing this command!',
+          content: 'error reply message from the bot',
           ephemeral: true,
         })
       }

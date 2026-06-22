@@ -1,42 +1,29 @@
 {
   "name": "scrambled",
-  "description": "personal discord bot",
-  "version": "0.1.2",
-  "main": "bot/index.js",
+  "description": "~",
+  "version": "0.2.0",
+  "main": "src/client.js",
   "license": "MIT",
   "private": "true",
   "author": "valaxin",
   "type": "module",
   "scripts": {
-    "start:bot": "node bot/client.js",
-    "start:web": "node web/app.js",
-    "bot:deploy": "node bot/deploy.js",
-    "bot:remove": "node bot/remove.js",
-    "dev:web": "nodemon --watch web --exec node web/app.js",
-    "dev:bot": "nodemon --watch bot --exec node bot/client.js --trace-warnings --ignore bot/_tmp/*",
-    "dev": "conc \"npm run dev:web\" \"npm run dev:bot\""
+    "start": "node src/client.js",
+    "deploy": "node src/deploy.js",
+    "remove": "node src/remove.js",
+    "dev": "nodemon --watch bot --exec node src/client.js --trace-warnings --ignore bot/.temp/*"
   },
   "overrides": {
     "undici": "^6.23.1"
   },
   "dependencies": {
-    "axios": "^1.13.6",
-    "body-parser": "^2.2.2",
+    "axios": "^1.18.0",
     "bufferutil": "^4.1.0",
-    "concurrently": "^9.2.1",
-    "connect-mongo": "^6.0.0",
-    "cookie-parser": "^1.4.7",
-    "discord.js": "^14.25.1",
-    "dotenv": "^17.3.1",
-    "express": "^5.2.1",
-    "express-session": "^1.19.0",
+    "discord.js": "^14.26.4",
+    "dotenv": "^17.4.2",
     "moment": "^2.30.1",
-    "mongoose": "^9.3.2",
-    "morgan": "^1.10.1",
-    "node-cron": "^4.2.1",
-    "node-ical": "^0.25.6",
+    "node-ical": "^0.26.1",
     "nodemon": "^3.1.14",
-    "socket.io": "^4.8.3",
     "utf-8-validate": "^6.0.6"
   }
 }

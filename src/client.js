@@ -8,7 +8,7 @@ import { resolve } from 'path'
 import { Client, Collection, GatewayIntentBits } from 'discord.js'
 
 // func for ingesting commmands en mass
-import { getCommands } from './helpers/get-commands.js'
+import { getCommands } from './utilites/get-commands.js'
 
 // wrapped in self calling anonymous func, returns discord client object
 export default (async () => {
@@ -40,7 +40,7 @@ export default (async () => {
       ? client.once(event.name, (...args) => event.execute(...args))
       : client.on(event.name, (...args) => event.execute(...args))
   }
-
+  
   client.login(process.env.WUMPUS_TOKEN)
   return client
 })()

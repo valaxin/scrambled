@@ -1,5 +1,9 @@
 'use strict'
 
+/**
+ * makes a put request that removes slash commands from the discord api
+ */
+
 import 'dotenv/config'
 import { REST, Routes } from 'discord.js'
 
