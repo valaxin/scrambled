@@ -1,18 +1,21 @@
 'use strict'
 
+import { ActivityType } from 'discord.js'
+
 /**
  * simply define a presense object for the bot
  */
 
-export default presence = {
+const presence = {
   afk: false,
   status: 'online',
   activities: [
     {
-      name: 'activity',
-      state: 'in development',
-      type: 'watching',
-      url: 'https://github.com/valaxin/scrambled',
+      name: '...',
+      type: ActivityType.Custom,
+      state: 'In Development'
     },
   ],
 }
+
+export default presence

@@ -46,7 +46,6 @@ export async function getCommands (directory) {
         }
       }
     }
-
     return { commands, files }
   } catch (error) {
     return new Error(`[discord] error occured processing command files`, error)

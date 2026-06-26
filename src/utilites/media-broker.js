@@ -19,7 +19,7 @@ export const media = async function (key, options) {
       throw new Error('Sorry! Nothing found for that query.')
     }
 
-    const domains = ['vidsrc.xyz', 'vidsrc-embed.ru', 'vidsrc-embed.su', 'vidsrcme.su', 'vsrc.su']
+    const domains = ['vidsrc-embed.ru', 'vidsrc-embed.su', 'vidsrcme.su', 'vsrc.su']
     
     for (const [i, res] of Object.entries(results)) {
       if (res?.imdbID) {

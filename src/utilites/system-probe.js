@@ -1,49 +1,7 @@
-"use strict"
+'use strict'
 
 import os from 'node:os'
 import * as pkg from '../../package.json' with { type: 'json' }
-
-function secondsIntoReadableString(input) {
-  try {
-    const d = new Date(input * 1000)
-    const t = {
-      segments: [],
-      uptime_seconds: input,
-      days: d.getUTCDate() - 1,
-      hours: d.getUTCHours(),
-      minutes: d.getUTCMinutes(),
-      seconds: d.getUTCSeconds(),
-      milliseconds: d.getUTCMilliseconds(),
-    };
-
-    if (t.days > 0) {
-      t.segments.push(t.days + " day" + (t.days == 1 ? "" : "s"));
-    }
-
-    if (t.hours > 0) {
-      t.segments.push(t.hours + " hour" + (t.hours == 1 ? "" : "s"));
-    }
-
-    if (t.minutes > 0) {
-      t.segments.push(t.minutes + " minute" + (t.minutes == 1 ? "" : "s"));
-    }
-
-    if (t.seconds > 0) {
-      t.segments.push(t.seconds + " second" + (t.seconds == 1 ? "" : "s"));
-    }
-
-    if (t.milliseconds > 0) {
-      t.segments.push(
-        t.milliseconds + " millisecond" + (t.seconds == 1 ? "" : "s")
-      );
-    }
-
-    t.friendly = t.segments.join(", ");
-    return { d, t };
-  } catch (error) {
-    throw new Error(error);
-  }
-}
 
 export default async function probe() {
   try {
@@ -53,7 +11,7 @@ export default async function probe() {
         hostname: os.hostname(),
         platform: os.platform(),
         type: os.type(),
-        uptime: secondsIntoReadableString(os.uptime()) || "unknown",
+        uptime: os.uptime() || 'unknown',
       },
       host: {
         name: pkg.default.name,
@@ -64,10 +22,11 @@ export default async function probe() {
         version: pkg.default.version,
         description: pkg.default.description,
         license: pkg.default.license,
-        uptime: secondsIntoReadableString(process.uptime()) || "unknown",
+        uptime: process.uptime() || 'unknown',
         repo: `https://github.com/${pkg.default.author}/${pkg.default.name}.git/`,
       },
     }
+
     return result
   } catch (error) {
     throw error
