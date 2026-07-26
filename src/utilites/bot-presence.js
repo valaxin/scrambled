@@ -3,7 +3,7 @@
 import { ActivityType } from 'discord.js'
 
 /**
- * simply define a presense object for the bot
+ * define a presense object for the bot
  */
 
 const presence = {

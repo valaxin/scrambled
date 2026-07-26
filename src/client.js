@@ -1,29 +1,33 @@
+#!/usr/bin node
+
 'use strict'
 
-// handle imports
 import 'dotenv/config'
 import * as url from 'url'
-import { readdir, lstat } from 'fs/promises'
+import { readdir } from 'fs/promises'
 import { resolve } from 'path'
-import { Client, Collection, GatewayIntentBits, Presence } from 'discord.js'
+import { Client, Collection, GatewayIntentBits } from 'discord.js'
+import getCommands from './utilites/get-commands.js'
 
-// func for ingesting commmands en mass
-import { getCommands } from './utilites/get-commands.js'
-
-// wrapped in self calling anonymous func, returns discord client object
 export default (async () => {
   try {
+
+    // define the directories
     const __dirname = url.fileURLToPath(new URL('.', import.meta.url))    // get working directory
     const client = new Client({ intents: [GatewayIntentBits.Guilds] })    // define new Discord client
     const collection = await getCommands(resolve(__dirname, 'commands'))  // define new collection as collection of commands
+    
     client.commands = new Collection()
-    for (const command of collection.files) {           // iterate over command files found
+
+    for (const command of collection.files) {
       if ('data' in command && 'execute' in command) {
-        client.commands.set(command.data.name, command) // set into object...
+        client.commands.set(command.data.name, command)
       } else {
-        console.log(`[discord] The command at ${filePath} is missing a required "data" or "execute" property.`)
+        console.warn(`[discord] The command is missing a required "data" or "execute" property.`)
       }
     }
+
+    // const database = await db.connect()
 
     const eventsPath = resolve(__dirname, 'events')
     const eventsContent = await readdir(eventsPath)
@@ -33,8 +37,6 @@ export default (async () => {
       const filePath = resolve(eventsPath, file)
       const module = await import(filePath)
       const event = module.default
-
-      // only once
       if (event.once) {
         client.once(event.name, (...args) => event.execute(...args))
       } else {

@@ -5,39 +5,37 @@ import { SlashCommandBuilder, EmbedBuilder, MessageFlags } from 'discord.js'
 import moment from 'moment'
 
 import probe from '../utilites/system-probe.js'
+import getCommands from '../utilites/get-commands.js'
 
 const sysinfo = await probe()
 const name = `help`
 const description = `Print information about this bot, and some basics on how to use it`
 
-const fields = {
-  system: {
-    name: `System Information`,
-    value: `**platform**: ${sysinfo.system.platform}\n**uptime**: ${moment(sysinfo.system.uptime).fromNow()}`,
-    inline: false
-  },
-  application: {
-    name: `App Information`,
-    value: `**name** ${sysinfo.host.name}\n**version** \`${sysinfo.host.version}\`\n**uptime**:\n**author**: ${sysinfo.host.author.username}`,
-    inline: false
-  },
-  commands: {
-    name: 'Command: `/help`',
-    value: `This command takes no arguments and returns information about the bot itself`,
-    inline: false
-  }
-}
+const fields = {}
 
 const data = new SlashCommandBuilder().setName(name).setDescription(description)
-const embed = new EmbedBuilder()
-  .setTitle(name)
-  .setDescription(description)
-  .setFields(fields.system, fields.application, fields.commands)
 
 export default {
   data,
   async execute(interaction) {
     try {
+
+      let commands = await getCommands(resolve('src/commands'))
+
+      const embed = new EmbedBuilder().setTitle(name).setDescription(description).setColor('Yellow')
+
+      for (const cmd of commands.commands) {
+
+        fields[cmd.name] = {
+          name: `\`/${cmd.name}\``,
+          value: cmd.description,
+          inline: false
+        }
+
+        embed.addFields(fields[cmd.name])
+
+      }
+
       await interaction.reply({
         embeds: [embed],
         flags: MessageFlags.Ephemeral,

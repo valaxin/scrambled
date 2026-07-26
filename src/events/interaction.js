@@ -20,9 +20,7 @@ export default {
     if (!command) {
       return new Error(`[discord] no command matching ${interaction.commandName} was found`)
     }
-    
-    // console.log(`[discord-debug]`, {interaction, command})
-
+  
     // execute command
     try {
       await command.execute(interaction)

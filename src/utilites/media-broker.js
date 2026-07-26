@@ -3,14 +3,12 @@
 import axios from 'axios'
 
 export const media = async function (key, options) {
-  if (!key) throw new Error('Missing OMDB Key')
-  if (!options.query || options.query < 1) throw new Error('Missing Query')
-
   try {
+    if (!key) throw new Error('Missing OMDB Key')
+    if (!options.query || options.query < 1) throw new Error('Missing Query')
     const endpoint = `https://www.omdbapi.com/?apikey=${key}&s=${encodeURI(options.query)}`
     const response = await axios.get(endpoint)
 
-    // ...
     const results = await response.data.Search.map((result) => {
       return result.Type === options.type.toLowerCase() ? result : null
     })
@@ -19,8 +17,8 @@ export const media = async function (key, options) {
       throw new Error('Sorry! Nothing found for that query.')
     }
 
-    const domains = ['vidsrc-embed.ru', 'vidsrc-embed.su', 'vidsrcme.su', 'vsrc.su']
-    
+    const domains = ['vsembed.ru', 'vsembed.su']
+
     for (const [i, res] of Object.entries(results)) {
       if (res?.imdbID) {
         if (options.type === 'series') {
@@ -36,10 +34,7 @@ export const media = async function (key, options) {
       }
     }
 
-    // filter out nulls
-    const filtered = results.filter(r => r != null)
-    return filtered
-
+    return results.filter((result) => result != null)
   } catch (exception) {
     console.error(`[bot/helpers/media-broker.js]`, exception)
     throw new Error(exception)

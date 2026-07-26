@@ -9,7 +9,7 @@
   "type": "module",
   "scripts": {
     "start": "node src/client.js",
-    "deploy": "node src/deploy.js",
+    "register": "node src/register.js",
     "remove": "node src/remove.js",
     "dev": "nodemon --watch bot --exec node src/client.js --trace-warnings --ignore bot/.temp/*"
   },
@@ -22,6 +22,7 @@
     "discord.js": "^14.26.4",
     "dotenv": "^17.4.2",
     "moment": "^2.30.1",
+    "mongoose": "^9.7.4",
     "node-ical": "^0.26.1",
     "nodemon": "^3.1.14",
     "utf-8-validate": "^6.0.6"
