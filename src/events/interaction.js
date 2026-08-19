@@ -5,8 +5,8 @@ import { Events } from 'discord.js'
 export default {
   name: Events.InteractionCreate,
   async execute(interaction) {
-    
-    // console.log(`[discord] "/${interaction.commandName}" command from ${interaction.user}/${interaction.guild.id}`)
+
+    console.log(`[discord] "/${interaction.commandName}" command from ${interaction.user}/${interaction.guild.id}`)
 
     // check that input is command
     if (!interaction.isChatInputCommand()) {

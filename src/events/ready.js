@@ -20,7 +20,8 @@ export default {
       
       client.user.setPresence(presenceData)
       
-      console.log(`[discord] logged into "${guild.name}" [${guild.id}] as "${client.user.username}#${client.user.discriminator}" and ready!`)
+      console.log(`[discord] logged into "${guild.name}" [${guild.id}] as "${client.user.username}#${client.user.discriminator}"`)
+      console.log(`[discord] ready!`)
       return true
     } catch (error) {
       console.error(`[discord] The bot was unable to start`, error)

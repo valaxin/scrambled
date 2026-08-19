@@ -8,14 +8,11 @@ A easy to use self-hosted discord bot, written solo in JavaScript.
 ## Included Features
 
 - [x] media search (omdb/imdb)
-- [ ] stream alerts (twitch/youtube)
+- [x] fetch silly images from reddit
 - [ ] user participation scores
 - [ ] custom emoji/stickers/gif reactions
-- [ ] reaction based role assignment
-- [ ] pull request alerts (github)
 - [ ] game achievements get (retro achievements)
 - [ ] calendar/event management
-- [ ] thread automations
 
 ## Local Development
 
@@ -33,10 +30,6 @@ npm run deploy
 # run development instance
 npm run dev
 ```
-
-`npm run dev` is just `node ./client.js` making it our entry point.
-
-`/utitlies/*.js`
 
 ## License
 

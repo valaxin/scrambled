@@ -5,7 +5,7 @@ async function loadCommandFile(filePath) {
   try {
     const module = await import(filePath)
     const command = module.default
-
+    
     if (!command || typeof command !== 'object') {
       throw new Error(`[discord] skipping ${filePath}: no command or command object`)
     }
@@ -38,6 +38,7 @@ async function scanDirectory(directory, target) {
     const command = await loadCommandFile(path)
 
     if (!command) {
+      console.warn('[discord] no command')
       continue
     }
 
@@ -47,7 +48,11 @@ async function scanDirectory(directory, target) {
 }
 
 export default async function getCommands(directory) {
-  const results = { commands: [], files: [] }
-  await scanDirectory(directory, results)
-  return results
+  try {
+    const results = { commands: [], files: [] }
+    await scanDirectory(directory, results)
+    return results
+  } catch (error) {
+    return error
+  }
 }
