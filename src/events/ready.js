@@ -8,7 +8,7 @@
  */
 
 import 'dotenv/config'
-import presenceData from '../utilites/bot-presence.js'
+import presenceData from '../utilites/presence.js'
 import { Events } from 'discord.js'
 
 export default {

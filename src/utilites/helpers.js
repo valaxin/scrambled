@@ -1,4 +1,4 @@
-export const stringToColor = async function (str) {
+export async function stringToColor (str) {
   try {
     if (!str) {
       throw new Error('missing string parameter')

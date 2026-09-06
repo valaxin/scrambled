@@ -7,7 +7,7 @@ import * as url from 'url'
 import { readdir } from 'fs/promises'
 import { resolve } from 'path'
 import { Client, Collection, GatewayIntentBits } from 'discord.js'
-import getCommands from './utilites/get-commands.js'
+import getCommands from './utilites/commands.js'
 import connect from './database/connect.js'
 
 /**

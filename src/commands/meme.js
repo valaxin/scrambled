@@ -2,7 +2,7 @@
 
 import 'dotenv/config'
 import { SlashCommandBuilder, EmbedBuilder } from 'discord.js'
-import { stringToColor } from '../utilites/helper-utils.js'
+import { stringToColor } from '../utilites/helpers.js'
 
 const name = 'meme'
 const description = 'replies with an random meme from https://meme-api.com/gimme'

@@ -6,7 +6,7 @@ import 'dotenv/config'
 import * as url from 'url'
 import { resolve } from 'node:path'
 import { REST, Routes } from 'discord.js'
-import getCommands from './utilites/get-commands.js'
+import getCommands from './utilites/commands.js'
 
 const guild = process.env.WUMPUS_GUILD
 const token = process.env.WUMPUS_TOKEN

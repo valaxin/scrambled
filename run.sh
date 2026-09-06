@@ -4,9 +4,9 @@
 
 mode="dev"
 title="
-Time: $(date)
-Host: $(uname)
-Start...                                                     
+> $(date)
+> node $(node -v) and npm v$(npm -v) on $(uname)
+> Starting Application ...                                                
                                  ▄▄    ▄▄          ▄▄ 
                                  ██    ██          ██ 
 ▄█▀▀▀ ▄████ ████▄  ▀▀█▄ ███▄███▄ ████▄ ██ ▄█▀█▄ ▄████ 
@@ -19,13 +19,13 @@ echo "$title"
 
 if [[ $1 == "$mode" ]]; then
 
-  echo "$mode = mode"
+  echo "> $mode mode"
 
   npm run register && \
   npm run dev
 
 else
-  echo "production mode "
+  echo "> production mode"
 
   npm run start
 

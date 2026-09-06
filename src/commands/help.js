@@ -4,8 +4,8 @@ import { resolve } from 'path'
 import { SlashCommandBuilder, EmbedBuilder, MessageFlags } from 'discord.js'
 import moment from 'moment'
 
-import probe from '../utilites/system-probe.js'
-import getCommands from '../utilites/get-commands.js'
+import probe from '../utilites/probe.js'
+import getCommands from '../utilites/commands.js'
 
 const sysinfo = await probe()
 const name = `help`

@@ -2,7 +2,7 @@
 
 import 'dotenv/config'
 import { SlashCommandBuilder, EmbedBuilder } from 'discord.js'
-import { media } from '../utilites/media-broker.js'
+import { media } from '../utilites/media.js'
 
 /**
  * Content Command
