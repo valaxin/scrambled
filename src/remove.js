@@ -1,7 +1,10 @@
+#!/usr/bin node
+
 'use strict'
 
 /**
- * makes a put request that removes slash commands from the discord api
+ * makes a put request that removes all slash commands from the discord api
+ * replaces the commands array with an empty one.
  */
 
 import 'dotenv/config'

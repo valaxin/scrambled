@@ -4,8 +4,8 @@ import { resolve } from 'path'
 import { SlashCommandBuilder, EmbedBuilder, MessageFlags } from 'discord.js'
 import moment from 'moment'
 
-import probe from '../utilites/system-probe.js'
-import getCommands from '../utilites/get-commands.js'
+import probe from '../utilites/probe.js'
+import getCommands from '../utilites/commands.js'
 
 const sysinfo = await probe()
 const name = `help`
@@ -19,21 +19,18 @@ export default {
   data,
   async execute(interaction) {
     try {
+      console.log(interaction, data)
 
       let commands = await getCommands(resolve('src/commands'))
-
       const embed = new EmbedBuilder().setTitle(name).setDescription(description).setColor('Yellow')
-
       for (const cmd of commands.commands) {
-
         fields[cmd.name] = {
           name: `\`/${cmd.name}\``,
           value: cmd.description,
-          inline: false
+          inline: false,
         }
 
         embed.addFields(fields[cmd.name])
-
       }
 
       await interaction.reply({
