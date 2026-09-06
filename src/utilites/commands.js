@@ -5,7 +5,7 @@ async function loadCommandFile(filePath) {
   try {
     const module = await import(filePath)
     const command = module.default
-    
+
     if (!command || typeof command !== 'object') {
       throw new Error(`[discord] skipping ${filePath}: no command or command object`)
     }

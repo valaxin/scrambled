@@ -5,7 +5,7 @@ import mongoose from 'mongoose'
 const db = {
   protocol: 'mongodb+srv://',
   user: `${process.env.DB_USER}:${process.env.DB_PASS}`,
-  address: `@${process.env.DB_ADDRESS}`
+  address: `@${process.env.DB_ADDRESS}`,
 }
 
 // connect
@@ -22,4 +22,3 @@ export default async function connect() {
 // other handlers
 mongoose.connection.on('disconnected', () => console.log('[mongodb] disconnected'))
 mongoose.connection.on('error', (err) => console.error('[mongodb] error:', err))
-

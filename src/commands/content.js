@@ -22,7 +22,7 @@ const data = new SlashCommandBuilder()
   .setName(name)
   .setDescription(description)
 
-  // movies
+  // makes a movie request
   .addSubcommand((movie) =>
     movie
       .setName('movie')
@@ -32,7 +32,7 @@ const data = new SlashCommandBuilder()
       ),
   )
 
-  // television series
+  // makes television series request
   .addSubcommand((series) =>
     series
       .setName('series')
@@ -58,10 +58,12 @@ export default {
       const episode = interaction.options.get('episode')?.value || false
       const season = interaction.options.get('season')?.value || false
 
+      /*
       if (query.match(/(t{2}[0-9]{7})/g)[0]) {
-        // given imdb id 
+        // user gave imdb id
         console.log('you gave me an imdb id, thank but this isn\'t implimented')
       }
+      */
 
       const limit = 5
       const m_opstring = `... searched for a **${type}** named **${query}**, here are at most **${limit}** results.`

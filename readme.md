@@ -11,7 +11,6 @@ A easy to use self-hosted discord bot, written solo in JavaScript.
 - [x] fetch silly images from reddit
 - [ ] user participation scores
 - [ ] custom emoji/stickers/gif reactions
-- [ ] game achievements get (retro achievements)
 - [ ] calendar/event management
 
 ## Local Development
@@ -20,6 +19,11 @@ A easy to use self-hosted discord bot, written solo in JavaScript.
 # clone then navigate into project directory
 git clone https://github.com/valaxin/castle.git
 cd ./castle
+
+# script wrapper
+./run.sh dev
+
+# or manually...
 
 # install project dependices
 npm install

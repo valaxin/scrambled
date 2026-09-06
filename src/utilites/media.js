@@ -4,10 +4,14 @@ import axios from 'axios'
 
 export const media = async function (key, options) {
   try {
-    if (!key) { throw new Error('Missing OMDB Key') }
-    if (!options.query || options.query < 1) { throw new Error('Missing Query') }
+    if (!key) {
+      throw new Error('Missing OMDB Key')
+    }
+    if (!options.query || options.query < 1) {
+      throw new Error('Missing Query')
+    }
 
-    if (options.skip = true && query.match(/(t{2}[0-9]{7})/g)) {
+    if ((options.skip = true && query.match(/(t{2}[0-9]{7})/g))) {
       // if skip present and we provide imdb id
     }
 

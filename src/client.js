@@ -10,16 +10,24 @@ import { Client, Collection, GatewayIntentBits } from 'discord.js'
 import getCommands from './utilites/get-commands.js'
 import connect from './database/connect.js'
 
+/**
+ * provide an IIFE responsible for starting a connection to discord's API.
+ * - define our intents
+ * - define our commands
+ * - define our events
+ * - make the connection
+ * returns a client object
+ */
+
 export default (async () => {
   try {
-    const __dirname = url.fileURLToPath(new URL('.', import.meta.url))    // get working directory
-    const client = new Client({ intents: [GatewayIntentBits.Guilds] })    // define new Discord client
-    const collection = await getCommands(resolve(__dirname, 'commands'))  // define new collection as collection of commands
+    const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
+    const client = new Client({ intents: [GatewayIntentBits.Guilds] })
+    const collection = await getCommands(resolve(__dirname, 'commands'))
 
     client.commands = new Collection()
 
     for (const command of collection.files) {
-      // look for these exports in each command
       if ('data' in command && 'execute' in command) {
         client.commands.set(command.data.name, command)
         console.log(`[discord] "/${command.data.name}" ok!`)
@@ -28,7 +36,8 @@ export default (async () => {
       }
     }
 
-    await connect() // mongodb connection
+    await connect()
+
     const eventsPath = resolve(__dirname, 'events')
     const eventsContent = await readdir(eventsPath)
     const eventsFiles = eventsContent.filter((file) => file.endsWith('.js'))

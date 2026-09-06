@@ -1,7 +1,7 @@
 'use strict'
 
 /**
- * This file is the entry point for the discord bot,
+ * This file is the entry point for the discord bot itself.
  * the exported properties and function is invoked when the
  * bot itself is ready to run. anything we want to run on
  * start can be invoked here.

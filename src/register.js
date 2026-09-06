@@ -26,26 +26,23 @@ console.log(`[discord] Working from ${__dirname}`)
 
 async function register(directory) {
   try {
-    
     const data = await getCommands(resolve(__dirname, directory))
     console.log(`[discord] getCommands(${__dirname}${directory})`, { data })
     console.log(`[discord] Attempting to register ${data.commands.length} slash commands to [${guild}]!`)
-    
-    
+
     const registered = await rest.put(Routes.applicationGuildCommands(client, guild), { body: data.commands })
-    
+
     const info = {
       successful: true || false,
       total: registered?.length || 0,
       outgoing: data || {},
       incoming: registered || false,
     }
-    
+
     console.log(`[discord] Successfully ${registered.length} slash commands to [${guild}]!`)
     console.log(`[discord] \n`, { info })
 
     return info
-
   } catch (error) {
     console.error(error)
   }
